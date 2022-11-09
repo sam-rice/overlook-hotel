@@ -4,4 +4,4 @@ class Manager {
   };
 };
 
-module.exports = Manager;
+export default Manager;
