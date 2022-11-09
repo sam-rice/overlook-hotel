@@ -6,7 +6,8 @@ import Customer from "../src/classes/Customer";
 import Manager from "../src/classes/Manager";
 import {getData, postData} from "./api-calls";
 
-//raw data
+//------------------------------UTILITY DATA------------------------------//
+
 let allBookingsData;
 let allCustomersData;
 
@@ -14,12 +15,11 @@ let allBookingsURL = "http://localhost:3001/api/v1/bookings";
 let allCustomersURL = "http://localhost:3001/api/v1/customers";
 let allRoomsURL = "http://localhost:3001/api/v1/rooms";
 
-//DATA MODEL
+//------------------------------DATA MODEL------------------------------//
+
 let allRooms; // raw data from API fetch
 let allBookings; // instance of AllBookings class
 let allCustomers; // array of all instances of Customer class
-
-
 
 function fetchData(urls) {
   Promise.all([getData(urls[0]), getData(urls[1]), getData(urls[2])])
@@ -39,9 +39,20 @@ function fetchData(urls) {
     //   }
     // });
 }
+
+//------------------------------EVENT LISTENERS------------------------------//
+
 window.addEventListener("load", () => {
   fetchData([allBookingsURL, allCustomersURL, allRoomsURL]);
 });
+
+//------------------------------EVENT HANDLERS------------------------------//
+
+
+
+
+
+//------------------------------DATA FUNCTIONS------------------------------//
 
 function initPage() {
   initAllBookings()
@@ -57,3 +68,11 @@ function initAllBookings() {
 function initAllCustomers() {
   allCustomers = allCustomersData.map(customer => new Customer(customer))
 }
+
+//------------------------------UTILITY FUNCTIONS------------------------------//
+
+
+
+
+
+//------------------------------DOM UPDATING------------------------------//
