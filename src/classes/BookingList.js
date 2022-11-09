@@ -2,11 +2,11 @@ import Booking from "./Booking"
 
 class BookingList {
   constructor(allBookingsData, allRoomsData) {
-    this.bookings = this.getBookings(allBookingsData)
+    this.bookings = this.initBookings(allBookingsData)
     this.rooms = allRoomsData
   };
 
-  getBookings(allBookingsData) {
+  initBookings(allBookingsData) {
     return allBookingsData.map(bookingObject => new Booking(bookingObject));
   };
 };

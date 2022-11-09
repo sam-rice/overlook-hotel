@@ -1,5 +1,7 @@
 import "./css/styles.css";
 import "./images/turing-logo.png";
+import "./images/bachman-cropped.jpeg";
+import "./images/imperial-bedroom-left.png";
 import BookingList from "../src/classes/BookingList";
 // import Booking from "../src/classes/Booking";
 // import Guest from "./classes/Guest";
