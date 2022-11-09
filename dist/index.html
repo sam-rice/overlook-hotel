@@ -4,13 +4,43 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Webpack Starter Kit</title>
+  <title>Overlook Hotel</title>
 </head>
 <body>
-  <img src="./images/turing-logo.png" alt="turing logo">
-  
-  <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
-  <script src="bundle.js"></script>
+  <header>
+    <div class="header-left">
+      <!-- logo image -->
+      <p>OH</p>
+    </div>
+    <div class="header-right">
+      <button id="header-book-button">book</button>
+    </div>
+  </header>
+  <main>
+    <div class="banner-parent">
+      <img src="./images/imperial-bedroom-left.png" alt="guest suite">
+      <img src="./images/bachman-cropped.jpg" alt="guest suite">
+      <h1>Overlook Hotel</h1>
+      <h4>Lorem ipsum dolor sit amet.</h4>
+    </div>
+    <section class="accodion-grandparent">
+      <div class="accordion-parent">
+        <button>My Profile</button>
+        <div class="profile-parent">
+          profile parent
+        </div>
+        <button>Book</button>
+        <div class="book-parent">
+          book parent
+        </div>
+      </div>
 
+    </section>
+
+
+
+
+  </main>
+  <script src="bundle.js"></script>
 </body>
 </html>
