@@ -1,6 +1,6 @@
 * {
   border: 1px solid black;
-  font-family: 'Marcellus', serif;
+  /* font-family: 'Marcellus', serif; */
 }
 
 body {
@@ -33,6 +33,8 @@ body:before {
   z-index: -1;
 }
 
+/* ---------------------HEADER--------------------- */
+
 header {
   display: flex;
 }
@@ -62,6 +64,8 @@ main {
   flex-direction: column;
   align-items: center;
 }
+
+/* ---------------------BANNER--------------------- */
 
 .banner-parent {
   display: flex;
@@ -101,16 +105,81 @@ h4 {
   top: 42%;
 }
 
+/* ---------------------ACCORDION--------------------- */
+
 .accordion-grandparent {
   display: flex;
   justify-content: center;
   position: absolute;
   margin-top: 78vw;
   width: 72%;
-  height: 410px;
+  height: 530px;
   background-color: rgba(255, 255, 255, 0.868);
 }
 
 .accordion-parent {
+  display: flex;
+  flex-direction: column;
   width: 90%;
+}
+
+/* ---------------------ACC: PROFILE--------------------- */
+
+.profile-parent {
+  height: 470px;
+  display: none;
+}
+
+.stays-parent {
+  overflow: scroll;
+  width: 80%;
+  height: 138px;
+}
+
+/* ---------------------ACC: BOOK--------------------- */
+
+.book-parent {
+  height: 380px;
+  display: none;
+}
+
+.date-parent {
+  display: flex;
+  flex-direction: column;
+}
+
+.rooms-parent {
+  overflow: scroll;
+  width: 80%;
+  height: 250px;
+}
+
+/* ---------------------ACC: ABOUT--------------------- */
+
+.about-parent {
+  display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* KEEP AT BOTTOM */
+.show {
+  display: block;
 }

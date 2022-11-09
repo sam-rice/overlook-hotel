@@ -6,7 +6,7 @@ import Manager from "../src/classes/Manager";
 import {getData, postData} from "./api-calls";
 import GuestList from "./classes/GuestList";
 
-//------------------------------UTILITY DATA------------------------------//
+//----------------------UTILITY DATA----------------------//
 
 let allBookingsData;
 let allGuestsData;
@@ -15,7 +15,7 @@ let allBookingsURL = "http://localhost:3001/api/v1/bookings";
 let allGuestsURL = "http://localhost:3001/api/v1/customers";
 let allRoomsURL = "http://localhost:3001/api/v1/rooms";
 
-//------------------------------DATA MODEL------------------------------//
+//----------------------DATA MODEL----------------------//
 
 let allRooms; // raw data from API fetch
 let bookingList; // instance of BookingList class
@@ -40,25 +40,55 @@ function fetchData(urls) {
     });
 };
 
-//------------------------------EVENT LISTENERS------------------------------//
+//----------------------QUERY SELECTORS----------------------//
+
+const profileButton = document.getElementById("profile-button");
+const profileParent = document.getElementById("profile-parent");
+const bookButtonHeader = document.getElementById("book-button-header");
+const bookButton = document.getElementById("book-button");
+const bookParent = document.getElementById("book-parent");
+const aboutButton = document.getElementById("about-button");
+const aboutParent = document.getElementById("about-parent");
+
+
+//----------------------EVENT LISTENERS----------------------//
 
 window.addEventListener("load", () => {
   fetchData([allBookingsURL, allGuestsURL, allRoomsURL]);
 });
 
-//------------------------------EVENT HANDLERS------------------------------//
+profileButton.addEventListener("click", () => {
+  showAccordion(profileParent);
+  profileParent.scrollIntoView( {behavior: "smooth"} );
+});
+
+bookButtonHeader.addEventListener("click", () => {
+  showAccordion(bookParent);
+  bookParent.scrollIntoView( {behavior: "smooth"} );
+});
+bookButton.addEventListener("click", () => {
+  showAccordion(bookParent);
+  bookParent.scrollIntoView( {behavior: "smooth"} );
+});
+
+aboutButton.addEventListener("click", () => {
+  showAccordion(aboutParent);
+  aboutParent.scrollIntoView( {behavior: "smooth"} );
+});
+
+//----------------------EVENT HANDLERS----------------------//
 
 
 
 
 
 
-//------------------------------DATA FUNCTIONS------------------------------//
+//----------------------DATA FUNCTIONS----------------------//
 
 function initPage() {
   initBookingList();
   initGuestList();
-  console.log(guestList, bookingList)
+  console.log(guestList, bookingList);
 };
 
 function initBookingList() {
@@ -66,13 +96,17 @@ function initBookingList() {
 };
 
 function initGuestList() {
-  guestList = new GuestList(allGuestsData)
+  guestList = new GuestList(allGuestsData);
 };
 
-//------------------------------UTILITY FUNCTIONS------------------------------//
+//----------------------UTILITY FUNCTIONS----------------------//
 
 
 
 
 
-//------------------------------DOM UPDATING------------------------------//
+//----------------------DOM UPDATING----------------------//
+
+function showAccordion(element) {
+  element.classList.toggle("show");
+};
