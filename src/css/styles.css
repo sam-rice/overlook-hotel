@@ -6,10 +6,11 @@ body {
   position: relative;
   border: none;
   margin: 0;
+  height: 100%;
   
 }
 
-body:before {
+/* body:before {
   content: "";
   display: block;
   position: absolute;
@@ -25,5 +26,73 @@ body:before {
   background-position: 50% 0;
   background-size: cover;
   z-index: -1;
+} */
+
+header {
+  display: flex;
 }
 
+.header-left,
+.header-right {
+  width: 50%;
+  display: flex;
+}
+
+.header-left {
+  justify-content: flex-start;
+}
+
+.header-right {
+  justify-content: flex-end;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.banner-parent {
+  display: flex;
+  width: 80%;
+  height: 66vw;
+  margin-top: 6vw;
+}
+
+.image-parent-left,
+.image-parent-right {
+  width: 70%;
+  height: 66vw;
+}
+
+.image-parent-right {
+  display: flex;
+  align-items: flex-end
+}
+
+.banner-image {
+  width: 100%;
+}
+
+h1 {
+  position: absolute;
+}
+
+h4 {
+  position: absolute;
+}
+
+.accordion-grandparent {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  margin-top: 78vw;
+  width: 72%;
+  height: 410px;
+  background-color: rgba(255, 255, 255, 0.868);
+}
+
+.accordion-parent {
+  width: 90%;
+}
