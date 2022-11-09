@@ -6,7 +6,7 @@ class Room {
     this.bedSize = object.bedSize
     this.numBeds = object.numBeds
     this.costPerNight = object.costPerNight
-  }
+  };
 };
 
 module.exports = Room;

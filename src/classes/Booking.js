@@ -4,7 +4,7 @@ class Booking {
     this.customerId = object.customerID
     this.date = object.date
     this.roomNumber = object.roomNumber
-  }
+  };
 };
 
 module.exports = Booking;
