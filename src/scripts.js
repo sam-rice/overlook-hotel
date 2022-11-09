@@ -52,13 +52,12 @@ window.addEventListener("load", () => {
 
 
 
+
 //------------------------------DATA FUNCTIONS------------------------------//
 
 function initPage() {
   initAllBookings()
   initAllCustomers()
-  console.log("page init");
-  console.log(allBookings, allCustomers, allRooms)
 }
 
 function initAllBookings() {

@@ -1,13 +1,20 @@
+import allBookings from "../scripts"
+// import test from "../scripts"
+
 class Customer {
   constructor(object) {
     this.id = object.id
     this.name = object.name
-    // this.allBookings = this.getAllBookings()
   };
 
-  // getAllBookings() {
+  //invoke this like Customer.getTotalSpent(allBookings.bookings)
+  getTotalSpent(bookings) {
+    
+  };
 
-  // };
+  getAllBookings() {
+
+  }
 
 };
 
