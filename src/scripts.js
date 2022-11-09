@@ -1,10 +1,8 @@
 import "./css/styles.css";
 import "./images/turing-logo.png";
-import "./images/bachman-cropped.jpeg";
+import "./images/bachman-cropped.jpg";
 import "./images/imperial-bedroom-left.png";
 import BookingList from "../src/classes/BookingList";
-// import Booking from "../src/classes/Booking";
-// import Guest from "./classes/Guest";
 import Manager from "../src/classes/Manager";
 import {getData, postData} from "./api-calls";
 import GuestList from "./classes/GuestList";
@@ -32,15 +30,15 @@ function fetchData(urls) {
       allRooms = data[2].rooms;
       initPage();
     })
-    // .catch(error => {
-    //   if (error instanceof TypeError) {
-    //     alert("Looks like we're having problems. Please try again later.");
-    //   } else if (error instanceof ReferenceError) {
-    //     alert("Looks like something broke on our end. Please try again later.");
-    //   } else {
-    //     alert("An error occured. Please try again later.");
-    //   }
-    // });
+    .catch(error => {
+      if (error instanceof TypeError) {
+        alert("Looks like we're having problems. Please try again later.");
+      } else if (error instanceof ReferenceError) {
+        alert("Looks like something broke on our end. Please try again later.");
+      } else {
+        alert("An error occured. Please try again later.");
+      }
+    });
 };
 
 //------------------------------EVENT LISTENERS------------------------------//
