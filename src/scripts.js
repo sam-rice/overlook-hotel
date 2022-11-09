@@ -1,8 +1,8 @@
 import "./css/styles.css";
 import "./images/turing-logo.png";
-import AllBookings from "../src/classes/AllBookings";
+import BookingList from "../src/classes/BookingList";
 // import Booking from "../src/classes/Booking";
-import Guest from "./classes/Guest";
+// import Guest from "./classes/Guest";
 import Manager from "../src/classes/Manager";
 import {getData, postData} from "./api-calls";
 import GuestList from "./classes/GuestList";
@@ -19,7 +19,7 @@ let allRoomsURL = "http://localhost:3001/api/v1/rooms";
 //------------------------------DATA MODEL------------------------------//
 
 let allRooms; // raw data from API fetch
-let allBookings; // instance of AllBookings class
+let bookingList; // instance of BookingList class
 let guestList; // instance of GuestList
 
 function fetchData(urls) {
@@ -57,13 +57,13 @@ window.addEventListener("load", () => {
 //------------------------------DATA FUNCTIONS------------------------------//
 
 function initPage() {
-  initAllBookings();
+  initBookingList();
   initGuestList();
-  console.log(guestList, allBookings)
+  console.log(guestList, bookingList)
 };
 
-function initAllBookings() {
-  allBookings = new AllBookings(allBookingsData, allRooms);
+function initBookingList() {
+  bookingList = new BookingList(allBookingsData, allRooms);
 };
 
 function initGuestList() {

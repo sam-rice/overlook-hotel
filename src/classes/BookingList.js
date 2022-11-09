@@ -1,6 +1,6 @@
 import Booking from "./Booking"
 
-class AllBookings {
+class BookingList {
   constructor(allBookingsData, allRoomsData) {
     this.bookings = this.getBookings(allBookingsData)
     this.rooms = allRoomsData
@@ -11,4 +11,4 @@ class AllBookings {
   };
 };
 
-export default AllBookings;
+export default BookingList;
