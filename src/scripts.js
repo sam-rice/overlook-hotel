@@ -19,7 +19,8 @@ let allRoomsURL = "http://localhost:3001/api/v1/rooms";
 
 let allRooms; // raw data from API fetch
 let bookingList; // instance of BookingList class
-let guestList; // instance of GuestList
+let guestList; // instance of GuestList class
+let user;
 
 function fetchData(urls) {
   Promise.all([getData(urls[0]), getData(urls[1]), getData(urls[2])])
@@ -49,6 +50,7 @@ const bookButton = document.getElementById("book-button");
 const bookParent = document.getElementById("book-parent");
 const aboutButton = document.getElementById("about-button");
 const aboutParent = document.getElementById("about-parent");
+const usernameDash = document.getElementById("dash-username");
 
 
 //----------------------EVENT LISTENERS----------------------//
@@ -88,7 +90,9 @@ aboutButton.addEventListener("click", () => {
 function initPage() {
   initBookingList();
   initGuestList();
-  console.log(guestList, bookingList);
+  initUser();
+  renderUserDash();
+  console.log(user);
 };
 
 function initBookingList() {
@@ -99,9 +103,15 @@ function initGuestList() {
   guestList = new GuestList(allGuestsData);
 };
 
+function initUser() {
+  user = guestList.guests[getRandomArrayIndex(guestList.guests)];
+};
+
 //----------------------UTILITY FUNCTIONS----------------------//
 
-
+function getRandomArrayIndex(array) {
+  return Math.floor(Math.random() * array.length);
+};
 
 
 
@@ -111,3 +121,7 @@ function showAccordion(element, button) {
   element.classList.toggle("show");
   button.classList.toggle("accordion-button-open");
 };
+
+function renderUserDash() {
+  usernameDash.innerText = user.name
+}
