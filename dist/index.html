@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap|Montserrat:400,800" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Marcellus&display=swap" rel="stylesheet">
   <title>Overlook Hotel</title>
 </head>
 <body>
@@ -14,9 +14,10 @@
     <div class="header-left">
       <!-- logo image -->
       <p class="logo">OH</p>
+      <p class="header-subtext">SEATTLE, WA</p>
     </div>
     <div class="header-right">
-      <button id="book-button-header">BOOK</button>
+      <button id="book-button-header" class="book-button-header">BOOK</button>
     </div>
   </header>
   <main>
@@ -34,71 +35,78 @@
       <div class="accordion-parent">
         <button id="profile-button">MY PROFILE</button>
         <section id="profile-parent" class="profile-parent">
-          <p>Sam Rice</p>
+          <h3>Sam Rice</h3>
           <p>upcoming stays:</p>
           <div class="stays-parent">
             <table class="upcoming-stays-table">
-              <tr>
-                <td>date:<br>11/24/22</td>
-                <td>room:<br>4</td>
-                <td># beds/size:<br>2 / queen</td>
-                <td> <br>residential suite</td>
-                <td>price/night<br>$429.32</td>
-              </tr>
-              <tr>
-                <td>date:<br>11/24/22</td>
-                <td>room:<br>4</td>
-                <td># beds/size:<br>2 / queen</td>
-                <td> <br>residential suite</td>
-                <td>price/night<br>$429.32</td>
-              </tr>
+              <th>date:</th>
+              <th>room:</th>
+              <th># beds/size:</th>
+              <th>type:</th>
+              <th>price/night:</th>
+              <tbody>
+                <tr>
+                  <td>11/24/22</td>
+                  <td>4</td>
+                  <td>2 / queen</td>
+                  <td>residential suite</td>
+                  <td>$429.32</td>
+                </tr>
+                <tr>
+                  <td>11/24/22</td>
+                  <td>4</td>
+                  <td>2 / queen</td>
+                  <td>residential suite</td>
+                  <td>$429.32</td>
+                </tr>
+              </tbody>
             </table>
           </div>
           <p>past stays:</p>
           <div class="stays-parent">
             <table class="past-stays-table">
-              <tr>
-                <td>date:<br>11/24/22</td>
-                <td>room:<br>4</td>
-                <td># beds/size:<br>2 / queen</td>
-                <td> <br>residential suite</td>
-                <td>price/night<br>$429.32</td>
-              </tr>
-              <tr>
-                <td>date:<br>11/24/22</td>
-                <td>room:<br>4</td>
-                <td># beds/size:<br>2 / queen</td>
-                <td> <br>residential suite</td>
-                <td>price/night<br>$429.32</td>
-              </tr>
-              <tr>
-                <td>date:<br>11/24/22</td>
-                <td>room:<br>4</td>
-                <td># beds/size:<br>2 / queen</td>
-                <td> <br>residential suite</td>
-                <td>price/night<br>$429.32</td>
-              </tr>
-              <tr>
-                <td>date:<br>11/24/22</td>
-                <td>room:<br>4</td>
-                <td># beds/size:<br>2 / queen</td>
-                <td> <br>residential suite</td>
-                <td>price/night<br>$429.32</td>
-              </tr>
-              <tr>
-                <td>date:<br>11/24/22</td>
-                <td>room:<br>4</td>
-                <td># beds/size:<br>2 / queen</td>
-                <td> <br>residential suite</td>
-                <td>price/night<br>$429.32</td>
-              </tr>
-              <tr>
-                <td>date:<br>11/24/22</td>
-                <td>room:<br>4</td>
-                <td># beds/size:<br>2 / queen</td>
-                <td> <br>residential suite</td>
-                <td>price/night<br>$429.32</td>
-              </tr>
+              <th>date:</th>
+              <th>room:</th>
+              <th># beds/size:</th>
+              <th>type:</th>
+              <th>price/night:</th>
+              <tbody>
+                <tr>
+                  <td>11/24/22</td>
+                  <td>4</td>
+                  <td>2 / queen</td>
+                  <td>residential suite</td>
+                  <td>$429.32</td>
+                </tr>
+                <tr>
+                  <td>11/24/22</td>
+                  <td>4</td>
+                  <td>2 / queen</td>
+                  <td>residential suite</td>
+                  <td>$429.32</td>
+                </tr>
+                <tr>
+                  <td>11/24/22</td>
+                  <td>4</td>
+                  <td>2 / queen</td>
+                  <td>residential suite</td>
+                  <td>$429.32</td>
+                </tr>
+                <tr>
+                  <td>11/24/22</td>
+                  <td>4</td>
+                  <td>2 / queen</td>
+                  <td>residential suite</td>
+                  <td>$429.32</td>
+                </tr>
+                <tr>
+                  <td>11/24/22</td>
+                  <td>4</td>
+                  <td>2 / queen</td>
+                  <td>residential suite</td>
+                  <td>$429.32</td>
+                </tr>
+              </tbody>
             </table>
           </div>
           <p>total spent: $831.97</p>
@@ -113,55 +121,41 @@
           <div class="rooms-parent">
             <div class="rooms-table-parent">
               <table class="rooms-table">
+              <th>room:</th>
+              <th># beds/size:</th>
+              <th>bidet:</th>
+              <th>type:</th>
+              <th>price/night:</th>
+              <tbody>
                 <tr>
-                  <td>room:<br>4</td>
-                  <td># beds/size:<br>2 / queen</td>
-                  <td>bidet:<br>yes</td>
-                  <td> <br>residential suite</td>
-                  <td>price/night<br>$429.32</td>
+                  <td>4</td>
+                  <td>2 / queen</td>
+                  <td>yes</td>
+                  <td>residential suite</td>
+                  <td>$429.32</td>
                 </tr>
                 <tr>
-                  <td>room:<br>4</td>
-                  <td># beds/size:<br>2 / queen</td>
-                  <td>bidet:<br>yes</td>
-                  <td> <br>residential suite</td>
-                  <td>price/night<br>$429.32</td>
+                  <td>4</td>
+                  <td>2 / queen</td>
+                  <td>yes</td>
+                  <td>residential suite</td>
+                  <td>$429.32</td>
                 </tr>
                 <tr>
-                  <td>room:<br>4</td>
-                  <td># beds/size:<br>2 / queen</td>
-                  <td>bidet:<br>yes</td>
-                  <td> <br>residential suite</td>
-                  <td>price/night<br>$429.32</td>
+                  <td>4</td>
+                  <td>2 / queen</td>
+                  <td>yes</td>
+                  <td>residential suite</td>
+                  <td>$429.32</td>
                 </tr>
                 <tr>
-                  <td>room:<br>4</td>
-                  <td># beds/size:<br>2 / queen</td>
-                  <td>bidet:<br>yes</td>
-                  <td> <br>residential suite</td>
-                  <td>price/night<br>$429.32</td>
+                  <td>4</td>
+                  <td>2 / queen</td>
+                  <td>yes</td>
+                  <td>residential suite</td>
+                  <td>$429.32</td>
                 </tr>
-                <tr>
-                  <td>room:<br>4</td>
-                  <td># beds/size:<br>2 / queen</td>
-                  <td>bidet:<br>yes</td>
-                  <td> <br>residential suite</td>
-                  <td>price/night<br>$429.32</td>
-                </tr>
-                <tr>
-                  <td>room:<br>4</td>
-                  <td># beds/size:<br>2 / queen</td>
-                  <td>bidet:<br>yes</td>
-                  <td> <br>residential suite</td>
-                  <td>price/night<br>$429.32</td>
-                </tr>
-                <tr>
-                  <td>room:<br>4</td>
-                  <td># beds/size:<br>2 / queen</td>
-                  <td>bidet:<br>yes</td>
-                  <td> <br>residential suite</td>
-                  <td>price/night<br>$429.32</td>
-                </tr>
+              </tbody>
               </table>
             </div>
           </div>
