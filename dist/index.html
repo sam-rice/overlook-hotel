@@ -4,35 +4,169 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Marcellus&display=swap" rel="stylesheet">
   <title>Overlook Hotel</title>
 </head>
 <body>
   <header>
     <div class="header-left">
       <!-- logo image -->
-      <p>OH</p>
+      <p class="logo">OH</p>
+      <p class="header-subtext">SEATTLE, WA</p>
     </div>
     <div class="header-right">
-      <button id="header-book-button">book</button>
+      <button id="book-button-header" class="book-button-header">BOOK</button>
     </div>
   </header>
   <main>
     <div class="banner-parent">
-      <img src="./images/imperial-bedroom-left.png" alt="guest suite">
-      <img src="./images/bachman-cropped.jpg" alt="guest suite">
+      <div class="image-parent-left">
+        <img class="banner-image" src="./images/imperial-bedroom-left.png" alt="guest suite">
+      </div>
+      <div class="image-parent-right">
+        <img class="banner-image" src="./images/bachman-cropped.jpg" alt="guest suite">
+      </div>
       <h1>Overlook Hotel</h1>
       <h4>Lorem ipsum dolor sit amet.</h4>
     </div>
-    <section class="accodion-grandparent">
+    <section class="accordion-grandparent">
       <div class="accordion-parent">
-        <button>My Profile</button>
-        <div class="profile-parent">
-          profile parent
-        </div>
-        <button>Book</button>
-        <div class="book-parent">
-          book parent
-        </div>
+        <button id="profile-button" class="accordion-button accordion-button-collapsed">MY PROFILE</button>
+        <section id="profile-parent" class="profile-parent">
+          <h3>Sam Rice</h3>
+          <p>upcoming stays:</p>
+          <div class="stays-parent">
+            <table class="upcoming-stays-table">
+              <th>date:</th>
+              <th>room:</th>
+              <th># beds/size:</th>
+              <th>type:</th>
+              <th>price/night:</th>
+              <tbody>
+                <tr>
+                  <td>11/24/22</td>
+                  <td>4</td>
+                  <td>2 / queen</td>
+                  <td>residential suite</td>
+                  <td>$429.32</td>
+                </tr>
+                <tr>
+                  <td>11/24/22</td>
+                  <td>4</td>
+                  <td>2 / queen</td>
+                  <td>residential suite</td>
+                  <td>$429.32</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>past stays:</p>
+          <div class="stays-parent">
+            <table class="past-stays-table">
+              <th>date:</th>
+              <th>room:</th>
+              <th># beds/size:</th>
+              <th>type:</th>
+              <th>price/night:</th>
+              <tbody>
+                <tr>
+                  <td>11/24/22</td>
+                  <td>4</td>
+                  <td>2 / queen</td>
+                  <td>residential suite</td>
+                  <td>$429.32</td>
+                </tr>
+                <tr>
+                  <td>11/24/22</td>
+                  <td>4</td>
+                  <td>2 / queen</td>
+                  <td>residential suite</td>
+                  <td>$429.32</td>
+                </tr>
+                <tr>
+                  <td>11/24/22</td>
+                  <td>4</td>
+                  <td>2 / queen</td>
+                  <td>residential suite</td>
+                  <td>$429.32</td>
+                </tr>
+                <tr>
+                  <td>11/24/22</td>
+                  <td>4</td>
+                  <td>2 / queen</td>
+                  <td>residential suite</td>
+                  <td>$429.32</td>
+                </tr>
+                <tr>
+                  <td>11/24/22</td>
+                  <td>4</td>
+                  <td>2 / queen</td>
+                  <td>residential suite</td>
+                  <td>$429.32</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>total spent: $831.97</p>
+        </section>
+        <button id="book-button" class="accordion-button  accordion-button-collapsed">BOOK</button>
+        <section id="book-parent" class="book-parent">
+          <div class="date-parent">
+            <label for="date-input">choose date:</label>
+            <input type="date" id="date-input">
+          </div>
+          <p>rooms available:</p>
+          <div class="rooms-parent">
+            <div class="rooms-table-parent">
+              <table class="rooms-table">
+              <th>room:</th>
+              <th># beds/size:</th>
+              <th>bidet:</th>
+              <th>type:</th>
+              <th>price/night:</th>
+              <tbody>
+                <tr>
+                  <td>4</td>
+                  <td>2 / queen</td>
+                  <td>yes</td>
+                  <td>residential suite</td>
+                  <td>$429.32</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>2 / queen</td>
+                  <td>yes</td>
+                  <td>residential suite</td>
+                  <td>$429.32</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>2 / queen</td>
+                  <td>yes</td>
+                  <td>residential suite</td>
+                  <td>$429.32</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>2 / queen</td>
+                  <td>yes</td>
+                  <td>residential suite</td>
+                  <td>$429.32</td>
+                </tr>
+              </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+        <button id="about-button" class="accordion-button  accordion-button-collapsed">ABOUT OVERLOOK</button>
+        <section id="about-parent" class="about-parent">
+          <h2>Our Story</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis laboriosam maxime vel autem ullam veniam ut accusamus voluptatum deserunt, cumque quidem ipsum asperiores, soluta quaerat. Numquam esse dolore ea non iste. Dolorum quia optio inventore suscipit asperiores, ab fugiat eligendi?</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima quam deserunt qui odio pariatur. Sed magni aperiam obcaecati omnis sunt? Sed dolores maiores ipsam! Dolore officiis suscipit, porro ad facilis iusto eligendi minima voluptatem quod doloremque accusamus fugiat excepturi facere quisquam, laborum officia! Eos adipisci voluptatem vero officia, dolor et.</p>
+          <p>Lorem, ipsum dolor sit amet consectetur adipisicing.</p>
+        </section>
       </div>
 
     </section>

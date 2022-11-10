@@ -1,29 +1,239 @@
 * {
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  font-family: 'Cormorant Garamond', serif;
+  /* font-weight: 400; */
 }
 
 body {
   position: relative;
   border: none;
   margin: 0;
-  
+  height: 100%;
+}
+
+button {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-kerning: 1em;
+  letter-spacing: 2px;
+}
+
+button:hover {
+  cursor: pointer;
+  -webkit-transition: all .3s ease-in-out;
+}
+
+.book-button-header {
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 100px;
+  height: 21px;
+  border: 1px solid black;
+  width: 100px;
+  font-size: 8px;
+}
+
+.book-button-header:hover {
+  background-color: black;
+  color: white;
 }
 
 body:before {
   content: "";
   display: block;
   position: absolute;
-  background-image: url(../images/plaster-bg.jpg);
+  background-image: url(../images/cement-bg.jpg);
   background-size: cover;
   background-attachment: fixed;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.4;
+  opacity: 0.15;
   background-repeat: no-repeat;
   background-position: 50% 0;
   background-size: cover;
   z-index: -1;
 }
 
+/* ---------------------HEADER--------------------- */
+
+header {
+  display: flex;
+  align-items: center;
+}
+
+.header-left,
+.header-right {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  padding: 0px 15px;
+}
+
+.header-left {
+  justify-content: flex-start;
+}
+
+.logo {
+  margin-right: 25px;
+}
+
+.header-subtext {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: .5em;
+  margin-top: 12px;
+  letter-spacing: 2px;
+}
+
+.header-right {
+  justify-content: flex-end;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ---------------------BANNER--------------------- */
+
+.banner-parent {
+  display: flex;
+  width: 80%;
+  height: 66vw;
+  margin-top: 6vw;
+}
+
+.image-parent-left,
+.image-parent-right {
+  width: 70%;
+  height: 66vw;
+}
+
+.image-parent-right {
+  display: flex;
+  align-items: flex-end
+}
+
+.banner-image {
+  width: 100%;
+}
+
+h1 {
+  position: absolute;
+  background-color: #ffffffe6;
+  padding: 1vw 4vw;
+  right: 21%;
+  top: 17%;
+  letter-spacing: 2px;
+}
+
+h4 {
+  position: absolute;
+  background-color: #ffffffe6;
+  padding: 1vw 4vw;
+  left: 12%;
+  top: 42%;
+}
+
+/* ---------------------ACCORDION--------------------- */
+
+.accordion-grandparent {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  margin-top: 78vw;
+  width: 72%;
+  height: 530px;
+  background-color: rgba(255, 255, 255, 0.868);
+  font-size: .8em;
+}
+
+.accordion-parent {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
+
+td {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 100;
+  letter-spacing: 1px;
+  font-size: .8em;
+}
+
+.accordion-button {
+  text-align: left;
+}
+
+.accordion-button-collapsed::after {
+  content: "\02795";
+  float: right;
+}
+
+.accordion-button-open::after {
+  content: "\2796";
+}
+
+/* ---------------------ACC: PROFILE--------------------- */
+
+.profile-parent {
+  height: 470px;
+  display: none;
+}
+
+.stays-parent {
+  overflow: scroll;
+  width: 80%;
+  height: 138px;
+}
+
+/* ---------------------ACC: BOOK--------------------- */
+
+.book-parent {
+  height: 380px;
+  display: none;
+}
+
+.date-parent {
+  display: flex;
+  flex-direction: column;
+}
+
+.rooms-parent {
+  overflow: scroll;
+  width: 80%;
+  height: 250px;
+}
+
+/* ---------------------ACC: ABOUT--------------------- */
+
+.about-parent {
+  display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* KEEP AT BOTTOM */
+.show {
+  display: block;
+}
