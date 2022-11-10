@@ -15,6 +15,7 @@ button {
   font-family: 'Montserrat', sans-serif;
   font-weight: 800;
   font-kerning: 1em;
+  letter-spacing: 2px;
 }
 
 button:hover {
@@ -29,7 +30,6 @@ button:hover {
   border: 1px solid black;
   width: 100px;
   font-size: 8px;
-  letter-spacing: 2px;
 }
 
 .book-button-header:hover {
@@ -162,6 +162,19 @@ td {
   font-weight: 100;
   letter-spacing: 1px;
   font-size: .8em;
+}
+
+.accordion-button {
+  text-align: left;
+}
+
+.accordion-button-collapsed::after {
+  content: "\02795";
+  float: right;
+}
+
+.accordion-button-open::after {
+  content: "\2796";
 }
 
 /* ---------------------ACC: PROFILE--------------------- */

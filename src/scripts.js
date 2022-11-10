@@ -58,21 +58,21 @@ window.addEventListener("load", () => {
 });
 
 profileButton.addEventListener("click", () => {
-  showAccordion(profileParent);
+  showAccordion(profileParent, profileButton);
   profileParent.scrollIntoView( {behavior: "smooth"} );
 });
 
 bookButtonHeader.addEventListener("click", () => {
-  showAccordion(bookParent);
+  showAccordion(bookParent, bookButton);
   bookParent.scrollIntoView( {behavior: "smooth"} );
 });
 bookButton.addEventListener("click", () => {
-  showAccordion(bookParent);
+  showAccordion(bookParent, bookButton);
   bookParent.scrollIntoView( {behavior: "smooth"} );
 });
 
 aboutButton.addEventListener("click", () => {
-  showAccordion(aboutParent);
+  showAccordion(aboutParent, aboutButton);
   aboutParent.scrollIntoView( {behavior: "smooth"} );
 });
 
@@ -107,6 +107,7 @@ function initGuestList() {
 
 //----------------------DOM UPDATING----------------------//
 
-function showAccordion(element) {
+function showAccordion(element, button) {
   element.classList.toggle("show");
+  button.classList.toggle("accordion-button-open");
 };
