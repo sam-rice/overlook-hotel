@@ -17,9 +17,9 @@ let allRoomsURL = "http://localhost:3001/api/v1/rooms";
 
 //----------------------DATA MODEL----------------------//
 
-let allRooms; // raw data from API fetch
-let bookingList; // instance of BookingList class
-let guestList; // instance of GuestList class
+let allRooms;
+let bookingList;
+let guestList;
 let guest;
 
 function fetchData(urls) {
@@ -30,15 +30,15 @@ function fetchData(urls) {
       allRooms = data[2].rooms;
       initPage();
     })
-    // .catch(error => {
-    //   if (error instanceof TypeError) {
-    //     alert("Looks like we're having problems. Please try again later.");
-    //   } else if (error instanceof ReferenceError) {
-    //     alert("Looks like something broke on our end. Please try again later.");
-    //   } else {
-    //     alert("An error occured. Please try again later.");
-    //   }
-    // });
+    .catch(error => {
+      if (error instanceof TypeError) {
+        alert("Looks like we're having problems. Please try again later.");
+      } else if (error instanceof ReferenceError) {
+        alert("Looks like something broke on our end. Please try again later.");
+      } else {
+        alert("An error occured. Please try again later.");
+      }
+    });
 };
 
 //----------------------QUERY SELECTORS----------------------//
@@ -51,6 +51,9 @@ const bookParent = document.getElementById("book-parent");
 const aboutButton = document.getElementById("about-button");
 const aboutParent = document.getElementById("about-parent");
 const guestNameDash = document.getElementById("dash-guest-name");
+const upcomingBookingsTable = document.getElementById("upcoming-stays-tbody");
+const pastBookingsTable = document.getElementById("past-stays-tbody");
+const totalSpentTag = document.getElementById("total-spent");
 
 
 //----------------------EVENT LISTENERS----------------------//
@@ -122,10 +125,6 @@ function showAccordion(element, button) {
   element.classList.toggle("show");
   button.classList.toggle("accordion-button-open");
 };
-
-const upcomingBookingsTable = document.getElementById("upcoming-stays-tbody");
-const pastBookingsTable = document.getElementById("past-stays-tbody");
-const totalSpentTag = document.getElementById("total-spent");
 
 function renderGuestDash() {
   let bookingsObject = guest.getAllBookings(bookingList);
