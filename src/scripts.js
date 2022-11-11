@@ -17,9 +17,10 @@ let allRoomsURL = "http://localhost:3001/api/v1/rooms";
 
 //----------------------DATA MODEL----------------------//
 
-let allRooms; // raw data from API fetch
-let bookingList; // instance of BookingList class
-let guestList; // instance of GuestList
+let allRooms;
+let bookingList;
+let guestList;
+let guest;
 
 function fetchData(urls) {
   Promise.all([getData(urls[0]), getData(urls[1]), getData(urls[2])])
@@ -49,6 +50,10 @@ const bookButton = document.getElementById("book-button");
 const bookParent = document.getElementById("book-parent");
 const aboutButton = document.getElementById("about-button");
 const aboutParent = document.getElementById("about-parent");
+const guestNameDash = document.getElementById("dash-guest-name");
+const upcomingBookingsTable = document.getElementById("upcoming-stays-tbody");
+const pastBookingsTable = document.getElementById("past-stays-tbody");
+const totalSpentTag = document.getElementById("total-spent");
 
 
 //----------------------EVENT LISTENERS----------------------//
@@ -88,7 +93,9 @@ aboutButton.addEventListener("click", () => {
 function initPage() {
   initBookingList();
   initGuestList();
-  console.log(guestList, bookingList);
+  initGuest();
+  renderGuestDash();
+  console.log(bookingList, guest);
 };
 
 function initBookingList() {
@@ -99,9 +106,16 @@ function initGuestList() {
   guestList = new GuestList(allGuestsData);
 };
 
+function initGuest() {
+  guest = guestList.guests[getRandomArrayIndex(guestList.guests)];
+};
+
 //----------------------UTILITY FUNCTIONS----------------------//
 
-
+//remove after login page added
+function getRandomArrayIndex(array) {
+  return Math.floor(Math.random() * array.length);
+};
 
 
 
@@ -110,4 +124,27 @@ function initGuestList() {
 function showAccordion(element, button) {
   element.classList.toggle("show");
   button.classList.toggle("accordion-button-open");
+};
+
+function renderGuestDash() {
+  let bookingsObject = guest.getAllBookings(bookingList);
+
+  guestNameDash.innerText = guest.name;
+  renderBookingsTable(bookingsObject, upcomingBookingsTable, true);
+  renderBookingsTable(bookingsObject, pastBookingsTable, false);
+  totalSpentTag.innerText = `total spent: $${guest.getTotalSpent(bookingList)}`;
+};
+
+function renderBookingsTable(bookingsObject, table, isFuture) {
+  let bookings = isFuture ? "upcomingBookings" : "pastBookings"
+  table.innerHTML = "";
+  bookingsObject[bookings].forEach(booking => {
+    table.innerHTML += `<tr>
+        <td>${booking.date}</td>
+        <td>${booking.roomNumber}</td>
+        <td>${booking.numBeds} / ${booking.bedSize}</td>
+        <td>${booking.roomType}</td>
+        <td>${booking.costPerNight}</td>
+      </tr>`;
+  });
 };

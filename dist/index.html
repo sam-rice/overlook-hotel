@@ -35,7 +35,7 @@
       <div class="accordion-parent">
         <button id="profile-button" class="accordion-button accordion-button-collapsed">MY PROFILE</button>
         <section id="profile-parent" class="profile-parent">
-          <h3>Sam Rice</h3>
+          <h3 id="dash-guest-name"></h3>
           <p>upcoming stays:</p>
           <div class="stays-parent">
             <table class="upcoming-stays-table">
@@ -44,21 +44,8 @@
               <th># beds/size:</th>
               <th>type:</th>
               <th>price/night:</th>
-              <tbody>
-                <tr>
-                  <td>11/24/22</td>
-                  <td>4</td>
-                  <td>2 / queen</td>
-                  <td>residential suite</td>
-                  <td>$429.32</td>
-                </tr>
-                <tr>
-                  <td>11/24/22</td>
-                  <td>4</td>
-                  <td>2 / queen</td>
-                  <td>residential suite</td>
-                  <td>$429.32</td>
-                </tr>
+              <tbody id="upcoming-stays-tbody">
+                <!-- upcoming stays table rows go here -->
               </tbody>
             </table>
           </div>
@@ -70,46 +57,12 @@
               <th># beds/size:</th>
               <th>type:</th>
               <th>price/night:</th>
-              <tbody>
-                <tr>
-                  <td>11/24/22</td>
-                  <td>4</td>
-                  <td>2 / queen</td>
-                  <td>residential suite</td>
-                  <td>$429.32</td>
-                </tr>
-                <tr>
-                  <td>11/24/22</td>
-                  <td>4</td>
-                  <td>2 / queen</td>
-                  <td>residential suite</td>
-                  <td>$429.32</td>
-                </tr>
-                <tr>
-                  <td>11/24/22</td>
-                  <td>4</td>
-                  <td>2 / queen</td>
-                  <td>residential suite</td>
-                  <td>$429.32</td>
-                </tr>
-                <tr>
-                  <td>11/24/22</td>
-                  <td>4</td>
-                  <td>2 / queen</td>
-                  <td>residential suite</td>
-                  <td>$429.32</td>
-                </tr>
-                <tr>
-                  <td>11/24/22</td>
-                  <td>4</td>
-                  <td>2 / queen</td>
-                  <td>residential suite</td>
-                  <td>$429.32</td>
-                </tr>
+              <tbody id="past-stays-tbody">
+                <!-- past stays table rows go here -->
               </tbody>
             </table>
           </div>
-          <p>total spent: $831.97</p>
+          <p id="total-spent"></p>
         </section>
         <button id="book-button" class="accordion-button  accordion-button-collapsed">BOOK</button>
         <section id="book-parent" class="book-parent">
