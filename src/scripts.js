@@ -20,7 +20,7 @@ let allRoomsURL = "http://localhost:3001/api/v1/rooms";
 let allRooms; // raw data from API fetch
 let bookingList; // instance of BookingList class
 let guestList; // instance of GuestList class
-let user;
+let guest;
 
 function fetchData(urls) {
   Promise.all([getData(urls[0]), getData(urls[1]), getData(urls[2])])
@@ -30,15 +30,15 @@ function fetchData(urls) {
       allRooms = data[2].rooms;
       initPage();
     })
-    .catch(error => {
-      if (error instanceof TypeError) {
-        alert("Looks like we're having problems. Please try again later.");
-      } else if (error instanceof ReferenceError) {
-        alert("Looks like something broke on our end. Please try again later.");
-      } else {
-        alert("An error occured. Please try again later.");
-      }
-    });
+    // .catch(error => {
+    //   if (error instanceof TypeError) {
+    //     alert("Looks like we're having problems. Please try again later.");
+    //   } else if (error instanceof ReferenceError) {
+    //     alert("Looks like something broke on our end. Please try again later.");
+    //   } else {
+    //     alert("An error occured. Please try again later.");
+    //   }
+    // });
 };
 
 //----------------------QUERY SELECTORS----------------------//
@@ -50,7 +50,7 @@ const bookButton = document.getElementById("book-button");
 const bookParent = document.getElementById("book-parent");
 const aboutButton = document.getElementById("about-button");
 const aboutParent = document.getElementById("about-parent");
-const usernameDash = document.getElementById("dash-username");
+const guestNameDash = document.getElementById("dash-guest-name");
 
 
 //----------------------EVENT LISTENERS----------------------//
@@ -90,9 +90,9 @@ aboutButton.addEventListener("click", () => {
 function initPage() {
   initBookingList();
   initGuestList();
-  initUser();
-  renderUserDash();
-  console.log(user);
+  initGuest();
+  renderGuestDash();
+  console.log(bookingList, guest);
 };
 
 function initBookingList() {
@@ -103,8 +103,8 @@ function initGuestList() {
   guestList = new GuestList(allGuestsData);
 };
 
-function initUser() {
-  user = guestList.guests[getRandomArrayIndex(guestList.guests)];
+function initGuest() {
+  guest = guestList.guests[getRandomArrayIndex(guestList.guests)];
 };
 
 //----------------------UTILITY FUNCTIONS----------------------//
@@ -122,6 +122,7 @@ function showAccordion(element, button) {
   button.classList.toggle("accordion-button-open");
 };
 
-function renderUserDash() {
-  usernameDash.innerText = user.name
+function renderGuestDash() {
+  guestNameDash.innerText = guest.name;
+  console.log("method here:", guest.getAllBookings(bookingList));
 }
