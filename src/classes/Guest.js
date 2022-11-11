@@ -4,16 +4,21 @@ class Guest {
     this.name = object.name
   };
 
-  //invoke this like => Guest.getTotalSpent(allBookings.bookings)
-  getTotalSpent(bookingsData) {
-
+  getTotalSpent(bookingList) {
+    return bookingList.bookings.reduce((acc, booking) => {
+      let isPastDate = (new Date(booking.date) < new Date());
+      if (isPastDate && booking.guestId === this.id) {
+        acc += bookingList.rooms.find(room => room.number === booking.roomNumber).costPerNight;
+      }
+      return acc;
+    }, 0);
   };
 
   getAllBookings(bookingList) {
     return bookingList.bookings.reduce((acc, booking) => {
       if (booking.guestId === this.id) {
         let targetRoom = bookingList.rooms.find(room => room.number === booking.roomNumber);
-        let isFutureDate = (new Date(booking.date) > new Date());
+        let isFutureDate = (new Date(booking.date) >= new Date());
         let bookingObject = {
           date: booking.date,
           roomNumber: booking.roomNumber,
@@ -23,7 +28,7 @@ class Guest {
           costPerNight: targetRoom.costPerNight
         };
         if (isFutureDate) {
-          acc.futureBookings.push(bookingObject);
+          acc.upcomingBookings.push(bookingObject);
         } else {
           acc.pastBookings.push(bookingObject);
         };
@@ -31,7 +36,7 @@ class Guest {
       return acc;
     }, {
       pastBookings: [],
-      futureBookings: []
+      upcomingBookings: []
     });
   };
 

@@ -109,6 +109,7 @@ function initGuest() {
 
 //----------------------UTILITY FUNCTIONS----------------------//
 
+//remove after login page added
 function getRandomArrayIndex(array) {
   return Math.floor(Math.random() * array.length);
 };
@@ -122,7 +123,29 @@ function showAccordion(element, button) {
   button.classList.toggle("accordion-button-open");
 };
 
+const upcomingBookingsTable = document.getElementById("upcoming-stays-tbody");
+const pastBookingsTable = document.getElementById("past-stays-tbody");
+const totalSpentTag = document.getElementById("total-spent");
+
 function renderGuestDash() {
+  let bookingsObject = guest.getAllBookings(bookingList);
+
   guestNameDash.innerText = guest.name;
-  console.log("method here:", guest.getAllBookings(bookingList));
-}
+  renderBookingsTable(bookingsObject, upcomingBookingsTable, true);
+  renderBookingsTable(bookingsObject, pastBookingsTable, false);
+  totalSpentTag.innerText = `total spent: $${guest.getTotalSpent(bookingList)}`;
+};
+
+function renderBookingsTable(bookingsObject, table, isFuture) {
+  let bookings = isFuture ? "upcomingBookings" : "pastBookings"
+  table.innerHTML = "";
+  bookingsObject[bookings].forEach(booking => {
+    table.innerHTML += `<tr>
+        <td>${booking.date}</td>
+        <td>${booking.roomNumber}</td>
+        <td>${booking.numBeds} / ${booking.bedSize}</td>
+        <td>${booking.roomType}</td>
+        <td>${booking.costPerNight}</td>
+      </tr>`;
+  });
+};
