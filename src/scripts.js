@@ -55,6 +55,7 @@ const guestNameDash = document.getElementById("dash-guest-name");
 const upcomingBookingsTable = document.getElementById("upcoming-stays-tbody");
 const pastBookingsTable = document.getElementById("past-stays-tbody");
 const totalSpentTag = document.getElementById("total-spent");
+const accordionWelcome = document.getElementById("accordion-welcome");
 
 
 //----------------------EVENT LISTENERS----------------------//
@@ -130,6 +131,7 @@ function showAccordion(element, button) {
 function renderGuestDash() {
   let bookingsObject = guest.getAllBookings(bookingList);
 
+  accordionWelcome.innerText = `welcome ${guest.name}.`;
   guestNameDash.innerText = guest.name;
   renderBookingsTable(bookingsObject, upcomingBookingsTable, true);
   renderBookingsTable(bookingsObject, pastBookingsTable, false);

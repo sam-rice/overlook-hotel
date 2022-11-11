@@ -1,7 +1,7 @@
 * {
   /* border: 1px solid black; */
-  font-family: 'Cormorant Garamond', serif;
-  /* font-weight: 400; */
+  font-family: 'Crimson Text', serif;
+  font-weight: 400;
 }
 
 body {
@@ -18,12 +18,16 @@ button {
   letter-spacing: 2px;
 }
 
+p {
+  font-size: .8em;
+}
+
 button:hover {
   cursor: pointer;
   -webkit-transition: all .3s ease-in-out;
 }
 
-.book-button-header {
+.book-button {
   background-color: rgba(0, 0, 0, 0);
   border-radius: 100px;
   height: 21px;
@@ -32,7 +36,7 @@ button:hover {
   font-size: 8px;
 }
 
-.book-button-header:hover {
+.book-button:hover {
   background-color: black;
   color: white;
 }
@@ -120,7 +124,7 @@ main {
 .banner-image {
   width: 100%;
   transform: scaleX(-1);
-  opacity: .9;
+  opacity: .95;
 }
 
 h1 {
@@ -140,7 +144,7 @@ h4 {
   top: 42%;
 }
 
-/* ---------------------ACCORDION--------------------- */
+/* ---------------------ACCORDION BANNER--------------------- */
 
 .accordion-grandparent {
   display: flex;
@@ -159,11 +163,33 @@ h4 {
   width: 90%;
 }
 
-td {
+.accordion-banner-parent {
+  margin-top: 20px;
+}
+
+.hotel-copy-parent {
+  width: 48%;
+  margin-bottom: 50px;
+}
+
+.copy-title {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 100;
-  letter-spacing: 1px;
-  font-size: .8em;
+  font-weight: 800;
+  font-size: .3em;
+  letter-spacing: 2px;
+}
+
+.accordion-welcome-parent {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.accordion-welcome {
+  margin-bottom: 35px;
+}
+
+.accordion-welcome-parent>p {
+  font-size: .7em;
 }
 
 .accordion-button {
@@ -190,6 +216,13 @@ td {
   overflow: scroll;
   width: 80%;
   height: 138px;
+}
+
+td {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 100;
+  letter-spacing: 1px;
+  font-size: .8em;
 }
 
 /* ---------------------ACC: BOOK--------------------- */
