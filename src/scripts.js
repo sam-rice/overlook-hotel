@@ -62,6 +62,7 @@ const accordionWelcome = document.getElementById("accordion-welcome");
 const dateGrandparent = document.getElementById("date-grandparent");
 const dateAccButton = document.getElementById("date-acc-button");
 const submitDateButton = document.getElementById("submit-date");
+const dateError = document.getElementById("date-error");
 const roomAccButton = document.getElementById("room-acc-button");
 const roomGrandparent = document.getElementById("room-grandparent");
 const submitRoomButton = document.getElementById("submit-room");
@@ -103,8 +104,16 @@ aboutButton.addEventListener("click", () => {
 dateAccButton.addEventListener("click", () => toggleAccordion(dateGrandparent, dateAccButton));
 
 submitDateButton.addEventListener("click", () => {
-  toggleAccordion(dateGrandparent, dateAccButton);
-  toggleAccordion(roomGrandparent, roomAccButton);
+  let selectedDate = document.getElementById("date-input").value;
+  if (new Date(selectedDate) > Date.now()) {
+    newBooking["date"] = selectedDate;
+    toggleAccordion(dateGrandparent, dateAccButton);
+    toggleAccordion(roomGrandparent, roomAccButton);
+    dateError.innerText = "";
+    console.log(newBooking)
+  } else {
+    dateError.innerText = "please select a valid date";
+  }
 }); 
 
 roomAccButton.addEventListener("click", () => {

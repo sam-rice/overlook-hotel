@@ -78,7 +78,9 @@ header {
 }
 
 .logo {
-  margin-right: 25px;
+  font-size: 1.2em;
+  margin-right: 30px;
+  margin-left: 11px;
 }
 
 .header-subtext {
@@ -256,6 +258,11 @@ td {
   width: 44px;
   font-size: 7px;
   letter-spacing: 1px;
+}
+
+.date-error {
+  margin-top: -20px;
+  color: #e72600;
 }
 
 .room-grandparent {
