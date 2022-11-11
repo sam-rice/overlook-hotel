@@ -22,6 +22,7 @@ let allRooms;
 let bookingList;
 let guestList;
 let guest;
+let newBooking;
 
 function fetchData(urls) {
   Promise.all([getData(urls[0]), getData(urls[1]), getData(urls[2])])
@@ -47,8 +48,10 @@ function fetchData(urls) {
 const profileButton = document.getElementById("profile-button");
 const profileParent = document.getElementById("profile-parent");
 const bookButtonHeader = document.getElementById("book-button-header");
-const bookButton = document.getElementById("book-button");
+const dashParent = document.getElementById("dash-parent");
 const bookParent = document.getElementById("book-parent");
+const bookButtonAcc = document.getElementById("book-button-accordion");
+// const bookParent = document.getElementById("book-parent");
 const aboutButton = document.getElementById("about-button");
 const aboutParent = document.getElementById("about-parent");
 const guestNameDash = document.getElementById("dash-guest-name");
@@ -56,6 +59,15 @@ const upcomingBookingsTable = document.getElementById("upcoming-stays-tbody");
 const pastBookingsTable = document.getElementById("past-stays-tbody");
 const totalSpentTag = document.getElementById("total-spent");
 const accordionWelcome = document.getElementById("accordion-welcome");
+const dateGrandparent = document.getElementById("date-grandparent");
+const dateAccButton = document.getElementById("date-acc-button");
+const submitDateButton = document.getElementById("submit-date");
+const roomAccButton = document.getElementById("room-acc-button");
+const roomGrandparent = document.getElementById("room-grandparent");
+const submitRoomButton = document.getElementById("submit-room");
+const confirmAccButton = document.getElementById("confirm-acc-button");
+const confirmGrandparent = document.getElementById("confirm-grandparent");
+const confirmButton = document.getElementById("confirm-details");
 
 
 //----------------------EVENT LISTENERS----------------------//
@@ -65,22 +77,51 @@ window.addEventListener("load", () => {
 });
 
 profileButton.addEventListener("click", () => {
-  showAccordion(profileParent, profileButton);
+  toggleAccordion(profileParent, profileButton);
   profileParent.scrollIntoView( {behavior: "smooth"} );
 });
 
 bookButtonHeader.addEventListener("click", () => {
-  showAccordion(bookParent, bookButton);
+  if (bookParent.classList.contains("hide")) {
+    toggleHidden(dashParent);
+    toggleHidden(bookParent);
+  }
   bookParent.scrollIntoView( {behavior: "smooth"} );
 });
-bookButton.addEventListener("click", () => {
-  showAccordion(bookParent, bookButton);
+
+bookButtonAcc.addEventListener("click", () => {
+  toggleHidden(dashParent);
+  toggleHidden(bookParent);
   bookParent.scrollIntoView( {behavior: "smooth"} );
 });
 
 aboutButton.addEventListener("click", () => {
-  showAccordion(aboutParent, aboutButton);
+  toggleAccordion(aboutParent, aboutButton);
   aboutParent.scrollIntoView( {behavior: "smooth"} );
+});
+
+dateAccButton.addEventListener("click", () => toggleAccordion(dateGrandparent, dateAccButton));
+
+submitDateButton.addEventListener("click", () => {
+  toggleAccordion(dateGrandparent, dateAccButton);
+  toggleAccordion(roomGrandparent, roomAccButton);
+}); 
+
+roomAccButton.addEventListener("click", () => {
+  toggleAccordion(roomGrandparent, roomAccButton);
+});
+
+submitRoomButton.addEventListener("click", () => {
+  toggleAccordion(roomGrandparent, roomAccButton);
+  toggleAccordion(confirmGrandparent, confirmAccButton);
+});
+
+confirmAccButton.addEventListener("click", () => toggleAccordion(confirmGrandparent, confirmAccButton));
+
+confirmButton.addEventListener("click", () => {
+  toggleHidden(dashParent);
+  toggleHidden(bookParent);
+
 });
 
 //----------------------EVENT HANDLERS----------------------//
@@ -97,6 +138,7 @@ function initPage() {
   initGuestList();
   initGuest();
   renderGuestDash();
+  initNewBooking();
   console.log(bookingList, guest);
 };
 
@@ -112,6 +154,12 @@ function initGuest() {
   guest = guestList.guests[getRandomArrayIndex(guestList.guests)];
 };
 
+function initNewBooking() {
+  newBooking = {
+    userID: guest.id,
+  }
+}
+
 //----------------------UTILITY FUNCTIONS----------------------//
 
 //remove after login page added
@@ -119,11 +167,9 @@ function getRandomArrayIndex(array) {
   return Math.floor(Math.random() * array.length);
 };
 
-
-
 //----------------------DOM UPDATING----------------------//
 
-function showAccordion(element, button) {
+function toggleAccordion(element, button) {
   element.classList.toggle("show");
   button.classList.toggle("accordion-button-open");
 };
@@ -150,4 +196,8 @@ function renderBookingsTable(bookingsObject, table, isFuture) {
         <td>${booking.costPerNight}</td>
       </tr>`;
   });
+};
+
+function toggleHidden(element) {
+  element.classList.toggle("hide");
 };

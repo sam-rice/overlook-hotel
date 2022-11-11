@@ -32,7 +32,7 @@
       <h4>Lorem ipsum dolor sit amet.</h4>
     </div>
     <section class="accordion-grandparent">
-      <div class="accordion-parent">
+      <div id="dash-parent" class="accordion-parent">
           <section class="accordion-banner-parent">
             <div class="hotel-copy-parent">
               <p class="copy-title">LOREM IPSUM. DOLOR SIT. AMET ITAQUE.</p>
@@ -76,12 +76,26 @@
           </div>
           <p id="total-spent"></p>
         </section>
-        <button id="book-button" class="accordion-button  accordion-button-collapsed">BOOK</button>
-        <section id="book-parent" class="book-parent">
+        <button id="about-button" class="accordion-button  accordion-button-collapsed">ABOUT OVERLOOK</button>
+        <section id="about-parent" class="about-parent">
+          <h2>Our Story</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis laboriosam maxime vel autem ullam veniam ut accusamus voluptatum deserunt, cumque quidem ipsum asperiores, soluta quaerat. Numquam esse dolore ea non iste. Dolorum quia optio inventore suscipit asperiores, ab fugiat eligendi?</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima quam deserunt qui odio pariatur. Sed magni aperiam obcaecati omnis sunt? Sed dolores maiores ipsam! Dolore officiis suscipit, porro ad facilis iusto eligendi minima voluptatem quod doloremque accusamus fugiat excepturi facere quisquam, laborum officia! Eos adipisci voluptatem vero officia, dolor et.</p>
+          <p>Lorem, ipsum dolor sit amet consectetur adipisicing.</p>
+        </section>
+      </div>
+      <!-- booking parent starts here -->
+      <div id="book-parent" class="accordion-parent hide">
+        <button id="date-acc-button" class="accordion-button book-accordion-buttons accordion-button-collapsed accordion-button-open">when?</button>
+        <section id="date-grandparent" class="date-grandparent show">
           <div class="date-parent">
             <label for="date-input">choose date:</label>
             <input type="date" id="date-input">
           </div>
+          <button id="submit-date" class="book-button submit-button">next</button>
+        </section>
+        <button id="room-acc-button" class="accordion-button book-accordion-buttons accordion-button-collapsed">which room?</button>
+        <section id="room-grandparent" class="room-grandparent">
           <p>rooms available:</p>
           <div class="rooms-parent">
             <div class="rooms-table-parent">
@@ -124,16 +138,20 @@
               </table>
             </div>
           </div>
+          <button id="submit-room" class="book-button submit-button">next</button>
         </section>
-        <button id="about-button" class="accordion-button  accordion-button-collapsed">ABOUT OVERLOOK</button>
-        <section id="about-parent" class="about-parent">
-          <h2>Our Story</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis laboriosam maxime vel autem ullam veniam ut accusamus voluptatum deserunt, cumque quidem ipsum asperiores, soluta quaerat. Numquam esse dolore ea non iste. Dolorum quia optio inventore suscipit asperiores, ab fugiat eligendi?</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima quam deserunt qui odio pariatur. Sed magni aperiam obcaecati omnis sunt? Sed dolores maiores ipsam! Dolore officiis suscipit, porro ad facilis iusto eligendi minima voluptatem quod doloremque accusamus fugiat excepturi facere quisquam, laborum officia! Eos adipisci voluptatem vero officia, dolor et.</p>
-          <p>Lorem, ipsum dolor sit amet consectetur adipisicing.</p>
+        <button id="confirm-acc-button" class="accordion-button book-accordion-buttons accordion-button-collapsed">confirm</button>
+        <section id="confirm-grandparent" class="confirm-grandparent">
+          <p>confirm here:</p>
+          <div class="confirm-details">
+            <!-- confirmation details here -->
+          </div>
+          <button id="confirm-details" class="book-button submit-button">submit</button>
         </section>
       </div>
+      <div id="confirmation-parent" class="accordion-parent hide">
 
+      </div>
     </section>
 
 

@@ -14,7 +14,6 @@ body {
 button {
   font-family: 'Montserrat', sans-serif;
   font-weight: 800;
-  font-kerning: 1em;
   letter-spacing: 2px;
 }
 
@@ -86,7 +85,7 @@ header {
   font-family: 'Montserrat', sans-serif;
   font-weight: 800;
   font-size: .5em;
-  margin-top: 12px;
+  margin-top: 10px;
   letter-spacing: 2px;
 }
 
@@ -112,7 +111,7 @@ main {
 
 .image-parent-left,
 .image-parent-right {
-  width: 70%;
+  width: 50%;
   height: 66vw;
 }
 
@@ -208,6 +207,7 @@ h4 {
 /* ---------------------ACC: PROFILE--------------------- */
 
 .profile-parent {
+  flex-direction: column;
   height: 470px;
   display: none;
 }
@@ -227,9 +227,23 @@ td {
 
 /* ---------------------ACC: BOOK--------------------- */
 
-.book-parent {
+.book-grandparent {
   height: 380px;
+}
+
+.book-accordion-buttons {
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  height: 19px;
+}
+
+.date-grandparent {
   display: none;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  height: 175px;
 }
 
 .date-parent {
@@ -237,16 +251,37 @@ td {
   flex-direction: column;
 }
 
+.submit-button {
+  height: 16px;
+  width: 44px;
+  font-size: 7px;
+  letter-spacing: 1px;
+}
+
+.room-grandparent {
+  display: none;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  height: 320px;
+}
+
 .rooms-parent {
   overflow: scroll;
   width: 80%;
-  height: 250px;
+  height: 150px;
+}
+
+.confirm-grandparent {
+  height: 175px;
+  display: none;
 }
 
 /* ---------------------ACC: ABOUT--------------------- */
 
 .about-parent {
   display: none;
+  flex-direction: column;
 }
 
 
@@ -269,6 +304,11 @@ td {
 
 
 /* KEEP AT BOTTOM */
+
+.hide {
+  display: none;
+}
+
 .show {
-  display: block;
+  display: flex;
 }
