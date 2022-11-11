@@ -1,6 +1,7 @@
 import "./css/styles.css";
-import "./images/bachman-cropped.jpg";
-import "./images/imperial-bedroom-left.png";
+// import "./images/bachman-cropped.jpg";
+import "./images/metrograph-interior.jpg";
+import "./images/imperial-bedroom-left.jpg";
 import BookingList from "../src/classes/BookingList";
 import Manager from "../src/classes/Manager";
 import {getData, postData} from "./api-calls";
