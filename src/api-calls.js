@@ -15,5 +15,5 @@ function postData(body, url) {
     },
   });
 };
-//remove comma on line 15?
-export {getData, postData};
+
+export { getData, postData };

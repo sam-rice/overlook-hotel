@@ -3,7 +3,7 @@ import "./images/metrograph-interior.jpg";
 import "./images/imperial-bedroom-left.jpg";
 import BookingList from "../src/classes/BookingList";
 import Manager from "../src/classes/Manager";
-import {getData, postData} from "./api-calls";
+import { getData, postData } from "./api-calls";
 import GuestList from "./classes/GuestList";
 
 //----------------------UTILITY DATA----------------------//
@@ -34,15 +34,15 @@ function fetchData(urls) {
       allRooms = data[2].rooms;
       initPage();
     })
-    // .catch(error => {
-    //   if (error instanceof TypeError) {
-    //     alert("Looks like we're having problems. Please try again later.");
-    //   } else if (error instanceof ReferenceError) {
-    //     alert("Looks like something broke on our end. Please try again later.");
-    //   } else {
-    //     alert("An error occured. Please try again later.");
-    //   }
-    // });
+  // .catch(error => {
+  //   if (error instanceof TypeError) {
+  //     alert("Looks like we're having problems. Please try again later.");
+  //   } else if (error instanceof ReferenceError) {
+  //     alert("Looks like something broke on our end. Please try again later.");
+  //   } else {
+  //     alert("An error occured. Please try again later.");
+  //   }
+  // });
 };
 
 //----------------------QUERY SELECTORS----------------------//
@@ -89,7 +89,7 @@ window.addEventListener("load", () => {
 
 profileButton.addEventListener("click", () => {
   toggleAccordion(profileParent, profileButton);
-  profileParent.scrollIntoView( {behavior: "smooth"} );
+  profileParent.scrollIntoView({ behavior: "smooth" });
 });
 
 bookButtonHeader.addEventListener("click", () => {
@@ -100,7 +100,7 @@ bookButtonHeader.addEventListener("click", () => {
     toggleHidden(dashParent);
     toggleHidden(bookParent);
   }
-  bookParent.scrollIntoView( {behavior: "smooth"} );
+  bookParent.scrollIntoView({ behavior: "smooth" });
 });
 
 bookButtonAcc.addEventListener("click", () => {
@@ -108,17 +108,20 @@ bookButtonAcc.addEventListener("click", () => {
   roomError.innerText = "";
   toggleHidden(dashParent);
   toggleHidden(bookParent);
-  bookParent.scrollIntoView( {behavior: "smooth"} );
+  bookParent.scrollIntoView({ behavior: "smooth" });
 });
 
 aboutButton.addEventListener("click", () => {
   toggleAccordion(aboutParent, aboutButton);
-  aboutParent.scrollIntoView( {behavior: "smooth"} );
+  aboutParent.scrollIntoView({ behavior: "smooth" });
 });
 
 submitDateButton.addEventListener("click", () => {
   let selectedDate = dateInput.value;
-  if (new Date(selectedDate) > Date.now()) {
+  if (!bookingList.getAvailableRooms(selectedDate).length) {
+    dateError.innerText = "we're sorry! there are no available rooms for your selected date.";
+    return;
+  } else if (new Date(selectedDate) > Date.now()) {
     initNewBooking(selectedDate);
     renderAvailableRooms(selectedDate);
     toggleBookingAccordion(dateGrandparent);
@@ -128,7 +131,7 @@ submitDateButton.addEventListener("click", () => {
   } else {
     dateError.innerText = "* please select a valid date";
   }
-}); 
+});
 
 availRoomsTable.addEventListener("click", (e) => {
   selectedRoom = Number(e.target.parentNode.dataset.roomNum);
@@ -150,13 +153,13 @@ submitRoomButton.addEventListener("click", () => {
     toggleBookingAccordion(confirmGrandparent);
   } else {
     roomError.innerText = "* please select a room";
-  }
+  };
 });
 
 editDetailsButton.addEventListener("click", () => {
   toggleBookingAccordion(confirmGrandparent);
   toggleBookingAccordion(dateGrandparent);
-})
+});
 
 confirmButton.addEventListener("click", () => {
   postData(newBooking, allBookingsURL)
