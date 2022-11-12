@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Marcellus&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600|Montserrat:400,800" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <title>Overlook Hotel</title>
 </head>
+
 <body>
   <header>
     <div class="header-left">
@@ -17,22 +20,36 @@
       <p class="header-subtext">SEATTLE, WA</p>
     </div>
     <div class="header-right">
-      <button id="book-button-header" class="book-button-header">BOOK</button>
+      <button id="book-button-header" class="book-button">BOOK</button>
     </div>
   </header>
   <main>
     <div class="banner-parent">
       <div class="image-parent-left">
-        <img class="banner-image" src="./images/imperial-bedroom-left.png" alt="guest suite">
+        <img class="banner-image" src="./images/metrograph-interior.jpg" alt="guest suite">
       </div>
       <div class="image-parent-right">
-        <img class="banner-image" src="./images/bachman-cropped.jpg" alt="guest suite">
+        <img class="banner-image" src="./images/imperial-bedroom-left.jpg" alt="guest suite">
       </div>
       <h1>Overlook Hotel</h1>
       <h4>Lorem ipsum dolor sit amet.</h4>
     </div>
     <section class="accordion-grandparent">
-      <div class="accordion-parent">
+      <div id="dash-parent" class="accordion-parent">
+        <section class="accordion-banner-parent">
+          <div class="hotel-copy-parent">
+            <p class="copy-title">LOREM IPSUM. DOLOR SIT. AMET ITAQUE.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, quia porro delectus quam a fugit itaque
+              ratione modi in iusto, ipsum dicta quos nulla, asperiores pariatur voluptas esse laborum et fugiat at
+              excepturi minus repudiandae nam.
+            </p>
+          </div>
+          <div class="accordion-welcome-parent">
+            <h2 class="accordion-welcome" id="accordion-welcome"></h2>
+            <p>ready to book?</p>
+            <button id="book-button-accordion" class="book-button">BOOK</button>
+          </div>
+        </section>
         <button id="profile-button" class="accordion-button accordion-button-collapsed">MY PROFILE</button>
         <section id="profile-parent" class="profile-parent">
           <h3 id="dash-guest-name"></h3>
@@ -64,64 +81,72 @@
           </div>
           <p id="total-spent"></p>
         </section>
-        <button id="book-button" class="accordion-button  accordion-button-collapsed">BOOK</button>
-        <section id="book-parent" class="book-parent">
+        <button id="about-button" class="accordion-button  accordion-button-collapsed">ABOUT OVERLOOK</button>
+        <section id="about-parent" class="about-parent">
+          <h2>Our Story</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis laboriosam maxime vel autem ullam
+            veniam ut accusamus voluptatum deserunt, cumque quidem ipsum asperiores, soluta quaerat. Numquam esse dolore
+            ea non iste. Dolorum quia optio inventore suscipit asperiores, ab fugiat eligendi?</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima quam deserunt qui odio pariatur. Sed magni
+            aperiam obcaecati omnis sunt? Sed dolores maiores ipsam! Dolore officiis suscipit, porro ad facilis iusto
+            eligendi minima voluptatem quod doloremque accusamus fugiat excepturi facere quisquam, laborum officia! Eos
+            adipisci voluptatem vero officia, dolor et.</p>
+          <p>Lorem, ipsum dolor sit amet consectetur adipisicing.</p>
+        </section>
+      </div>
+      <!-- booking parent starts here -->
+      <div id="book-parent" class="accordion-parent hide">
+        <div id="date-acc-header"
+          class="accordion-button accordion-header-collapsed accordion-header-open"><h2>CHOOSE DATE</h2></div>
+        <section id="date-grandparent" class="date-grandparent show">
           <div class="date-parent">
             <label for="date-input">choose date:</label>
             <input type="date" id="date-input">
           </div>
+          <button id="submit-date" class="book-button submit-button">next</button>
+          <p id="date-error" class="date-error"></p>
+        </section>
+        <div id="room-acc-header" class="accordion-button accordion-header-collapsed"><h2>CHOOSE ROOM</h2></div>
+        <section id="room-grandparent" class="room-grandparent">
           <p>rooms available:</p>
           <div class="rooms-parent">
             <div class="rooms-table-parent">
               <table class="rooms-table">
-              <th>room:</th>
-              <th># beds/size:</th>
-              <th>bidet:</th>
-              <th>type:</th>
-              <th>price/night:</th>
-              <tbody>
-                <tr>
-                  <td>4</td>
-                  <td>2 / queen</td>
-                  <td>yes</td>
-                  <td>residential suite</td>
-                  <td>$429.32</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>2 / queen</td>
-                  <td>yes</td>
-                  <td>residential suite</td>
-                  <td>$429.32</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>2 / queen</td>
-                  <td>yes</td>
-                  <td>residential suite</td>
-                  <td>$429.32</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>2 / queen</td>
-                  <td>yes</td>
-                  <td>residential suite</td>
-                  <td>$429.32</td>
-                </tr>
-              </tbody>
+                <th>room:</th>
+                <th># beds/size:</th>
+                <th>bidet:</th>
+                <th>type:</th>
+                <th>price/night:</th>
+                <tbody id="avail-rooms-table">
+                  <!-- available rooms go here -->
+                </tbody>
               </table>
             </div>
           </div>
+          <button id="back-to-cal" class="book-button submit-button edit-details-button">back</button>
+          <button id="submit-room" class="book-button submit-button">next</button>
+          <p id="room-error" class="room-error"></p>
         </section>
-        <button id="about-button" class="accordion-button  accordion-button-collapsed">ABOUT OVERLOOK</button>
-        <section id="about-parent" class="about-parent">
-          <h2>Our Story</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis laboriosam maxime vel autem ullam veniam ut accusamus voluptatum deserunt, cumque quidem ipsum asperiores, soluta quaerat. Numquam esse dolore ea non iste. Dolorum quia optio inventore suscipit asperiores, ab fugiat eligendi?</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima quam deserunt qui odio pariatur. Sed magni aperiam obcaecati omnis sunt? Sed dolores maiores ipsam! Dolore officiis suscipit, porro ad facilis iusto eligendi minima voluptatem quod doloremque accusamus fugiat excepturi facere quisquam, laborum officia! Eos adipisci voluptatem vero officia, dolor et.</p>
-          <p>Lorem, ipsum dolor sit amet consectetur adipisicing.</p>
+        <div id="confirm-acc-header"
+          class="accordion-button accordion-header-collapsed"><h2>CONFIRM</h2></div>
+        <section id="confirm-grandparent" class="confirm-grandparent">
+          <div class="confirm-details">
+            <h2>please review your selections:</h2>
+            <ul id="details-list">
+              <!-- confirmation details go here -->
+            </ul>
+          </div>
+          <button id="edit-details" class="book-button submit-button edit-details-button">edit details</button>
+          <br>
+          <button id="confirm-details" class="book-button submit-button">submit</button>
         </section>
       </div>
-
+      <section id="success-grandparent" class="success-grandparent hide">
+        <div id="success-parent">
+          <!-- confirmation goes here -->
+        </div>
+        <button id="home-button" class="book-button submit-button edit-details-button">home</button>
+      </section>
     </section>
 
 
@@ -130,4 +155,5 @@
   </main>
   <script src="bundle.js"></script>
 </body>
+
 </html>

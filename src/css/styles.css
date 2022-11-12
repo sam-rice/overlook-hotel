@@ -1,7 +1,7 @@
 * {
   /* border: 1px solid black; */
-  font-family: 'Cormorant Garamond', serif;
-  /* font-weight: 400; */
+  font-family: 'Crimson Text', serif;
+  font-weight: 400;
 }
 
 body {
@@ -14,8 +14,11 @@ body {
 button {
   font-family: 'Montserrat', sans-serif;
   font-weight: 800;
-  font-kerning: 1em;
   letter-spacing: 2px;
+}
+
+p {
+  font-size: .8em;
 }
 
 button:hover {
@@ -23,7 +26,7 @@ button:hover {
   -webkit-transition: all .3s ease-in-out;
 }
 
-.book-button-header {
+.book-button {
   background-color: rgba(0, 0, 0, 0);
   border-radius: 100px;
   height: 21px;
@@ -32,7 +35,7 @@ button:hover {
   font-size: 8px;
 }
 
-.book-button-header:hover {
+.book-button:hover {
   background-color: black;
   color: white;
 }
@@ -75,14 +78,16 @@ header {
 }
 
 .logo {
-  margin-right: 25px;
+  font-size: 1.2em;
+  margin-right: 30px;
+  margin-left: 11px;
 }
 
 .header-subtext {
   font-family: 'Montserrat', sans-serif;
   font-weight: 800;
   font-size: .5em;
-  margin-top: 12px;
+  margin-top: 10px;
   letter-spacing: 2px;
 }
 
@@ -108,7 +113,7 @@ main {
 
 .image-parent-left,
 .image-parent-right {
-  width: 70%;
+  width: 50%;
   height: 66vw;
 }
 
@@ -119,6 +124,8 @@ main {
 
 .banner-image {
   width: 100%;
+  transform: scaleX(-1);
+  opacity: .95;
 }
 
 h1 {
@@ -138,13 +145,13 @@ h4 {
   top: 42%;
 }
 
-/* ---------------------ACCORDION--------------------- */
+/* ---------------------ACCORDION BANNER--------------------- */
 
 .accordion-grandparent {
   display: flex;
   justify-content: center;
   position: absolute;
-  margin-top: 78vw;
+  margin-top: 98vw;
   width: 72%;
   height: 530px;
   background-color: rgba(255, 255, 255, 0.868);
@@ -154,32 +161,63 @@ h4 {
 .accordion-parent {
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 150%;
 }
 
-td {
+.accordion-banner-parent {
+  margin: 20px 20px 0px 20px;
+}
+
+.hotel-copy-parent {
+  width: 48%;
+  margin-bottom: 50px;
+}
+
+.copy-title {
   font-family: 'Montserrat', sans-serif;
-  font-weight: 100;
-  letter-spacing: 1px;
-  font-size: .8em;
+  font-weight: 800;
+  font-size: .3em;
+  letter-spacing: 2px;
+}
+
+.accordion-welcome-parent {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.accordion-welcome {
+  margin-bottom: 35px;
+}
+
+.accordion-welcome-parent>p {
+  font-size: .7em;
 }
 
 .accordion-button {
-  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 400;
+  font-size: 10px;
+  background-color: #f5f0ef;
+  border: 1px solid #d7d1d0;
+  height: 20px;
 }
 
 .accordion-button-collapsed::after {
-  content: "\02795";
+  font-family: 'Material Icons';
+  content: 'expand_more';
   float: right;
 }
 
 .accordion-button-open::after {
-  content: "\2796";
+  content: 'expand_less';
 }
 
 /* ---------------------ACC: PROFILE--------------------- */
 
 .profile-parent {
+  flex-direction: column;
   height: 470px;
   display: none;
 }
@@ -190,11 +228,50 @@ td {
   height: 138px;
 }
 
+td {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 100;
+  letter-spacing: 1px;
+  font-size: .8em;
+}
+
 /* ---------------------ACC: BOOK--------------------- */
 
-.book-parent {
+.book-grandparent {
   height: 380px;
+}
+
+.book-accordion-buttons {
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  height: 19px;
+}
+
+.accordion-header-collapsed {
+  display: flex;
+  align-items: center;
+  padding-left: 6px;
+}
+
+.accordion-header-collapsed>h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  letter-spacing: 2px;
+  font-size: 10px;
+  margin: 0px;
+}
+
+.accordion-header-open {
+
+}
+
+.date-grandparent {
   display: none;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  height: 175px;
 }
 
 .date-parent {
@@ -202,16 +279,99 @@ td {
   flex-direction: column;
 }
 
+.submit-button {
+  height: 18px;
+  width: 52px;
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+
+.date-error,
+.room-error {
+  margin-top: -20px;
+  color: #e72600;
+}
+
+.room-grandparent {
+  display: none;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  height: 320px;
+}
+
 .rooms-parent {
   overflow: scroll;
   width: 80%;
-  height: 250px;
+  height: 150px;
+}
+
+.rooms-table {
+  border-collapse: collapse;
+}
+
+.active {
+  background-color: red;
+}
+
+
+.confirm-grandparent {
+  height: 290px;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.confirm-details {
+  width: 81%;
+  display: flex;
+  flex-direction: column;
+}
+
+.details-li {
+  list-style: none;
+}
+
+.room-details-ul {
+  display: flex;
+  justify-content: space-between;
+  background-color: #507caeab;
+  padding: 17px;
+  margin: 3px;
+  
+}
+
+.edit-details-button {
+  width: 62px;
+  font-size: 6px;
+  height: 14px;
+}
+
+.success-grandparent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 200px;
+}
+
+.conf-code {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f0ef;
+  width: 60%;
+  height: 21px;
+  margin: 0% 20%;
+  padding-top: 1px;
 }
 
 /* ---------------------ACC: ABOUT--------------------- */
 
 .about-parent {
   display: none;
+  flex-direction: column;
 }
 
 
@@ -234,6 +394,11 @@ td {
 
 
 /* KEEP AT BOTTOM */
+
+.hide {
+  display: none;
+}
+
 .show {
-  display: block;
+  display: flex;
 }
