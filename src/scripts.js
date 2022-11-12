@@ -61,7 +61,9 @@ const pastBookingsTable = document.getElementById("past-stays-tbody");
 const totalSpentTag = document.getElementById("total-spent");
 const accordionWelcome = document.getElementById("accordion-welcome");
 const dateGrandparent = document.getElementById("date-grandparent");
+const dateInput = document.getElementById("date-input");
 const dateAccButton = document.getElementById("date-acc-button");
+const backToCalButton = document.getElementById("back-to-cal");
 const submitDateButton = document.getElementById("submit-date");
 const dateError = document.getElementById("date-error");
 const roomAccButton = document.getElementById("room-acc-button");
@@ -71,6 +73,7 @@ const submitRoomButton = document.getElementById("submit-room");
 const roomError = document.getElementById("room-error");
 const confirmAccButton = document.getElementById("confirm-acc-button");
 const confirmGrandparent = document.getElementById("confirm-grandparent");
+const editDetailsButton = document.getElementById("edit-details")
 const confirmButton = document.getElementById("confirm-details");
 const successParent = document.getElementById("success-parent");
 
@@ -88,8 +91,8 @@ profileButton.addEventListener("click", () => {
 
 bookButtonHeader.addEventListener("click", () => {
   if (!successParent.classList.contains("hide")) {
-    toggleHidden(dashParent);
     toggleHidden(successParent);
+    toggleHidden(bookParent);
   } else if (bookParent.classList.contains("hide")) {
     toggleHidden(dashParent);
     toggleHidden(bookParent);
@@ -110,10 +113,8 @@ aboutButton.addEventListener("click", () => {
   aboutParent.scrollIntoView( {behavior: "smooth"} );
 });
 
-dateAccButton.addEventListener("click", () => toggleAccordion(dateGrandparent, dateAccButton));
-
 submitDateButton.addEventListener("click", () => {
-  let selectedDate = document.getElementById("date-input").value;
+  let selectedDate = dateInput.value;
   if (new Date(selectedDate) > Date.now()) {
     initNewBooking(selectedDate);
     renderAvailableRooms(selectedDate);
@@ -126,15 +127,16 @@ submitDateButton.addEventListener("click", () => {
   }
 }); 
 
-roomAccButton.addEventListener("click", () => {
-  toggleAccordion(roomGrandparent, roomAccButton);
-});
-
 availRoomsTable.addEventListener("click", (e) => {
   selectedRoom = e.target.parentNode.dataset.roomNum;
   deactivateRoomNodes();
   activateSelectedNode(e.target.parentNode);
-})
+});
+
+backToCalButton.addEventListener("click", () => {
+  toggleAccordion(roomGrandparent, roomAccButton);
+  toggleAccordion(dateGrandparent, dateAccButton);
+});
 
 submitRoomButton.addEventListener("click", () => {
   if (selectedRoom) {
@@ -145,18 +147,20 @@ submitRoomButton.addEventListener("click", () => {
   } else {
     roomError.innerText = "* please select a room";
   }
-
 });
 
-confirmAccButton.addEventListener("click", () => toggleAccordion(confirmGrandparent, confirmAccButton));
+editDetailsButton.addEventListener("click", () => {
+  toggleAccordion(confirmGrandparent, confirmAccButton);
+  toggleAccordion(dateGrandparent, dateAccButton);
+})
 
 confirmButton.addEventListener("click", () => {
-
   newBooking["id"] = Date.now();
   console.log(newBooking)
   //fetch POST here
   selectedRoom = null;
   newBooking = null;
+  dateInput.value = "";
   toggleAccordion(dateGrandparent, dateAccButton);
   toggleAccordion(confirmGrandparent, confirmAccButton);
   toggleHidden(bookParent);
