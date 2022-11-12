@@ -6,6 +6,7 @@ import BookingList from "../src/classes/BookingList";
 import Manager from "../src/classes/Manager";
 import {getData, postData} from "./api-calls";
 import GuestList from "./classes/GuestList";
+import { HotUpdateChunk } from "webpack";
 
 //----------------------UTILITY DATA----------------------//
 
@@ -24,7 +25,8 @@ let guestList;
 let guest;
 
 let newBooking;
-let selectedRoom = null;
+let selectedRoom;
+let confirmedBookingId;
 
 function fetchData(urls) {
   Promise.all([getData(urls[0]), getData(urls[1]), getData(urls[2])])
@@ -131,7 +133,7 @@ submitDateButton.addEventListener("click", () => {
 }); 
 
 availRoomsTable.addEventListener("click", (e) => {
-  selectedRoom = e.target.parentNode.dataset.roomNum;
+  selectedRoom = Number(e.target.parentNode.dataset.roomNum);
   deactivateRoomNodes();
   activateSelectedNode(e.target.parentNode);
 });
@@ -158,19 +160,22 @@ editDetailsButton.addEventListener("click", () => {
   toggleBookingAccordion(dateGrandparent);
 })
 
-confirmButton.addEventListener("click", () => {
-  newBooking["id"] = Date.now();
-  console.log(newBooking)
-  //fetch POST here
-  renderConfirmation();
-  selectedRoom = null;
-  newBooking = null;
-  dateInput.value = "";
-  toggleBookingAccordion(dateGrandparent);
-  toggleBookingAccordion(confirmGrandparent);
-  toggleHidden(bookParent);
-  toggleHidden(successGrandparent);
-});
+// confirmButton.addEventListener("click", () => {
+//   postData(newBooking, allBookingsURL)
+//     .then(response => response.json())
+//     .then(response => confirmedBookingId = response.newBooking.id)
+//     .then(() => getData(allBookingsURL))
+//     .then(data => {
+//       updateBookings(data.bookings);
+//       renderConfirmation();
+//       renderGuestDash();
+//       clearBookingMemory();
+//       toggleBookingAccordion(dateGrandparent);
+//       toggleBookingAccordion(confirmGrandparent);
+//       toggleHidden(bookParent);
+//       toggleHidden(successGrandparent);
+//     })
+// });
 
 homeButton.addEventListener("click", () => {
   toggleHidden(successGrandparent);
@@ -209,9 +214,21 @@ function initGuest() {
 function initNewBooking(date) {
   newBooking = {
     userID: guest.id,
-    date: date
+    date: date.replace(/-/g, '/')
   }
 }
+
+// function updateBookings(newData) {
+//   allBookingsData = newData;
+//   bookingList.bookings = bookingList.initBookings(allBookingsData);
+// }
+
+// function clearBookingMemory() {
+//   selectedRoom = null;
+//   newBooking = null;
+//   confirmedBookingId = null;
+//   dateInput.value = "";
+// }
 
 //----------------------UTILITY FUNCTIONS----------------------//
 
@@ -309,5 +326,5 @@ function renderConfirmation() {
   <h2>thank you ${guest.name}!</h2>
   <p>your room is booked!</p>
   <p>your confirmation code is:</p>
-  <div class="conf-code">${newBooking.id}</div>`;
+  <div class="conf-code">${confirmedBookingId}</div>`;
 };
