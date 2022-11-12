@@ -32,15 +32,15 @@ function fetchData(urls) {
       allRooms = data[2].rooms;
       initPage();
     })
-    .catch(error => {
-      if (error instanceof TypeError) {
-        alert("Looks like we're having problems. Please try again later.");
-      } else if (error instanceof ReferenceError) {
-        alert("Looks like something broke on our end. Please try again later.");
-      } else {
-        alert("An error occured. Please try again later.");
-      }
-    });
+    // .catch(error => {
+    //   if (error instanceof TypeError) {
+    //     alert("Looks like we're having problems. Please try again later.");
+    //   } else if (error instanceof ReferenceError) {
+    //     alert("Looks like something broke on our end. Please try again later.");
+    //   } else {
+    //     alert("An error occured. Please try again later.");
+    //   }
+    // });
 };
 
 //----------------------QUERY SELECTORS----------------------//
