@@ -5,14 +5,13 @@ class Guest {
   };
 
   getTotalSpent(bookingList) {
-    let total = bookingList.bookings.reduce((acc, booking) => {
+    return bookingList.bookings.reduce((acc, booking) => {
       let isPastDate = (new Date(booking.date) < new Date());
       if (isPastDate && booking.guestId === this.id) {
         acc += bookingList.rooms.find(room => room.number === booking.roomNumber).costPerNight;
       }
       return acc;
-    }, 0);
-    return (Math.round(total * 100) / 100).toFixed(2);
+    }, 0).toFixed(2);
   };
 
   getAllBookings(bookingList) {
@@ -26,7 +25,7 @@ class Guest {
           numBeds: targetRoom.numBeds,
           bedSize: targetRoom.bedSize,
           roomType: targetRoom.roomType,
-          costPerNight: targetRoom.costPerNight
+          costPerNight: targetRoom.costPerNight.toFixed(2)
         };
         if (isFutureDate) {
           acc.upcomingBookings.push(bookingObject);

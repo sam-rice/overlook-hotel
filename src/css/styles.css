@@ -161,7 +161,7 @@ h4 {
 .accordion-parent {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 150%;
 }
 
 .accordion-banner-parent {
@@ -205,12 +205,13 @@ h4 {
 }
 
 .accordion-button-collapsed::after {
-  content: "\02795";
+  font-family: 'Material Icons';
+  content: 'expand_more';
   float: right;
 }
 
 .accordion-button-open::after {
-  content: "\2796";
+  content: 'expand_less';
 }
 
 /* ---------------------ACC: PROFILE--------------------- */

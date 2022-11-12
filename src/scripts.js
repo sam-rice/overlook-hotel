@@ -271,7 +271,7 @@ function renderAvailableRooms(date) {
         <td>${room.numBeds} / ${room.bedSize}</td>
         <td>${room.hasBidet ? "yes" : "no"}</td>
         <td>${room.roomType}</td>
-        <td>${room.costPerNight}</td>
+        <td>${room.costPerNight.toFixed(2)}</td>
       </tr>`;
   });
 };
@@ -300,7 +300,7 @@ function renderDetails() {
       <li class="details-li">has bidet: ${selectedRoom.hasBidet ? "yes" : "no"}</li>
       <li class="details-li">${selectedRoom.roomType}</li>
     </ul>
-    <li class="details-li">total: $${selectedRoom.costPerNight}</li>`;
+    <li class="details-li">total: $${selectedRoom.costPerNight.toFixed(2)}</li>`;
 };
 
 function renderConfirmation() {
