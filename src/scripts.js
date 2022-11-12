@@ -62,20 +62,23 @@ const totalSpentTag = document.getElementById("total-spent");
 const accordionWelcome = document.getElementById("accordion-welcome");
 const dateGrandparent = document.getElementById("date-grandparent");
 const dateInput = document.getElementById("date-input");
-const dateAccButton = document.getElementById("date-acc-button");
+// const dateAccHeader = document.getElementById("date-acc-header");
 const backToCalButton = document.getElementById("back-to-cal");
 const submitDateButton = document.getElementById("submit-date");
 const dateError = document.getElementById("date-error");
-const roomAccButton = document.getElementById("room-acc-button");
+// const roomAccHeader = document.getElementById("room-acc-header");
 const roomGrandparent = document.getElementById("room-grandparent");
 const availRoomsTable = document.getElementById("avail-rooms-table");
 const submitRoomButton = document.getElementById("submit-room");
 const roomError = document.getElementById("room-error");
-const confirmAccButton = document.getElementById("confirm-acc-button");
+// const confirmAccHeader = document.getElementById("confirm-acc-header");
 const confirmGrandparent = document.getElementById("confirm-grandparent");
-const editDetailsButton = document.getElementById("edit-details")
+const detailsList = document.getElementById("details-list");
+const editDetailsButton = document.getElementById("edit-details");
 const confirmButton = document.getElementById("confirm-details");
+const successGrandparent = document.getElementById("success-grandparent");
 const successParent = document.getElementById("success-parent");
+const homeButton = document.getElementById("home-button");
 
 
 //----------------------EVENT LISTENERS----------------------//
@@ -90,8 +93,8 @@ profileButton.addEventListener("click", () => {
 });
 
 bookButtonHeader.addEventListener("click", () => {
-  if (!successParent.classList.contains("hide")) {
-    toggleHidden(successParent);
+  if (!successGrandparent.classList.contains("hide")) {
+    toggleHidden(successGrandparent);
     toggleHidden(bookParent);
   } else if (bookParent.classList.contains("hide")) {
     toggleHidden(dashParent);
@@ -118,8 +121,8 @@ submitDateButton.addEventListener("click", () => {
   if (new Date(selectedDate) > Date.now()) {
     initNewBooking(selectedDate);
     renderAvailableRooms(selectedDate);
-    toggleAccordion(dateGrandparent, dateAccButton);
-    toggleAccordion(roomGrandparent, roomAccButton);
+    toggleBookingAccordion(dateGrandparent);
+    toggleBookingAccordion(roomGrandparent);
     dateError.innerText = "";
     console.log(newBooking)
   } else {
@@ -134,37 +137,44 @@ availRoomsTable.addEventListener("click", (e) => {
 });
 
 backToCalButton.addEventListener("click", () => {
-  toggleAccordion(roomGrandparent, roomAccButton);
-  toggleAccordion(dateGrandparent, dateAccButton);
+  toggleBookingAccordion(roomGrandparent);
+  toggleBookingAccordion(dateGrandparent);
 });
 
 submitRoomButton.addEventListener("click", () => {
   if (selectedRoom) {
     newBooking["roomNumber"] = selectedRoom;
-    console.log(newBooking)
-    toggleAccordion(roomGrandparent, roomAccButton);
-    toggleAccordion(confirmGrandparent, confirmAccButton);
+    console.log(newBooking);
+    renderDetails();
+    toggleBookingAccordion(roomGrandparent);
+    toggleBookingAccordion(confirmGrandparent);
   } else {
     roomError.innerText = "* please select a room";
   }
 });
 
 editDetailsButton.addEventListener("click", () => {
-  toggleAccordion(confirmGrandparent, confirmAccButton);
-  toggleAccordion(dateGrandparent, dateAccButton);
+  toggleBookingAccordion(confirmGrandparent);
+  toggleBookingAccordion(dateGrandparent);
 })
 
 confirmButton.addEventListener("click", () => {
   newBooking["id"] = Date.now();
   console.log(newBooking)
   //fetch POST here
+  renderConfirmation();
   selectedRoom = null;
   newBooking = null;
   dateInput.value = "";
-  toggleAccordion(dateGrandparent, dateAccButton);
-  toggleAccordion(confirmGrandparent, confirmAccButton);
+  toggleBookingAccordion(dateGrandparent);
+  toggleBookingAccordion(confirmGrandparent);
   toggleHidden(bookParent);
-  toggleHidden(successParent);
+  toggleHidden(successGrandparent);
+});
+
+homeButton.addEventListener("click", () => {
+  toggleHidden(successGrandparent);
+  toggleHidden(dashParent);
 });
 
 //----------------------EVENT HANDLERS----------------------//
@@ -217,6 +227,11 @@ function toggleAccordion(element, button) {
   button.classList.toggle("accordion-button-open");
 };
 
+function toggleBookingAccordion(element) {
+  element.classList.toggle("show");
+  //toggle classlist for booking acc open?
+}
+
 function renderGuestDash() {
   let bookingsObject = guest.getAllBookings(bookingList);
 
@@ -231,7 +246,8 @@ function renderBookingsTable(bookingsObject, table, isFuture) {
   let bookings = isFuture ? "upcomingBookings" : "pastBookings"
   table.innerHTML = "";
   bookingsObject[bookings].forEach(booking => {
-    table.innerHTML += `<tr>
+    table.innerHTML += `
+      <tr>
         <td>${booking.date}</td>
         <td>${booking.roomNumber}</td>
         <td>${booking.numBeds} / ${booking.bedSize}</td>
@@ -249,13 +265,14 @@ function renderAvailableRooms(date) {
   let availRooms = bookingList.getAvailableRooms(date);
   availRoomsTable.innerHTML = "";
   availRooms.forEach(room => {
-    availRoomsTable.innerHTML += `<tr data-room-num=${room.number}>
-      <td>${room.number}</td>
-      <td>${room.numBeds} / ${room.bedSize}</td>
-      <td>${room.hasBidet ? "yes" : "no"}</td>
-      <td>${room.roomType}</td>
-      <td>${room.costPerNight}</td>
-      </tr>`
+    availRoomsTable.innerHTML += `
+      <tr data-room-num=${room.number}>
+        <td>${room.number}</td>
+        <td>${room.numBeds} / ${room.bedSize}</td>
+        <td>${room.hasBidet ? "yes" : "no"}</td>
+        <td>${room.roomType}</td>
+        <td>${room.costPerNight}</td>
+      </tr>`;
   });
 };
 
@@ -267,4 +284,30 @@ function deactivateRoomNodes() {
 
 function activateSelectedNode(element) {
   element.classList = "active";
+};
+
+function renderDetails() {
+  let selectedRoom = bookingList.getRoomByNumber(newBooking.roomNumber);
+  detailsList.innerHTML = "";
+  detailsList.innerHTML = `
+    <li class="details-li">${guest.name}</li>
+    <li class="details-li">date: ${newBooking.date}</li>
+    <li class="details-li">room details:</li>
+    <ul class="room-details-ul">
+      <li class="details-li">room number: ${newBooking.roomNumber}</li>
+      <li class="details-li">number of beds: ${selectedRoom.numBeds}</li>
+      <li class="details-li">bed size: ${selectedRoom.bedSize}</li>
+      <li class="details-li">has bidet: ${selectedRoom.hasBidet ? "yes" : "no"}</li>
+      <li class="details-li">${selectedRoom.roomType}</li>
+    </ul>
+    <li class="details-li">total: $${selectedRoom.costPerNight}</li>`;
+};
+
+function renderConfirmation() {
+  successParent.innerHTML = "";
+  successParent.innerHTML = `
+  <h2>thank you ${guest.name}!</h2>
+  <p>your room is booked!</p>
+  <p>your confirmation code is:</p>
+  <div class="conf-code">${newBooking.id}</div>`;
 };

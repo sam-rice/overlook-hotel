@@ -95,8 +95,8 @@
       </div>
       <!-- booking parent starts here -->
       <div id="book-parent" class="accordion-parent hide">
-        <button id="date-acc-button"
-          class="accordion-button book-accordion-buttons accordion-button-collapsed accordion-button-open">when?</button>
+        <div id="date-acc-header"
+          class="accordion-button accordion-header-collapsed accordion-header-open"><h2>CHOOSE DATE</h2></div>
         <section id="date-grandparent" class="date-grandparent show">
           <div class="date-parent">
             <label for="date-input">choose date:</label>
@@ -105,8 +105,7 @@
           <button id="submit-date" class="book-button submit-button">next</button>
           <p id="date-error" class="date-error"></p>
         </section>
-        <button id="room-acc-button" class="accordion-button book-accordion-buttons accordion-button-collapsed">which
-          room?</button>
+        <div id="room-acc-header" class="accordion-button accordion-header-collapsed"><h2>CHOOSE ROOM</h2></div>
         <section id="room-grandparent" class="room-grandparent">
           <p>rooms available:</p>
           <div class="rooms-parent">
@@ -127,22 +126,13 @@
           <button id="submit-room" class="book-button submit-button">next</button>
           <p id="room-error" class="room-error"></p>
         </section>
-        <button id="confirm-acc-button"
-          class="accordion-button book-accordion-buttons accordion-button-collapsed">confirm</button>
+        <div id="confirm-acc-header"
+          class="accordion-button accordion-header-collapsed"><h2>CONFIRM</h2></div>
         <section id="confirm-grandparent" class="confirm-grandparent">
           <div class="confirm-details">
             <h2>please review your selections:</h2>
-            <ul>
-              <li class="details-li">Sam Rice</li>
-              <li class="details-li">date: 11/24/22</li>
-              <li class="details-li">room details:</li>
-              <ul class="room-details-ul">
-                <li class="details-li">room number: </li>
-                <li class="details-li">number of beds: </li>
-                <li class="details-li">bed size: </li>
-                <li class="details-li">residential suite</li>
-              </ul>
-              <li class="details-li">total: $500.65</li>
+            <ul id="details-list">
+              <!-- confirmation details go here -->
             </ul>
           </div>
           <button id="edit-details" class="book-button submit-button edit-details-button">edit details</button>
@@ -150,10 +140,11 @@
           <button id="confirm-details" class="book-button submit-button">submit</button>
         </section>
       </div>
-      <section id="success-parent" class="success-parent hide">
-        <h2>thank you Sam!</h2>
-        <p>your room is booked!</p>
-        <p>your confirmation code is: 38430983470</p>
+      <section id="success-grandparent" class="success-grandparent hide">
+        <div id="success-parent">
+          <!-- confirmation goes here -->
+        </div>
+        <button id="home-button" class="book-button submit-button edit-details-button">home</button>
       </section>
     </section>
 

@@ -161,11 +161,11 @@ h4 {
 .accordion-parent {
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 100%;
 }
 
 .accordion-banner-parent {
-  margin-top: 20px;
+  margin: 20px 20px 0px 20px;
 }
 
 .hotel-copy-parent {
@@ -194,7 +194,14 @@ h4 {
 }
 
 .accordion-button {
-  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 400;
+  font-size: 10px;
+  background-color: #f5f0ef;
+  border: 1px solid #d7d1d0;
+  height: 20px;
 }
 
 .accordion-button-collapsed::after {
@@ -238,6 +245,24 @@ td {
   font-weight: 500;
   letter-spacing: 1px;
   height: 19px;
+}
+
+.accordion-header-collapsed {
+  display: flex;
+  align-items: center;
+  padding-left: 6px;
+}
+
+.accordion-header-collapsed>h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  letter-spacing: 2px;
+  font-size: 10px;
+  margin: 0px;
+}
+
+.accordion-header-open {
+
 }
 
 .date-grandparent {
@@ -322,8 +347,23 @@ td {
   height: 14px;
 }
 
-.success-parent {
-  height: 290px;
+.success-grandparent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  height: 200px;
+}
+
+.conf-code {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f0ef;
+  width: 60%;
+  height: 21px;
+  margin: 0% 20%;
+  padding-top: 1px;
 }
 
 /* ---------------------ACC: ABOUT--------------------- */

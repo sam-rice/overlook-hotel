@@ -26,6 +26,11 @@ class BookingList {
       return this.rooms.find(room => room.number === num);
     });
   };
+
+  getRoomByNumber(num) {
+    return this.rooms.find(room => room.number == num);
+  };
+
 };
 
 export default BookingList;
