@@ -107,6 +107,7 @@ submitDateButton.addEventListener("click", () => {
   let selectedDate = document.getElementById("date-input").value;
   if (new Date(selectedDate) > Date.now()) {
     newBooking["date"] = selectedDate;
+    renderAvailableRooms(selectedDate);
     toggleAccordion(dateGrandparent, dateAccButton);
     toggleAccordion(roomGrandparent, roomAccButton);
     dateError.innerText = "";
@@ -210,3 +211,7 @@ function renderBookingsTable(bookingsObject, table, isFuture) {
 function toggleHidden(element) {
   element.classList.toggle("hide");
 };
+
+function renderAvailableRooms(date) {
+  //start here
+}
