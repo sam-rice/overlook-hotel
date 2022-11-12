@@ -22,7 +22,9 @@ let allRooms;
 let bookingList;
 let guestList;
 let guest;
+
 let newBooking;
+let selectedRoom = null;
 
 function fetchData(urls) {
   Promise.all([getData(urls[0]), getData(urls[1]), getData(urls[2])])
@@ -51,7 +53,6 @@ const bookButtonHeader = document.getElementById("book-button-header");
 const dashParent = document.getElementById("dash-parent");
 const bookParent = document.getElementById("book-parent");
 const bookButtonAcc = document.getElementById("book-button-accordion");
-// const bookParent = document.getElementById("book-parent");
 const aboutButton = document.getElementById("about-button");
 const aboutParent = document.getElementById("about-parent");
 const guestNameDash = document.getElementById("dash-guest-name");
@@ -65,10 +66,13 @@ const submitDateButton = document.getElementById("submit-date");
 const dateError = document.getElementById("date-error");
 const roomAccButton = document.getElementById("room-acc-button");
 const roomGrandparent = document.getElementById("room-grandparent");
+const availRoomsTable = document.getElementById("avail-rooms-table");
 const submitRoomButton = document.getElementById("submit-room");
+const roomError = document.getElementById("room-error");
 const confirmAccButton = document.getElementById("confirm-acc-button");
 const confirmGrandparent = document.getElementById("confirm-grandparent");
 const confirmButton = document.getElementById("confirm-details");
+const successParent = document.getElementById("success-parent");
 
 
 //----------------------EVENT LISTENERS----------------------//
@@ -83,7 +87,10 @@ profileButton.addEventListener("click", () => {
 });
 
 bookButtonHeader.addEventListener("click", () => {
-  if (bookParent.classList.contains("hide")) {
+  if (!successParent.classList.contains("hide")) {
+    toggleHidden(dashParent);
+    toggleHidden(successParent);
+  } else if (bookParent.classList.contains("hide")) {
     toggleHidden(dashParent);
     toggleHidden(bookParent);
   }
@@ -91,6 +98,8 @@ bookButtonHeader.addEventListener("click", () => {
 });
 
 bookButtonAcc.addEventListener("click", () => {
+  dateError.innerText = "";
+  roomError.innerText = "";
   toggleHidden(dashParent);
   toggleHidden(bookParent);
   bookParent.scrollIntoView( {behavior: "smooth"} );
@@ -106,14 +115,14 @@ dateAccButton.addEventListener("click", () => toggleAccordion(dateGrandparent, d
 submitDateButton.addEventListener("click", () => {
   let selectedDate = document.getElementById("date-input").value;
   if (new Date(selectedDate) > Date.now()) {
-    newBooking["date"] = selectedDate;
+    initNewBooking(selectedDate);
     renderAvailableRooms(selectedDate);
     toggleAccordion(dateGrandparent, dateAccButton);
     toggleAccordion(roomGrandparent, roomAccButton);
     dateError.innerText = "";
     console.log(newBooking)
   } else {
-    dateError.innerText = "please select a valid date";
+    dateError.innerText = "* please select a valid date";
   }
 }); 
 
@@ -121,17 +130,37 @@ roomAccButton.addEventListener("click", () => {
   toggleAccordion(roomGrandparent, roomAccButton);
 });
 
+availRoomsTable.addEventListener("click", (e) => {
+  selectedRoom = e.target.parentNode.dataset.roomNum;
+  deactivateRoomNodes();
+  activateSelectedNode(e.target.parentNode);
+})
+
 submitRoomButton.addEventListener("click", () => {
-  toggleAccordion(roomGrandparent, roomAccButton);
-  toggleAccordion(confirmGrandparent, confirmAccButton);
+  if (selectedRoom) {
+    newBooking["roomNumber"] = selectedRoom;
+    console.log(newBooking)
+    toggleAccordion(roomGrandparent, roomAccButton);
+    toggleAccordion(confirmGrandparent, confirmAccButton);
+  } else {
+    roomError.innerText = "* please select a room";
+  }
+
 });
 
 confirmAccButton.addEventListener("click", () => toggleAccordion(confirmGrandparent, confirmAccButton));
 
 confirmButton.addEventListener("click", () => {
-  toggleHidden(dashParent);
-  toggleHidden(bookParent);
 
+  newBooking["id"] = Date.now();
+  console.log(newBooking)
+  //fetch POST here
+  selectedRoom = null;
+  newBooking = null;
+  toggleAccordion(dateGrandparent, dateAccButton);
+  toggleAccordion(confirmGrandparent, confirmAccButton);
+  toggleHidden(bookParent);
+  toggleHidden(successParent);
 });
 
 //----------------------EVENT HANDLERS----------------------//
@@ -148,7 +177,6 @@ function initPage() {
   initGuestList();
   initGuest();
   renderGuestDash();
-  initNewBooking();
   console.log(bookingList, guest);
 };
 
@@ -164,9 +192,10 @@ function initGuest() {
   guest = guestList.guests[getRandomArrayIndex(guestList.guests)];
 };
 
-function initNewBooking() {
+function initNewBooking(date) {
   newBooking = {
     userID: guest.id,
+    date: date
   }
 }
 
@@ -213,5 +242,25 @@ function toggleHidden(element) {
 };
 
 function renderAvailableRooms(date) {
-  //start here
-}
+  let availRooms = bookingList.getAvailableRooms(date);
+  availRoomsTable.innerHTML = "";
+  availRooms.forEach(room => {
+    availRoomsTable.innerHTML += `<tr data-room-num=${room.number}>
+      <td>${room.number}</td>
+      <td>${room.numBeds} / ${room.bedSize}</td>
+      <td>${room.hasBidet ? "yes" : "no"}</td>
+      <td>${room.roomType}</td>
+      <td>${room.costPerNight}</td>
+      </tr>`
+  });
+};
+
+function deactivateRoomNodes() {
+  document.querySelectorAll("tr").forEach(node => {
+    node.classList.remove("active");
+  });
+};
+
+function activateSelectedNode(element) {
+  element.classList = "active";
+};

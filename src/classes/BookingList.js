@@ -15,6 +15,17 @@ class BookingList {
     return allRoomsData.map(roomObject => new Room(roomObject));
   };
 
+  getAvailableRooms(date) {
+    let roomNums = this.rooms.map(room => room.number);
+    this.bookings.forEach(booking => {
+      if (booking.date === date) {
+        roomNums.splice(roomNums.indexOf(booking.roomNumber), 1);
+      };
+    });
+    return roomNums.map(num => {
+      return this.rooms.find(room => room.number === num);
+    });
+  };
 };
 
 export default BookingList;

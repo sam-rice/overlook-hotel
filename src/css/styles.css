@@ -254,13 +254,14 @@ td {
 }
 
 .submit-button {
-  height: 16px;
-  width: 44px;
-  font-size: 7px;
+  height: 18px;
+  width: 52px;
+  font-size: 8px;
   letter-spacing: 1px;
 }
 
-.date-error {
+.date-error,
+.room-error {
   margin-top: -20px;
   color: #e72600;
 }
@@ -279,9 +280,50 @@ td {
   height: 150px;
 }
 
+.rooms-table {
+  border-collapse: collapse;
+}
+
+.active {
+  background-color: red;
+}
+
+
 .confirm-grandparent {
-  height: 175px;
+  height: 290px;
   display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.confirm-details {
+  width: 81%;
+  display: flex;
+  flex-direction: column;
+}
+
+.details-li {
+  list-style: none;
+}
+
+.room-details-ul {
+  display: flex;
+  justify-content: space-between;
+  background-color: #507caeab;
+  padding: 17px;
+  margin: 3px;
+  
+}
+
+.edit-details-button {
+  width: 62px;
+  font-size: 6px;
+  height: 14px;
+}
+
+.success-parent {
+  height: 290px;
 }
 
 /* ---------------------ACC: ABOUT--------------------- */
