@@ -1,12 +1,10 @@
 import "./css/styles.css";
-// import "./images/bachman-cropped.jpg";
 import "./images/metrograph-interior.jpg";
 import "./images/imperial-bedroom-left.jpg";
 import BookingList from "../src/classes/BookingList";
 import Manager from "../src/classes/Manager";
 import {getData, postData} from "./api-calls";
 import GuestList from "./classes/GuestList";
-import { HotUpdateChunk } from "webpack";
 
 //----------------------UTILITY DATA----------------------//
 
@@ -160,22 +158,22 @@ editDetailsButton.addEventListener("click", () => {
   toggleBookingAccordion(dateGrandparent);
 })
 
-// confirmButton.addEventListener("click", () => {
-//   postData(newBooking, allBookingsURL)
-//     .then(response => response.json())
-//     .then(response => confirmedBookingId = response.newBooking.id)
-//     .then(() => getData(allBookingsURL))
-//     .then(data => {
-//       updateBookings(data.bookings);
-//       renderConfirmation();
-//       renderGuestDash();
-//       clearBookingMemory();
-//       toggleBookingAccordion(dateGrandparent);
-//       toggleBookingAccordion(confirmGrandparent);
-//       toggleHidden(bookParent);
-//       toggleHidden(successGrandparent);
-//     })
-// });
+confirmButton.addEventListener("click", () => {
+  postData(newBooking, allBookingsURL)
+    .then(response => response.json())
+    .then(response => confirmedBookingId = response.newBooking.id)
+    .then(() => getData(allBookingsURL))
+    .then(data => {
+      updateBookings(data.bookings);
+      renderConfirmation();
+      renderGuestDash();
+      clearBookingMemory();
+      toggleBookingAccordion(dateGrandparent);
+      toggleBookingAccordion(confirmGrandparent);
+      toggleHidden(bookParent);
+      toggleHidden(successGrandparent);
+    })
+});
 
 homeButton.addEventListener("click", () => {
   toggleHidden(successGrandparent);
@@ -218,17 +216,17 @@ function initNewBooking(date) {
   }
 }
 
-// function updateBookings(newData) {
-//   allBookingsData = newData;
-//   bookingList.bookings = bookingList.initBookings(allBookingsData);
-// }
+function updateBookings(newData) {
+  allBookingsData = newData;
+  bookingList.bookings = bookingList.initBookings(allBookingsData);
+}
 
-// function clearBookingMemory() {
-//   selectedRoom = null;
-//   newBooking = null;
-//   confirmedBookingId = null;
-//   dateInput.value = "";
-// }
+function clearBookingMemory() {
+  selectedRoom = null;
+  newBooking = null;
+  confirmedBookingId = null;
+  dateInput.value = "";
+}
 
 //----------------------UTILITY FUNCTIONS----------------------//
 
