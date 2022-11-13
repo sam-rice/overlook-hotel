@@ -69,6 +69,8 @@ const dateError = document.getElementById("date-error");
 // const roomAccHeader = document.getElementById("room-acc-header");
 const roomGrandparent = document.getElementById("room-grandparent");
 const availRoomsTable = document.getElementById("avail-rooms-table");
+const roomsFilter = document.getElementById("rooms-filter");
+const clearButton = document.getElementById("clear-filter");
 const submitRoomButton = document.getElementById("submit-room");
 const roomError = document.getElementById("room-error");
 // const confirmAccHeader = document.getElementById("confirm-acc-header");
@@ -123,7 +125,7 @@ submitDateButton.addEventListener("click", () => {
     return;
   } else if (new Date(selectedDate) > Date.now()) {
     initNewBooking(selectedDate);
-    renderAvailableRooms(selectedDate);
+    renderAvailableRooms(bookingList.getAvailableRooms(selectedDate));
     toggleBookingAccordion(dateGrandparent);
     toggleBookingAccordion(roomGrandparent);
     dateError.innerText = "";
@@ -137,6 +139,18 @@ availRoomsTable.addEventListener("click", (e) => {
   selectedRoom = Number(e.target.parentNode.dataset.roomNum);
   deactivateRoomNodes();
   activateSelectedNode(e.target.parentNode);
+});
+
+roomsFilter.addEventListener("change", () => {
+  if (roomsFilter.value === "") { return }
+  renderAvailableRooms(bookingList.getfilteredRooms(dateInput.value, roomsFilter.value));
+  clearButton.removeAttribute("disabled");
+});
+
+clearButton.addEventListener("click", () => {
+  renderAvailableRooms(bookingList.getAvailableRooms(dateInput.value));
+  clearButton.setAttribute("disabled", "");
+  roomsFilter.value = "";
 });
 
 backToCalButton.addEventListener("click", () => {
@@ -279,8 +293,7 @@ function toggleHidden(element) {
   element.classList.toggle("hide");
 };
 
-function renderAvailableRooms(date) {
-  let availRooms = bookingList.getAvailableRooms(date);
+function renderAvailableRooms(availRooms) {
   availRoomsTable.innerHTML = "";
   availRooms.forEach(room => {
     availRoomsTable.innerHTML += `
