@@ -136,6 +136,12 @@ td {
   justify-content: space-evenly;
 }
 
+.login-input {
+  height: 10px;
+  font-size: 10px;
+  width: 110px;
+}
+
 .login-button {
   margin: 23px;
   width: 60px;
