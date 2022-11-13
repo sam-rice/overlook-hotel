@@ -48,6 +48,13 @@ function fetchData(urls) {
 //----------------------QUERY SELECTORS----------------------//
 
 const logo = document.getElementById("logo");
+const userLoginGrandparent = document.getElementById("user-login-grandparent");
+const loginButton = document.getElementById("login-button");
+const usernameInput = document.getElementById("username");
+const passwordInput = document.getElementById("password");
+const loginError = document.getElementById("login-error")
+const bannerParent = document.getElementById("banner-parent");
+const accordionGrandparent = document.getElementById("accordion-grandparent");
 const profileButton = document.getElementById("profile-button");
 const profileParent = document.getElementById("profile-parent");
 const bookButtonHeader = document.getElementById("book-button-header");
@@ -68,7 +75,7 @@ const backToCalButton = document.getElementById("back-to-cal");
 const submitDateButton = document.getElementById("submit-date");
 const dateError = document.getElementById("date-error");
 // const roomAccHeader = document.getElementById("room-acc-header");
-const roomGrandparent = document.getElementById("room-grandparent");
+const roomsGrandparent = document.getElementById("rooms-grandparent");
 const availRoomsTable = document.getElementById("avail-rooms-table");
 const roomsFilter = document.getElementById("rooms-filter");
 const clearButton = document.getElementById("clear-filter");
@@ -91,6 +98,33 @@ window.addEventListener("load", () => {
 });
 
 logo.addEventListener("click", () => location.reload());
+
+passwordInput.addEventListener("keypress", e => {
+  if (e.key === "Enter") {
+    // console.log("works")
+    // submit handler here
+  }
+})
+
+loginButton.addEventListener("click", () => {
+  let username = usernameInput.value;
+  let password = passwordInput.value;
+
+  if (username === "manager") {
+    console.log("login manager method instead")
+  }
+
+  let user = guestList.checkUserCredentials(username, password);
+
+  if (user) {
+    guest = user;
+    renderGuestDash();
+    displayGuestDash();
+  } else {
+    displayInvalidLogin();
+  }
+
+});
 
 profileButton.addEventListener("click", () => {
   toggleAccordion(profileParent, profileButton);
@@ -136,7 +170,7 @@ submitDateButton.addEventListener("click", () => {
     initNewBooking(selectedDate);
     renderAvailableRooms(bookingList.getAvailableRooms(selectedDate));
     toggleBookingAccordion(dateGrandparent);
-    toggleBookingAccordion(roomGrandparent);
+    toggleBookingAccordion(roomsGrandparent);
     dateError.innerText = "";
     console.log(newBooking)
   } else {
@@ -144,15 +178,15 @@ submitDateButton.addEventListener("click", () => {
   }
 });
 
-availRoomsTable.addEventListener("click", (e) => {
+availRoomsTable.addEventListener("click", e => {
   if (e.target.parentNode.nodeName === "TBODY") { return }
   selectedRoom = Number(e.target.parentNode.dataset.roomNum);
   deactivateRoomNodes();
   activateSelectedNode(e.target.parentNode);
 });
 
-availRoomsTable.addEventListener('keypress', event => {
-  if (event.key === "Enter") {
+availRoomsTable.addEventListener('keypress', e => {
+  if (e.key === "Enter") {
     selectedRoom = Number(document.activeElement.dataset.roomNum);
     deactivateRoomNodes();
     activateSelectedNode(document.activeElement);
@@ -172,7 +206,7 @@ clearButton.addEventListener("click", () => {
 });
 
 backToCalButton.addEventListener("click", () => {
-  toggleBookingAccordion(roomGrandparent);
+  toggleBookingAccordion(roomsGrandparent);
   toggleBookingAccordion(dateGrandparent);
 });
 
@@ -181,7 +215,7 @@ submitRoomButton.addEventListener("click", () => {
     newBooking["roomNumber"] = selectedRoom;
     console.log(newBooking);
     renderDetails();
-    toggleBookingAccordion(roomGrandparent);
+    toggleBookingAccordion(roomsGrandparent);
     toggleBookingAccordion(confirmGrandparent);
   } else {
     roomError.innerText = "* please select a room";
@@ -228,9 +262,7 @@ homeButton.addEventListener("click", () => {
 function initPage() {
   initBookingList();
   initGuestList();
-  initGuest();
-  renderGuestDash();
-  console.log(bookingList, guest);
+  console.log(guestList)
 };
 
 function initBookingList() {
@@ -239,10 +271,6 @@ function initBookingList() {
 
 function initGuestList() {
   guestList = new GuestList(allGuestsData);
-};
-
-function initGuest() {
-  guest = guestList.guests[getRandomArrayIndex(guestList.guests)];
 };
 
 function initNewBooking(date) {
@@ -265,13 +293,6 @@ function clearBookingMemory() {
   dateError.innerText = "";
   roomError.innerText = "";
 }
-
-//----------------------UTILITY FUNCTIONS----------------------//
-
-//remove after login page added
-function getRandomArrayIndex(array) {
-  return Math.floor(Math.random() * array.length);
-};
 
 //----------------------DOM UPDATING----------------------//
 
@@ -372,4 +393,15 @@ function toggleAriaExpanded(element) {
   } else {
     element.setAttribute("aria-expanded", "true");
   };
+};
+
+function displayInvalidLogin() {
+  loginError.innerText = "* invalid username or password";
+};
+
+function displayGuestDash() {
+  toggleHidden(userLoginGrandparent);
+  toggleHidden(bookButtonHeader);
+  toggleHidden(bannerParent);
+  toggleHidden(accordionGrandparent);
 };
