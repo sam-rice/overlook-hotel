@@ -398,7 +398,6 @@ select:focus {
 
 .active {
   background-color: #cbdded;
-  /* border: 1px solid #2c4c8680; */
 }
 
 .avail-room-tr:hover {
@@ -483,25 +482,6 @@ select:focus {
   display: none;
   flex-direction: column;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* KEEP AT BOTTOM */
 
