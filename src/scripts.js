@@ -3,7 +3,7 @@ import "./images/metrograph-interior.jpg";
 import "./images/imperial-bedroom-left.jpg";
 import BookingList from "../src/classes/BookingList";
 import Manager from "../src/classes/Manager";
-import {getData, postData} from "./api-calls";
+import { getData, postData } from "./api-calls";
 import GuestList from "./classes/GuestList";
 
 //----------------------UTILITY DATA----------------------//
@@ -34,15 +34,15 @@ function fetchData(urls) {
       allRooms = data[2].rooms;
       initPage();
     })
-    // .catch(error => {
-    //   if (error instanceof TypeError) {
-    //     alert("Looks like we're having problems. Please try again later.");
-    //   } else if (error instanceof ReferenceError) {
-    //     alert("Looks like something broke on our end. Please try again later.");
-    //   } else {
-    //     alert("An error occured. Please try again later.");
-    //   }
-    // });
+  // .catch(error => {
+  //   if (error instanceof TypeError) {
+  //     alert("Looks like we're having problems. Please try again later.");
+  //   } else if (error instanceof ReferenceError) {
+  //     alert("Looks like something broke on our end. Please try again later.");
+  //   } else {
+  //     alert("An error occured. Please try again later.");
+  //   }
+  // });
 };
 
 //----------------------QUERY SELECTORS----------------------//
@@ -69,6 +69,8 @@ const dateError = document.getElementById("date-error");
 // const roomAccHeader = document.getElementById("room-acc-header");
 const roomGrandparent = document.getElementById("room-grandparent");
 const availRoomsTable = document.getElementById("avail-rooms-table");
+const roomsFilter = document.getElementById("rooms-filter");
+const clearButton = document.getElementById("clear-filter");
 const submitRoomButton = document.getElementById("submit-room");
 const roomError = document.getElementById("room-error");
 // const confirmAccHeader = document.getElementById("confirm-acc-header");
@@ -89,7 +91,7 @@ window.addEventListener("load", () => {
 
 profileButton.addEventListener("click", () => {
   toggleAccordion(profileParent, profileButton);
-  profileParent.scrollIntoView( {behavior: "smooth"} );
+  profileParent.scrollIntoView({ behavior: "smooth" });
 });
 
 bookButtonHeader.addEventListener("click", () => {
@@ -100,7 +102,7 @@ bookButtonHeader.addEventListener("click", () => {
     toggleHidden(dashParent);
     toggleHidden(bookParent);
   }
-  bookParent.scrollIntoView( {behavior: "smooth"} );
+  bookParent.scrollIntoView({ behavior: "smooth" });
 });
 
 bookButtonAcc.addEventListener("click", () => {
@@ -108,19 +110,22 @@ bookButtonAcc.addEventListener("click", () => {
   roomError.innerText = "";
   toggleHidden(dashParent);
   toggleHidden(bookParent);
-  bookParent.scrollIntoView( {behavior: "smooth"} );
+  bookParent.scrollIntoView({ behavior: "smooth" });
 });
 
 aboutButton.addEventListener("click", () => {
   toggleAccordion(aboutParent, aboutButton);
-  aboutParent.scrollIntoView( {behavior: "smooth"} );
+  aboutParent.scrollIntoView({ behavior: "smooth" });
 });
 
 submitDateButton.addEventListener("click", () => {
   let selectedDate = dateInput.value;
-  if (new Date(selectedDate) > Date.now()) {
+  if (!bookingList.getAvailableRooms(selectedDate).length) {
+    dateError.innerText = "we're sorry! there are no available rooms for your selected date.";
+    return;
+  } else if (new Date(selectedDate) > Date.now()) {
     initNewBooking(selectedDate);
-    renderAvailableRooms(selectedDate);
+    renderAvailableRooms(bookingList.getAvailableRooms(selectedDate));
     toggleBookingAccordion(dateGrandparent);
     toggleBookingAccordion(roomGrandparent);
     dateError.innerText = "";
@@ -128,12 +133,24 @@ submitDateButton.addEventListener("click", () => {
   } else {
     dateError.innerText = "* please select a valid date";
   }
-}); 
+});
 
 availRoomsTable.addEventListener("click", (e) => {
   selectedRoom = Number(e.target.parentNode.dataset.roomNum);
   deactivateRoomNodes();
   activateSelectedNode(e.target.parentNode);
+});
+
+roomsFilter.addEventListener("change", () => {
+  if (roomsFilter.value === "") { return }
+  renderAvailableRooms(bookingList.getfilteredRooms(dateInput.value, roomsFilter.value));
+  clearButton.removeAttribute("disabled");
+});
+
+clearButton.addEventListener("click", () => {
+  renderAvailableRooms(bookingList.getAvailableRooms(dateInput.value));
+  clearButton.setAttribute("disabled", "");
+  roomsFilter.value = "";
 });
 
 backToCalButton.addEventListener("click", () => {
@@ -150,13 +167,13 @@ submitRoomButton.addEventListener("click", () => {
     toggleBookingAccordion(confirmGrandparent);
   } else {
     roomError.innerText = "* please select a room";
-  }
+  };
 });
 
 editDetailsButton.addEventListener("click", () => {
   toggleBookingAccordion(confirmGrandparent);
   toggleBookingAccordion(dateGrandparent);
-})
+});
 
 confirmButton.addEventListener("click", () => {
   postData(newBooking, allBookingsURL)
@@ -276,8 +293,7 @@ function toggleHidden(element) {
   element.classList.toggle("hide");
 };
 
-function renderAvailableRooms(date) {
-  let availRooms = bookingList.getAvailableRooms(date);
+function renderAvailableRooms(availRooms) {
   availRoomsTable.innerHTML = "";
   availRooms.forEach(room => {
     availRoomsTable.innerHTML += `

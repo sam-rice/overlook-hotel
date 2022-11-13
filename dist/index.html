@@ -109,6 +109,17 @@
         <div id="room-acc-header" class="accordion-button accordion-header-collapsed"><h2>CHOOSE ROOM</h2></div>
         <section id="room-grandparent" class="room-grandparent">
           <p>rooms available:</p>
+          <div class="select-parent">
+            <label class="filter-label" for="rooms-filter">filter by room type:</label>
+            <select name="rooms-filter" id="rooms-filter">
+              <option value=""></option>
+              <option value="single room">single room</option>
+              <option value="suite">suite</option>
+              <option value="junior suite">junior suite</option>
+              <option value="residential suite">residential suite</option>
+          </select>
+          <button id="clear-filter" class="clear-filter" disabled>clear</button>
+          </div>
           <div class="rooms-parent">
             <div class="rooms-table-parent">
               <table class="rooms-table">
@@ -148,10 +159,6 @@
         <button id="home-button" class="book-button submit-button edit-details-button">home</button>
       </section>
     </section>
-
-
-
-
   </main>
   <script src="bundle.js"></script>
 </body>

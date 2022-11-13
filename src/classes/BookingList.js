@@ -31,6 +31,10 @@ class BookingList {
     return this.rooms.find(room => room.number == num);
   };
 
+  getfilteredRooms(date, option) {
+    let availRooms = this.getAvailableRooms(date);
+    return availRooms.filter(room => room.roomType === option);
+  };
 };
 
 export default BookingList;

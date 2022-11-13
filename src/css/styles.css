@@ -306,6 +306,41 @@ td {
   height: 150px;
 }
 
+.select-parent {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.filter-label {
+  margin-right: 10px;
+}
+
+.clear-filter {
+  font-weight: 400;
+  letter-spacing: 1px;
+  font-size: 7px;
+  height: 15px;
+  border: none;
+  margin-left: 5px;
+  padding: 3px;
+}
+
+select {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    letter-spacing: 2px;
+    outline: 0;
+    background-image: none;
+    width: 20%;
+    height: 15px;
+    color: black;
+    cursor: pointer;
+    font-size: 8px;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+
 .rooms-table {
   border-collapse: collapse;
 }
@@ -313,7 +348,6 @@ td {
 .active {
   background-color: red;
 }
-
 
 .confirm-grandparent {
   height: 290px;
