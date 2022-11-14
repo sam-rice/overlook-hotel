@@ -17,18 +17,20 @@
     <div class="header-left">
       <!-- logo image -->
       <p id="logo" class="logo" aria-label="go to home page" tabindex="0">OH</p>
-      <p class="header-subtext">SEATTLE, WA</p>
+      <p id="header-subtext-guest" class="header-subtext">SEATTLE, WA</p>
+      <h1 id="header-subtext-admin" class="header-subtext hide">admin</h1>
     </div>
     <div class="header-right">
       <button id="book-button-header" class="book-button hide" aria-expanded="false" aria-controls="book-parent">BOOK</button>
+      <button id="sign-out-button" class="book-button hide">SIGN OUT</button>
     </div>
   </header>
   <main>
-    <section id="user-login-grandparent" class="user-login-grandparent">
+    <section id="user-login-view" class="user-login-view hide">
       <div class="user-login-parent">
-        <p>welcome</p>
+        <p>Overlook Hotel</p>
         <div class="login-input-grandparent">
-          <p>login:</p>
+          <p>sign in:</p>
           <div class="login-input-parent">
             <label for="username">username:</label>
             <input id="username" class="login-input" type="text">
@@ -41,6 +43,22 @@
 
       </div>
     </section>
+    <section id="admin-view" class="admin-view">
+      <div class="admin-parent">
+        <div class="admin-header">
+          <h2 class="admin-header-text">TODAY'S VACANCY/EARNINGS</h2>
+        </div>
+        <div class="daily-report-parent">
+          
+        </div>
+        <div class="admin-header">
+          <h2 class="admin-header-text">GUEST LOOKUP</h2>
+        </div>
+        <div class="lookup-parent">
+
+        </div>
+      </div>
+    </section>
     <div id="banner-parent" class="banner-parent hide">
       <div class="image-parent-left">
         <img class="banner-image" src="./images/metrograph-interior.jpg" alt="in-house bar/restaurant">
@@ -51,7 +69,7 @@
       <h1>Overlook Hotel</h1>
       <p class="copy-oneline">Lorem ipsum dolor sit amet.</p>
     </div>
-    <section id="accordion-grandparent" class="accordion-grandparent hide">
+    <section id="user-tools-view" class="user-tools-view hide">
       <div id="dash-parent" class="accordion-parent">
         <section class="accordion-banner-parent">
           <div class="hotel-copy-parent">

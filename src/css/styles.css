@@ -97,9 +97,9 @@ td {
   padding: 15px;
 }
 
-/* ---------------------USER LOGIN PAGE--------------------- */
+/* ---------------------USER LOGIN VIEW--------------------- */
 
-.user-login-grandparent {
+.user-login-view {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -155,7 +155,48 @@ td {
   height: 9px;
 }
 
+/* ---------------------ADMIN VIEW--------------------- */
 
+.admin-view {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 460px;
+  width: 92%;
+}
+
+.admin-parent {
+  height: 421px;
+  width: 95%;
+  background-color: rgba(245, 245, 245, 0.501);
+  border: 1px solid black;
+}
+
+.admin-header-text {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: .8em;
+  margin: 3px 5px;
+}
+
+.admin-header {
+  width: 100%;
+  height: 3%;
+  font-size: .8em;
+  border-bottom: 1px solid black;
+}
+
+.daily-report-parent {
+  background-color: rgba(0, 128, 0, 0.435);
+  height: 40%;
+}
+
+
+
+.lookup-parent {
+  background-color: rgba(255, 0, 0, 0.406);
+  height: 52%;
+}
 
 
 
@@ -288,9 +329,9 @@ h1 {
   top: 42%;
 }
 
-/* ---------------------ACCORDION BANNER--------------------- */
+/* ---------------------USER TOOLS VIEW--------------------- */
 
-.accordion-grandparent {
+.user-tools-view {
   display: flex;
   justify-content: center;
   position: absolute;
@@ -387,7 +428,14 @@ h1 {
   height: 138px;
 }
 
-/* ---------------------ACC: BOOK--------------------- */
+/* ---------------------ACC: ABOUT--------------------- */
+
+.about-parent {
+  display: none;
+  flex-direction: column;
+}
+
+/* ---------------------NEW BOOKING VIEW--------------------- */
 
 .book-grandparent {
   height: 380px;
@@ -577,12 +625,13 @@ select:focus {
   padding-top: 1px;
 }
 
-/* ---------------------ACC: ABOUT--------------------- */
 
-.about-parent {
-  display: none;
-  flex-direction: column;
-}
+
+
+
+
+
+
 
 /* KEEP AT BOTTOM */
 

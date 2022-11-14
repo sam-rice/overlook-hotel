@@ -21,6 +21,7 @@ let allRooms;
 let bookingList;
 let guestList;
 let guest;
+let manager;
 
 let newBooking;
 let selectedRoom;
@@ -48,13 +49,17 @@ function fetchData(urls) {
 //----------------------QUERY SELECTORS----------------------//
 
 const logo = document.getElementById("logo");
-const userLoginGrandparent = document.getElementById("user-login-grandparent");
+const userLoginView = document.getElementById("user-login-view");
 const loginButton = document.getElementById("login-button");
 const usernameInput = document.getElementById("username");
 const passwordInput = document.getElementById("password");
-const loginError = document.getElementById("login-error")
+const loginError = document.getElementById("login-error");
+const guestHeaderSub = document.getElementById("header-subtext-guest");
+const adminHeaderSub = document.getElementById("header-subtext-admin");
+const signOutButton = document.getElementById("sign-out-button");
+const adminView = document.getElementById("admin-view");
 const bannerParent = document.getElementById("banner-parent");
-const accordionGrandparent = document.getElementById("accordion-grandparent");
+const userToolsView = document.getElementById("user-tools-view");
 const profileButton = document.getElementById("profile-button");
 const profileParent = document.getElementById("profile-parent");
 const bookButtonHeader = document.getElementById("book-button-header");
@@ -110,8 +115,9 @@ loginButton.addEventListener("click", () => {
   let username = usernameInput.value;
   let password = passwordInput.value;
 
-  if (username === "manager") {
-    console.log("login manager method instead")
+  if (username === "manager" && password === "overlook2021") {
+    renderAdminView();
+    displayAdminView();
   }
 
   let user = guestList.checkUserCredentials(username, password);
@@ -262,6 +268,7 @@ homeButton.addEventListener("click", () => {
 function initPage() {
   initBookingList();
   initGuestList();
+  initManager();
   console.log(guestList)
 };
 
@@ -272,6 +279,10 @@ function initBookingList() {
 function initGuestList() {
   guestList = new GuestList(allGuestsData);
 };
+
+function initManager() {
+  manager = new Manager(bookingList, guestList);
+}
 
 function initNewBooking(date) {
   newBooking = {
@@ -400,8 +411,21 @@ function displayInvalidLogin() {
 };
 
 function displayGuestDash() {
-  toggleHidden(userLoginGrandparent);
+  toggleHidden(userLoginView);
   toggleHidden(bookButtonHeader);
   toggleHidden(bannerParent);
-  toggleHidden(accordionGrandparent);
+  toggleHidden(userToolsView);
 };
+
+function renderAdminView() {
+
+};
+
+function displayAdminView() {
+  toggleHidden(guestHeaderSub);
+  toggleHidden(userLoginView);
+  toggleHidden(adminHeaderSub);
+  toggleHidden(signOutButton);
+  toggleHidden(adminView);
+};
+
