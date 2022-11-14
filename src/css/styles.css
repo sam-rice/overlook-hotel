@@ -195,7 +195,7 @@ td {
   border-bottom: 1px solid white;
 }
 
-.report-table-parent {
+.stats-table-parent {
   width: 30%;
   height: 50%;
 }
@@ -247,6 +247,7 @@ td {
   height: 10px;
   font-size: 10px;
   width: 120px;
+  margin-right: 5px;
 }
 
 .admin-button {

@@ -2,7 +2,7 @@ import "./css/styles.css";
 import "./images/metrograph-interior.jpg";
 import "./images/imperial-bedroom-left.jpg";
 import BookingList from "../src/classes/BookingList";
-import Manager from "../src/classes/Manager";
+// import Manager from "../src/classes/Manager";
 import { getData, postData } from "./api-calls";
 import GuestList from "./classes/GuestList";
 
@@ -21,7 +21,7 @@ let allRooms;
 let bookingList;
 let guestList;
 let guest;
-let manager;
+// let manager;
 
 let newBooking;
 let selectedRoom;
@@ -75,18 +75,15 @@ const totalSpentTag = document.getElementById("total-spent");
 const accordionWelcome = document.getElementById("accordion-welcome");
 const dateGrandparent = document.getElementById("date-grandparent");
 const dateInput = document.getElementById("date-input");
-// const dateAccHeader = document.getElementById("date-acc-header");
 const backToCalButton = document.getElementById("back-to-cal");
 const submitDateButton = document.getElementById("submit-date");
 const dateError = document.getElementById("date-error");
-// const roomAccHeader = document.getElementById("room-acc-header");
 const roomsGrandparent = document.getElementById("rooms-grandparent");
 const availRoomsTable = document.getElementById("avail-rooms-table");
 const roomsFilter = document.getElementById("rooms-filter");
 const clearButton = document.getElementById("clear-filter");
 const submitRoomButton = document.getElementById("submit-room");
 const roomError = document.getElementById("room-error");
-// const confirmAccHeader = document.getElementById("confirm-acc-header");
 const confirmGrandparent = document.getElementById("confirm-grandparent");
 const detailsList = document.getElementById("details-list");
 const editDetailsButton = document.getElementById("edit-details");
@@ -94,6 +91,11 @@ const confirmButton = document.getElementById("confirm-details");
 const successGrandparent = document.getElementById("success-grandparent");
 const successParent = document.getElementById("success-parent");
 const homeButton = document.getElementById("home-button");
+
+const statsDate = document.getElementById("stats-date");
+const statsTable = document.getElementById("stats-table-body");
+const adminDateInput = document.getElementById("admin-date-input");
+const adminRoomSearch = document.getElementById("admin-room-search");
 
 
 //----------------------EVENT LISTENERS----------------------//
@@ -201,7 +203,7 @@ availRoomsTable.addEventListener('keypress', e => {
 
 roomsFilter.addEventListener("change", () => {
   if (roomsFilter.value === "") { return }
-  renderAvailableRooms(bookingList.getfilteredRooms(dateInput.value, roomsFilter.value));
+  renderAvailableRooms(bookingList.getFilteredRooms(dateInput.value, roomsFilter.value));
   clearButton.removeAttribute("disabled");
 });
 
@@ -268,8 +270,17 @@ homeButton.addEventListener("click", () => {
 function initPage() {
   initBookingList();
   initGuestList();
-  initManager();
+  // initManager();
   console.log(guestList)
+
+
+
+  //remove remove remove
+  renderAdminView();
+
+
+
+
 };
 
 function initBookingList() {
@@ -280,9 +291,9 @@ function initGuestList() {
   guestList = new GuestList(allGuestsData);
 };
 
-function initManager() {
-  manager = new Manager(bookingList, guestList);
-}
+// function initManager() {
+//   manager = new Manager(bookingList, guestList);
+// }
 
 function initNewBooking(date) {
   newBooking = {
@@ -303,6 +314,19 @@ function clearBookingMemory() {
   dateInput.value = "";
   dateError.innerText = "";
   roomError.innerText = "";
+}
+
+//----------------------UTILITY FUNCTIONS----------------------//
+
+function getDOMDate() {
+  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  let date = new Date();
+  return `${monthNames[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+};
+
+function reformatCurrentDate() {
+  let currentDate = new Date();
+  return `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
 }
 
 //----------------------DOM UPDATING----------------------//
@@ -418,7 +442,8 @@ function displayGuestDash() {
 };
 
 function renderAdminView() {
-
+  renderDailyStats();
+  renderAvailableRoomsTable();
 };
 
 function displayAdminView() {
@@ -428,4 +453,44 @@ function displayAdminView() {
   toggleHidden(signOutButton);
   toggleHidden(adminView);
 };
+
+
+
+
+function renderDailyStats() {
+  statsDate.innerText = `${getDOMDate()}`;
+
+  let vacancyData = bookingList.getVacancyData(reformatCurrentDate());
+  statsTable.innerHTML = `
+    <tr class="admin-table-row">
+      <td>rooms available:</td>
+      <td>${vacancyData.vacant}</td>
+      <td>${vacancyData.percentVacant}%</td>
+    </tr>
+    <tr class="admin-table-row">
+      <td>rooms booked:</td>
+      <td>${vacancyData.booked}</td>
+      <td>${vacancyData.percentBooked}%</td>
+    </tr>
+    <tr class="admin-table-row">
+      <td>total revenue:</td>
+      <td colspan="2">$${bookingList.getTodaysRevenue()}</td>
+    </tr>`
+}
+
+const adminAvailRoomsTable = document.getElementById("admin-avail-rooms-table");
+
+function renderAvailableRoomsTable() {
+  adminAvailRoomsTable.innerHTML = "";
+  bookingList.getAvailableRooms(reformatCurrentDate()).forEach(room => {
+    adminAvailRoomsTable.innerHTML +=`
+      <tr class="admin-table-row" tabindex="0">
+        <td>${room.number}</td>
+        <td>${room.numBeds} / ${room.bedSize}</td>
+        <td>${room.hasBidet ? "yes" : "no"}</td>
+        <td>${room.roomType}</td>
+        <td>$${room.costPerNight.toFixed(2)}</td>
+      </tr>`
+  })
+}
 
