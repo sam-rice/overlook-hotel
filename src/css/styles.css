@@ -25,7 +25,7 @@ b {
   font-weight: 800;
 }
 
-button:hover {
+button:hover:enabled {
   cursor: pointer;
   -webkit-transition: all .3s ease-in-out;
 }
@@ -39,7 +39,7 @@ button:hover {
   font-size: 8px;
 }
 
-.book-button:hover {
+.book-button:hover:enabled {
   background-color: black;
   color: white;
 }
@@ -280,6 +280,11 @@ td {
 .admin-user-bookings-table-container {
   height: 248px;
   width: 279px;
+}
+
+.remove-booking-button {
+  margin-top: 10px;
+  width: 110px;
 }
 
 .lookup-right {
