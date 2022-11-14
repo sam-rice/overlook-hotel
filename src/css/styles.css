@@ -195,6 +195,14 @@ td {
   border-bottom: 1px solid white;
 }
 
+.admin-user-bookings-table-container,
+.guest-table-parent,
+.report-rooms-table-parent {
+  background-color: white;
+  overflow: auto;
+  overflow-x: hidden;
+}
+
 .stats-table-parent {
   width: 30%;
   height: 50%;
@@ -217,9 +225,6 @@ td {
 .report-rooms-table-parent {
   height: 145px;
   width: 360px;
-  background-color: white;
-  overflow: auto;
-  overflow-x: hidden;
 }
 
 .lookup-left,
@@ -259,8 +264,6 @@ td {
 
 .guest-table-parent {
   height: 165px;
-  background-color: white;
-  overflow: auto;
 }
 
 .guest-result-row:hover {
@@ -277,9 +280,6 @@ td {
 .admin-user-bookings-table-container {
   height: 248px;
   width: 279px;
-  background-color: white;
-  overflow: auto;
-  overflow-x: hidden;
 }
 
 .lookup-right {
@@ -714,14 +714,6 @@ select:focus {
   margin: 0% 20%;
   padding-top: 1px;
 }
-
-
-
-
-
-
-
-
 
 /* KEEP AT BOTTOM */
 
