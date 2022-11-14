@@ -112,7 +112,7 @@
                 </table>
               </div>
             </div>
-            <button id="admin-remove-booking" class="book-button admin-button admin-submit-button">remove booking</button>
+            <button id="admin-remove-booking" class="book-button admin-button admin-submit-button" disabled>remove booking</button>
           </div>
           <div class="lookup-right">
             <div class="admin-new-booking-parent">
@@ -120,10 +120,10 @@
               <div class="admin-new-booking-fields">
                 <label for="admin-date-input" class="admin-header-text">choose date:</label>
                 <div class="admin-date-parent">
-                  <input type="date" id="admin-date-input" class="admin-date-input">
-                  <button id="admin-room-search" class="book-button admin-button">search</button>
+                  <input type="date" id="admin-date-input" class="admin-date-input" disabled>
+                  <button id="admin-date-search" class="book-button admin-button" disabled>search</button>
                 </div>
-                <p id="admin-date-error" class="admin-date-error">error here</p>
+                <p id="admin-date-error" class="admin-date-error"></p>
                 <h3 class="admin-header-text">available rooms</h3>
                 <div class="report-rooms-table-parent admin-new-booking-table-parent">
                   <table>
@@ -132,19 +132,13 @@
                     <th>bidet:</th>
                     <th>type:</th>
                     <th>price/night:</th>
-                    <tbody>
-                      <tr class="admin-table-row" data-room-num="23" tabindex="0" aria-selected="false">
-                        <td>23</td>
-                        <td>3 / full</td>
-                        <td>yes</td>
-                        <td>junior suite</td>
-                        <td>$380</td>
-                      </tr>
+                    <tbody id="admin-booking-rooms">
+                      <!-- available rooms go here -->
                     </tbody>
                   </table>
                 </div>
               </div>
-              <button id="admin-submit-booking" class="book-button admin-button admin-submit-button">submit</button>
+              <button id="admin-submit-booking" class="book-button admin-button admin-submit-button" disabled>submit</button>
             </div>
           </div>
         </div>

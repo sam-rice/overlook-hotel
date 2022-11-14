@@ -29,6 +29,7 @@ let confirmedBookingId;
 
 let adminSelectedGuest;
 let adminSelectedBooking;
+let adminSelectedRoom;
 
 function fetchData(urls) {
   Promise.all([getData(urls[0]), getData(urls[1]), getData(urls[2])])
@@ -94,19 +95,19 @@ const confirmButton = document.getElementById("confirm-details");
 const successGrandparent = document.getElementById("success-grandparent");
 const successParent = document.getElementById("success-parent");
 const homeButton = document.getElementById("home-button");
-
 const statsDate = document.getElementById("stats-date");
 const statsTable = document.getElementById("stats-table-body");
+const adminAvailRoomsTable = document.getElementById("admin-avail-rooms-table");
 const guestSearchInput = document.getElementById("guest-search-input");
 const guestSearchButton = document.getElementById("guest-search-button");
 const guestSearchTable = document.getElementById("guest-search-table");
 const adminGuestBookingsTable = document.getElementById("admin-guest-bookings-table");
 const adminRemoveBookingButton = document.getElementById("admin-remove-booking");
-
-
 const adminDateInput = document.getElementById("admin-date-input");
-const adminRoomSearch = document.getElementById("admin-room-search");
-
+const adminDateSearch = document.getElementById("admin-date-search");
+const adminDateError = document.getElementById("admin-date-error");
+const adminBookingRoomsTable = document.getElementById("admin-booking-rooms");
+const adminSubmitBookingButton = document.getElementById("admin-submit-booking");
 
 //----------------------EVENT LISTENERS----------------------//
 
@@ -185,7 +186,7 @@ submitDateButton.addEventListener("click", () => {
     dateError.innerText = "we're sorry! there are no available rooms for your selected date.";
     return;
   } else if (new Date(selectedDate) > Date.now()) {
-    initNewBooking(selectedDate);
+    initNewBooking(selectedDate, guest);
     renderAvailableRooms(bookingList.getAvailableRooms(selectedDate));
     toggleBookingAccordion(dateGrandparent);
     toggleBookingAccordion(roomsGrandparent);
@@ -268,7 +269,10 @@ homeButton.addEventListener("click", () => {
   toggleHidden(dashParent);
 });
 
-guestSearchButton.addEventListener("click", () => renderGuestSearchResults());
+guestSearchButton.addEventListener("click", () => {
+  resetAdminInterface();
+  renderGuestSearchResults();
+});
 
 //----------------------EVENT HANDLERS----------------------//
 
@@ -307,7 +311,7 @@ function initGuestList() {
 //   manager = new Manager(bookingList, guestList);
 // }
 
-function initNewBooking(date) {
+function initNewBooking(date, guest) {
   newBooking = {
     userID: guest.id,
     date: date.replace(/-/g, '/')
@@ -323,9 +327,12 @@ function clearBookingMemory() {
   selectedRoom = null;
   newBooking = null;
   confirmedBookingId = null;
+  adminSelectedRoom = null;
   dateInput.value = "";
   dateError.innerText = "";
   roomError.innerText = "";
+  adminDateInput.value = "";
+  adminBookingRoomsTable.innerHTML = "";
 }
 
 //----------------------UTILITY FUNCTIONS----------------------//
@@ -460,6 +467,16 @@ function displayAdminView() {
   toggleHidden(adminView);
 };
 
+function resetAdminInterface() {
+  adminRemoveBookingButton.setAttribute("disabled", "");
+  adminDateSearch.setAttribute("disabled", "");
+  adminDateInput.setAttribute("disabled", "");
+  adminSubmitBookingButton.setAttribute("disabled", "");
+  adminGuestBookingsTable.innerHTML = "";
+  adminBookingRoomsTable.innerHTML = "";
+  adminDateError.innerText = "";
+};
+
 function getDOMDate() {
   const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   let date = new Date();
@@ -486,8 +503,6 @@ function renderDailyStats() {
       <td colspan="2">$${bookingList.getTodaysRevenue()}</td>
     </tr>`
 }
-
-const adminAvailRoomsTable = document.getElementById("admin-avail-rooms-table");
 
 function renderAvailableRoomsTable() {
   adminAvailRoomsTable.innerHTML = "";
@@ -516,9 +531,10 @@ function renderGuestSearchResults() {
 
 guestSearchTable.addEventListener("click", e => {
   let guestId = Number(e.target.parentNode.dataset.guestId)
-  
-  adminSelectedGuest = guestId;
-  renderAdminGuestBookings(guestId)
+  adminSelectedGuest = guestList.guests.find(guest => guest.id === guestId);
+
+  enableBookingControls();
+  renderAdminGuestBookings(adminSelectedGuest)
   deactivateTableNodes();
   activateSelectedNode(e.target.parentNode);
 })
@@ -526,17 +542,22 @@ guestSearchTable.addEventListener("click", e => {
 adminGuestBookingsTable.addEventListener("click", e => {
   adminSelectedBooking = e.target.parentNode.dataset.bookingId;
 
-  deactivateAdminBookingsNodes()
+  deactivateAdminBookingsNodes(".admin-guest-bookings")
   activateSelectedNode(e.target.parentNode);
 })
 
-function renderAdminGuestBookings(guestId) {
-  let targetGuest = guestList.guests.find(guest => guest.id === guestId);
+function enableBookingControls() {
+  adminRemoveBookingButton.removeAttribute("disabled");
+  adminDateSearch.removeAttribute("disabled");
+  adminDateInput.removeAttribute("disabled");
+  adminSubmitBookingButton.removeAttribute("disabled");
+}
 
+function renderAdminGuestBookings(adminGuest) {
   adminGuestBookingsTable.innerHTML = "";
-  targetGuest.getAllBookings(bookingList).upcomingBookings.forEach(booking => {
+  adminGuest.getAllBookings(bookingList).upcomingBookings.forEach(booking => {
     adminGuestBookingsTable.innerHTML += `
-      <tr class="admin-table-row guest-result-row admin-guest-booking" data-booking-id="${booking.id}" aria-selected="false">
+      <tr class="admin-table-row guest-result-row admin-guest-bookings" data-booking-id="${booking.id}" aria-selected="false">
         <td>${booking.date}</td>
         <td>${booking.roomNumber}</td>
         <td>${booking.numBeds} / ${booking.bedSize}</td>
@@ -546,8 +567,8 @@ function renderAdminGuestBookings(guestId) {
   });
 };
 
-function deactivateAdminBookingsNodes() {
-  document.querySelectorAll(".admin-guest-booking").forEach(node => {
+function deactivateAdminBookingsNodes(className) {
+  document.querySelectorAll(className).forEach(node => {
     node.classList.remove("active");
     node.setAttribute("aria-selected", "false");
   });
@@ -561,8 +582,62 @@ adminRemoveBookingButton.addEventListener("click", () => {
       updateBookings(data.bookings);
 
       adminSelectedBooking = null;
-      deactivateAdminBookingsNodes();
+      deactivateAdminBookingsNodes(".admin-guest-bookings");
       renderAdminGuestBookings(adminSelectedGuest)
-      
+    });
+});
+
+adminDateSearch.addEventListener("click", () => {
+  let selectedDate = adminDateInput.value;
+
+  if (!bookingList.getAvailableRooms(selectedDate).length) {
+    adminDateError.innerText = "* no available rooms for selected date.";
+    return;
+  } else if (new Date(selectedDate) > Date.now()) {
+    adminDateError.innerText = "";
+    initNewBooking(selectedDate, adminSelectedGuest);
+    renderAdminBookingRooms(bookingList.getAvailableRooms(selectedDate));
+  } else {
+    adminDateError.innerText = "* select a valid date";
+  };
+});
+
+function renderAdminBookingRooms(availableRooms) {
+  adminBookingRoomsTable.innerHTML = "";
+  availableRooms.forEach(room => {
+    adminBookingRoomsTable.innerHTML += `
+    <tr class="admin-table-row guest-result-row admin-avail-rooms" data-room-num="${room.number}" tabindex="0" aria-selected="false">
+      <td>${room.number}</td>
+      <td>${room.numBeds} / ${room.bedSize}</td>
+      <td>${room.hasBidet ? "yes" : "no"}</td>
+      <td>${room.roomType}</td>
+      <td>$${room.costPerNight.toFixed(2)}</td>
+    </tr>`
+  });
+}
+
+adminBookingRoomsTable.addEventListener("click", e => {
+  adminSelectedRoom = Number(e.target.parentNode.dataset.roomNum);
+
+  deactivateAdminBookingsNodes(".admin-avail-rooms");
+  activateSelectedNode(e.target.parentNode);
+});
+
+
+
+adminSubmitBookingButton.addEventListener("click", () => {
+  newBooking["roomNumber"] = adminSelectedRoom;
+
+  postData(newBooking, allBookingsURL)
+    .then(response => response.json())
+    .then(response => confirmedBookingId = response.newBooking.id)
+    .then(() => getData(allBookingsURL))
+    .then(data => {
+      updateBookings(data.bookings);
+
+      clearBookingMemory();
+      renderAdminGuestBookings(adminSelectedGuest);
+
     })
+
 })
