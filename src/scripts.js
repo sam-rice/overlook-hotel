@@ -3,7 +3,7 @@ import "./images/metrograph-interior.jpg";
 import "./images/imperial-bedroom-left.jpg";
 import BookingList from "../src/classes/BookingList";
 // import Manager from "../src/classes/Manager";
-import { getData, postData } from "./api-calls";
+import { getData, postData, deleteData } from "./api-calls";
 import GuestList from "./classes/GuestList";
 
 //----------------------UTILITY DATA----------------------//
@@ -524,7 +524,7 @@ guestSearchTable.addEventListener("click", e => {
 })
 
 adminGuestBookingsTable.addEventListener("click", e => {
-  adminSelectedBooking = Number(e.target.parentNode.dataset.bookingID);
+  adminSelectedBooking = e.target.parentNode.dataset.bookingId;
 
   deactivateAdminBookingsNodes()
   activateSelectedNode(e.target.parentNode);
@@ -554,5 +554,15 @@ function deactivateAdminBookingsNodes() {
 };
 
 adminRemoveBookingButton.addEventListener("click", () => {
-  
+  console.log(adminSelectedBooking)
+  deleteData(`http://localhost:3001/api/v1/bookings/${adminSelectedBooking}`)
+    .then(() => getData(allBookingsURL))
+    .then(data => {
+      updateBookings(data.bookings);
+
+      adminSelectedBooking = null;
+      deactivateAdminBookingsNodes();
+      renderAdminGuestBookings(adminSelectedGuest)
+      
+    })
 })

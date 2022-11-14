@@ -16,4 +16,13 @@ function postData(body, url) {
   });
 };
 
-export { getData, postData };
+function deleteData(url) {
+  return fetch(url, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};
+
+export { getData, postData, deleteData };
