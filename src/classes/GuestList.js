@@ -17,6 +17,12 @@ class GuestList {
       return;
     };
   };
+
+  searchGuests(name) {
+    if (name === "") { return [] }
+    return this.guests.filter(guest => guest.name.toLowerCase().includes(name.toLowerCase()));
+  };
+
 };
 
 export default GuestList;

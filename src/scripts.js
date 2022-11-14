@@ -27,6 +27,8 @@ let newBooking;
 let selectedRoom;
 let confirmedBookingId;
 
+let adminSelectedGuest;
+
 function fetchData(urls) {
   Promise.all([getData(urls[0]), getData(urls[1]), getData(urls[2])])
     .then(data => {
@@ -94,6 +96,12 @@ const homeButton = document.getElementById("home-button");
 
 const statsDate = document.getElementById("stats-date");
 const statsTable = document.getElementById("stats-table-body");
+const guestSearchInput = document.getElementById("guest-search-input");
+const guestSearchButton = document.getElementById("guest-search-button");
+const guestSearchTable = document.getElementById("guest-search-table");
+
+
+
 const adminDateInput = document.getElementById("admin-date-input");
 const adminRoomSearch = document.getElementById("admin-room-search");
 
@@ -189,14 +197,14 @@ submitDateButton.addEventListener("click", () => {
 availRoomsTable.addEventListener("click", e => {
   if (e.target.parentNode.nodeName === "TBODY") { return }
   selectedRoom = Number(e.target.parentNode.dataset.roomNum);
-  deactivateRoomNodes();
+  deactivateTableNodes();
   activateSelectedNode(e.target.parentNode);
 });
 
 availRoomsTable.addEventListener('keypress', e => {
   if (e.key === "Enter") {
     selectedRoom = Number(document.activeElement.dataset.roomNum);
-    deactivateRoomNodes();
+    deactivateTableNodes();
     activateSelectedNode(document.activeElement);
   }
 })
@@ -258,6 +266,8 @@ homeButton.addEventListener("click", () => {
   toggleHidden(dashParent);
 });
 
+guestSearchButton.addEventListener("click", () => renderGuestSearchResults());
+
 //----------------------EVENT HANDLERS----------------------//
 
 
@@ -317,12 +327,6 @@ function clearBookingMemory() {
 }
 
 //----------------------UTILITY FUNCTIONS----------------------//
-
-function getDOMDate() {
-  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  let date = new Date();
-  return `${monthNames[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
-};
 
 function reformatCurrentDate() {
   let currentDate = new Date();
@@ -384,7 +388,7 @@ function renderAvailableRooms(availRooms) {
   });
 };
 
-function deactivateRoomNodes() {
+function deactivateTableNodes() {
   document.querySelectorAll("tr").forEach(node => {
     node.classList.remove("active");
     node.setAttribute("aria-selected", "false");
@@ -454,8 +458,11 @@ function displayAdminView() {
   toggleHidden(adminView);
 };
 
-
-
+function getDOMDate() {
+  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  let date = new Date();
+  return `${monthNames[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+};
 
 function renderDailyStats() {
   statsDate.innerText = `${getDOMDate()}`;
@@ -490,7 +497,33 @@ function renderAvailableRoomsTable() {
         <td>${room.hasBidet ? "yes" : "no"}</td>
         <td>${room.roomType}</td>
         <td>$${room.costPerNight.toFixed(2)}</td>
-      </tr>`
+      </tr>`;
+  });
+};
+
+function renderGuestSearchResults() {
+  guestSearchTable.innerHTML = ""
+  guestList.searchGuests(guestSearchInput.value).forEach(guest => {
+    guestSearchTable.innerHTML +=  `
+      <tr class="admin-table-row guest-result-row" data-guest-id="${guest.id}" tabindex="0" aria-selected="false">
+        <td>${guest.name}</td>
+        <td>${guest.id}</td>
+      </tr>`;
+  });
+};
+
+guestSearchTable.addEventListener("click", e => {
+  let guestId = Number(e.target.parentNode.dataset.guestId)
+  
+  adminSelectedGuest = guestId;
+  renderAdminGuestBookings(guestId)
+  deactivateTableNodes();
+  activateSelectedNode(e.target.parentNode);
+})
+
+function renderAdminGuestBookings(guestId) {
+  let targetGuest = guestList.guests.find(guest => guest.id === guestId);
+  targetGuest.getAllBookings(bookingList).upcomingBookings.forEach(booking => {
+    
   })
 }
-

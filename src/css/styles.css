@@ -259,7 +259,12 @@ td {
 
 .guest-table-parent {
   height: 165px;
+  background-color: white;
   overflow: auto;
+}
+
+.guest-result-row:hover {
+  cursor: pointer;
 }
 
 .lookup-center {
