@@ -97,9 +97,9 @@ td {
   padding: 15px;
 }
 
-/* ---------------------USER LOGIN PAGE--------------------- */
+/* ---------------------USER LOGIN VIEW--------------------- */
 
-.user-login-grandparent {
+.user-login-view {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -155,49 +155,180 @@ td {
   height: 9px;
 }
 
+/* ---------------------ADMIN VIEW--------------------- */
 
+.admin-view {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 550px;
+  width: 92%;
+}
 
+.admin-parent {
+  height: 550px;
+  width: 100%;
+  background-color: #00000066;
+  color: white;
+}
 
+.admin-header-text {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  margin: 3px 5px 3px 0px;
+}
 
+.admin-header {
+  width: 100%;
+  height: 3%;
+  font-size: .8em;
+  border-bottom: 1px solid white;
+  padding-left: 4px;
+}
 
+.report-parent {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 35%;
+  border-bottom: 1px solid white;
+}
 
+.admin-user-bookings-table-container,
+.guest-table-parent,
+.report-rooms-table-parent {
+  background-color: white;
+  overflow: auto;
+  overflow-x: hidden;
+}
 
+.stats-table-parent {
+  width: 30%;
+  height: 50%;
+}
 
+.admin-table-row>td {
+  height: 20px;
+  padding: 0px;
+  border: 1px solid rgb(255, 255, 255);
+  color: black;
+}
 
+.lookup-parent {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 57%;
+}
 
+.report-rooms-table-parent {
+  height: 145px;
+  width: 360px;
+}
 
+.lookup-left,
+.lookup-center,
+.lookup-right {
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  height: 100%;
+  justify-content: space-evenly;
+}
 
+.guest-search-label {
 
+  font-size: .6em;
+}
 
+.guest-search-input-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
 
+.guest-search-input {
+  height: 10px;
+  font-size: 10px;
+  width: 120px;
+  margin-right: 5px;
+}
 
+.admin-button {
+  height: 15px;
+  width: 48px;
+  font-size: 8px;
+  letter-spacing: 1px;
+}
 
+.guest-table-parent {
+  height: 165px;
+}
 
+.guest-result-row:hover {
+  cursor: pointer;
+}
 
+.lookup-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 33%;
+}
 
+.admin-user-bookings-table-container {
+  height: 248px;
+  width: 279px;
+}
 
+.lookup-right {
+  width: 40%;
+}
 
+.admin-new-booking-parent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 285px;
 
+}
 
+.admin-new-booking-parent>h3 {
+  font-size: .8em;
+  font-weight: 800;
+}
 
+.admin-new-booking-fields {
+  width: 100%;
+}
 
+.admin-date-parent {
+  display: flex;
+  width: 100%;
+}
 
+.admin-date-input {
+  height: 12px;
+  font-size: .6em;
+  margin-right: 5px;
+}
 
+.admin-date-error {
+  color: white;
+  height: 13px;
+  margin: 0px;
+  font-size: 9px;
+}
 
+.admin-new-booking-table-parent {
+  width: 100%;
+  height: 161px;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+.admin-submit-button {
+  margin-top: 10px;
+}
 
 /* ---------------------HEADER--------------------- */
 
@@ -229,7 +360,7 @@ header {
   font-family: 'Montserrat', sans-serif;
   font-weight: 800;
   font-size: .5em;
-  margin-top: 14px;
+  margin-top: 12px;
   letter-spacing: 2px;
 }
 
@@ -270,7 +401,7 @@ main {
   opacity: .95;
 }
 
-h1 {
+.overlook-title {
   position: absolute;
   background-color: #ffffffe6;
   padding: 1vw 4vw;
@@ -288,9 +419,9 @@ h1 {
   top: 42%;
 }
 
-/* ---------------------ACCORDION BANNER--------------------- */
+/* ---------------------USER TOOLS VIEW--------------------- */
 
-.accordion-grandparent {
+.user-tools-view {
   display: flex;
   justify-content: center;
   position: absolute;
@@ -381,13 +512,20 @@ h1 {
 }
 
 .stays-parent {
-  overflow: scroll;
+  overflow: auto;
   overflow-x: hidden;
   width: 80%;
   height: 138px;
 }
 
-/* ---------------------ACC: BOOK--------------------- */
+/* ---------------------ACC: ABOUT--------------------- */
+
+.about-parent {
+  display: none;
+  flex-direction: column;
+}
+
+/* ---------------------NEW BOOKING VIEW--------------------- */
 
 .book-grandparent {
   height: 380px;
@@ -452,7 +590,7 @@ h1 {
 }
 
 .rooms-parent {
-  overflow: scroll;
+  overflow: auto;
   overflow-x: hidden;
   width: 80%;
   height: 206px;
@@ -575,13 +713,6 @@ select:focus {
   height: 21px;
   margin: 0% 20%;
   padding-top: 1px;
-}
-
-/* ---------------------ACC: ABOUT--------------------- */
-
-.about-parent {
-  display: none;
-  flex-direction: column;
 }
 
 /* KEEP AT BOTTOM */

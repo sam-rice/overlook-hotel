@@ -31,9 +31,35 @@ class BookingList {
     return this.rooms.find(room => room.number == num);
   };
 
-  getfilteredRooms(date, option) {
+  getFilteredRooms(date, option) {
     let availRooms = this.getAvailableRooms(date);
     return availRooms.filter(room => room.roomType === option);
+  };
+
+  getTodaysRevenue() {
+    return this.bookings.reduce((acc, booking) => {
+      let bookingDate = new Date(booking.date).toString().slice(0, 15);
+      let todaysDate = new Date().toString().slice(0, 15);
+
+      if (bookingDate === todaysDate) {
+        let targetRoom = this.rooms.find(room => room.number === booking.roomNumber);
+        acc += targetRoom.costPerNight;
+      }
+      return acc;
+    }, 0);
+  };
+
+  getVacancyData(date) {
+    // let currentDate = new Date();
+    // let formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
+    let vacantRooms = this.getAvailableRooms(date).length;
+
+    return {
+      vacant: vacantRooms,
+      percentVacant: (vacantRooms / 25) * 100,
+      booked: 25 - vacantRooms,
+      percentBooked: ((25 - vacantRooms) / 25) * 100
+    };
   };
 };
 
