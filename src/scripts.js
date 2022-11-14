@@ -28,6 +28,7 @@ let selectedRoom;
 let confirmedBookingId;
 
 let adminSelectedGuest;
+let adminSelectedBooking;
 
 function fetchData(urls) {
   Promise.all([getData(urls[0]), getData(urls[1]), getData(urls[2])])
@@ -99,7 +100,8 @@ const statsTable = document.getElementById("stats-table-body");
 const guestSearchInput = document.getElementById("guest-search-input");
 const guestSearchButton = document.getElementById("guest-search-button");
 const guestSearchTable = document.getElementById("guest-search-table");
-
+const adminGuestBookingsTable = document.getElementById("admin-guest-bookings-table");
+const adminRemoveBookingButton = document.getElementById("admin-remove-booking");
 
 
 const adminDateInput = document.getElementById("admin-date-input");
@@ -521,9 +523,36 @@ guestSearchTable.addEventListener("click", e => {
   activateSelectedNode(e.target.parentNode);
 })
 
+adminGuestBookingsTable.addEventListener("click", e => {
+  adminSelectedBooking = Number(e.target.parentNode.dataset.bookingID);
+
+  deactivateAdminBookingsNodes()
+  activateSelectedNode(e.target.parentNode);
+})
+
 function renderAdminGuestBookings(guestId) {
   let targetGuest = guestList.guests.find(guest => guest.id === guestId);
+
+  adminGuestBookingsTable.innerHTML = "";
   targetGuest.getAllBookings(bookingList).upcomingBookings.forEach(booking => {
-    
-  })
-}
+    adminGuestBookingsTable.innerHTML += `
+      <tr class="admin-table-row guest-result-row admin-guest-booking" data-booking-id="${booking.id}" aria-selected="false">
+        <td>${booking.date}</td>
+        <td>${booking.roomNumber}</td>
+        <td>${booking.numBeds} / ${booking.bedSize}</td>
+        <td>${booking.roomType}</td>
+        <td>$${booking.costPerNight}</td>
+      </tr>`;
+  });
+};
+
+function deactivateAdminBookingsNodes() {
+  document.querySelectorAll(".admin-guest-booking").forEach(node => {
+    node.classList.remove("active");
+    node.setAttribute("aria-selected", "false");
+  });
+};
+
+adminRemoveBookingButton.addEventListener("click", () => {
+  
+})

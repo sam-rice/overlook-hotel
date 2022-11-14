@@ -267,12 +267,13 @@ td {
   cursor: pointer;
 }
 
-.lookup-center {
-  width: 33%;
-}
+/* .lookup-center {
+  width: 279px;
+} */
 
 .admin-user-bookings-table-container {
   height: 248px;
+  width: 279px;
   background-color: white;
   overflow: auto;
   overflow-x: hidden;

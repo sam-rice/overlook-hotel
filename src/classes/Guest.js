@@ -25,7 +25,8 @@ class Guest {
           numBeds: targetRoom.numBeds,
           bedSize: targetRoom.bedSize,
           roomType: targetRoom.roomType,
-          costPerNight: targetRoom.costPerNight.toFixed(2)
+          costPerNight: targetRoom.costPerNight.toFixed(2),
+          id: booking.id
         };
         if (isFutureDate) {
           acc.upcomingBookings.push(bookingObject);
