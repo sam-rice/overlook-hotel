@@ -21,12 +21,13 @@
       <h1 id="header-subtext-admin" class="header-subtext hide">admin</h1>
     </div>
     <div class="header-right">
-      <button id="book-button-header" class="book-button hide" aria-expanded="false" aria-controls="book-parent">BOOK</button>
+      <button id="book-button-header" class="book-button hide" aria-expanded="false"
+        aria-controls="book-parent">BOOK</button>
       <button id="sign-out-button" class="book-button hide">SIGN OUT</button>
     </div>
   </header>
   <main>
-    <section id="user-login-view" class="user-login-view hide">
+    <section id="user-login-view" class="user-login-view">
       <div class="user-login-parent">
         <p>Overlook Hotel</p>
         <div class="login-input-grandparent">
@@ -40,10 +41,9 @@
           <p id="login-error" class="login-error"></p>
         </div>
         <button id="login-button" class="book-button login-button">submit</button>
-
       </div>
     </section>
-    <section id="admin-view" class="admin-view">
+    <section id="admin-view" class="admin-view hide">
       <div class="admin-parent">
         <div class="admin-header">
           <h2 class="admin-header-text">TODAY'S VACANCIES/EARNINGS</h2>
@@ -96,7 +96,7 @@
               </table>
             </div>
           </div>
-          <div class="lookup center">
+          <div class="lookup-center">
             <div class="admin-user-bookings-parent">
               <h3 class="admin-header-text">guest upcoming bookings:</h3>
               <div class="admin-user-bookings-table-container">
@@ -112,7 +112,8 @@
                 </table>
               </div>
             </div>
-            <button id="admin-remove-booking" class="book-button admin-button admin-submit-button" disabled>remove booking</button>
+            <button id="admin-remove-booking" class="book-button admin-button admin-submit-button" disabled>remove
+              booking</button>
           </div>
           <div class="lookup-right">
             <div class="admin-new-booking-parent">
@@ -138,7 +139,8 @@
                   </table>
                 </div>
               </div>
-              <button id="admin-submit-booking" class="book-button admin-button admin-submit-button" disabled>submit</button>
+              <button id="admin-submit-booking" class="book-button admin-button admin-submit-button"
+                disabled>submit</button>
             </div>
           </div>
         </div>
@@ -151,7 +153,7 @@
       <div class="image-parent-right">
         <img class="banner-image" src="./images/imperial-bedroom-left.jpg" alt="junior suite">
       </div>
-      <h1>Overlook Hotel</h1>
+      <h1 class="overlook-title">Overlook Hotel</h1>
       <p class="copy-oneline">Lorem ipsum dolor sit amet.</p>
     </div>
     <section id="user-tools-view" class="user-tools-view hide">
@@ -160,12 +162,15 @@
           <div class="hotel-copy-parent">
             <div class="hotel-copy-left">
               <p class="copy-title">MINUS AUTEM. OPTIO.</p>
-              <p>Fugiat quibusdam beatae culpa obcaecati aperiam adipisci officiis, velit molestiae voluptatem vel incidunt deleniti unde.
+              <p>Fugiat quibusdam beatae culpa obcaecati aperiam adipisci officiis, velit molestiae voluptatem vel
+                incidunt deleniti unde.
               </p>
             </div>
             <div class="hotel-copy-right">
               <p class="copy-title">LOREM IPSUM. DOLOR SIT. AMET ITAQUE.</p>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, quia porro delectus quam a fugit itaque ratione modi in iusto, ipsum dicta quos nulla, asperiores pariatur voluptas esse laborum et fugiat at excepturi minus repudiandae nam.
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, quia porro delectus quam a fugit itaque
+                ratione modi in iusto, ipsum dicta quos nulla, asperiores pariatur voluptas esse laborum et fugiat at
+                excepturi minus repudiandae nam.
               </p>
 
             </div>
@@ -173,10 +178,12 @@
           <div class="accordion-welcome-parent">
             <h2 class="accordion-welcome" id="accordion-welcome"></h2>
             <p>ready to book?</p>
-            <button id="book-button-accordion" class="book-button" aria-expanded="false" aria-controls="book-parent">BOOK</button>
+            <button id="book-button-accordion" class="book-button" aria-expanded="false"
+              aria-controls="book-parent">BOOK</button>
           </div>
         </section>
-        <button id="profile-button" class="accordion-button accordion-button-collapsed" aria-expanded="false" aria-controls="profile-parent">MY PROFILE</button>
+        <button id="profile-button" class="accordion-button accordion-button-collapsed" aria-expanded="false"
+          aria-controls="profile-parent">MY PROFILE</button>
         <section id="profile-parent" class="profile-parent">
           <h2 id="dash-guest-name" class="dash-guest-name"></h2>
           <p>upcoming stays:</p>
@@ -207,7 +214,8 @@
           </div>
           <p id="total-spent"></p>
         </section>
-        <button id="about-button" class="accordion-button  accordion-button-collapsed" aria-expanded="false" aria-controls="about-parent">ABOUT OVERLOOK</button>
+        <button id="about-button" class="accordion-button  accordion-button-collapsed" aria-expanded="false"
+          aria-controls="about-parent">ABOUT OVERLOOK</button>
         <section id="about-parent" class="about-parent">
           <h2>Our Story</h2>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis laboriosam maxime vel autem ullam
@@ -222,8 +230,9 @@
       </div>
       <!-- booking parent starts here -->
       <div id="book-parent" class="accordion-parent hide">
-        <div id="date-acc-header"
-          class="accordion-button accordion-header-collapsed accordion-header-open"><h2>CHOOSE DATE</h2></div>
+        <div id="date-acc-header" class="accordion-button accordion-header-collapsed accordion-header-open">
+          <h2>CHOOSE DATE</h2>
+        </div>
         <section id="date-grandparent" class="date-grandparent show">
           <div class="date-parent">
             <label for="date-input">choose date:</label>
@@ -232,7 +241,9 @@
           <button id="submit-date" class="book-button submit-button">next</button>
           <p id="date-error" class="error"></p>
         </section>
-        <div id="room-acc-header" class="accordion-button accordion-header-collapsed"><h2>CHOOSE ROOM</h2></div>
+        <div id="room-acc-header" class="accordion-button accordion-header-collapsed">
+          <h2>CHOOSE ROOM</h2>
+        </div>
         <section id="rooms-grandparent" class="rooms-grandparent">
           <p>rooms available:</p>
           <div class="select-grandparent">
@@ -267,8 +278,9 @@
           <button id="submit-room" class="book-button submit-button">next</button>
           <p id="room-error" class="error"></p>
         </section>
-        <div id="confirm-acc-header"
-          class="accordion-button accordion-header-collapsed"><h2>CONFIRM</h2></div>
+        <div id="confirm-acc-header" class="accordion-button accordion-header-collapsed">
+          <h2>CONFIRM</h2>
+        </div>
         <section id="confirm-grandparent" class="confirm-grandparent">
           <div class="confirm-details">
             <h2>please review your selections:</h2>

@@ -267,9 +267,12 @@ td {
   cursor: pointer;
 }
 
-/* .lookup-center {
-  width: 279px;
-} */
+.lookup-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 33%;
+}
 
 .admin-user-bookings-table-container {
   height: 248px;
@@ -327,35 +330,6 @@ td {
   margin-top: 10px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* ---------------------HEADER--------------------- */
 
 header {
@@ -386,7 +360,7 @@ header {
   font-family: 'Montserrat', sans-serif;
   font-weight: 800;
   font-size: .5em;
-  margin-top: 14px;
+  margin-top: 12px;
   letter-spacing: 2px;
 }
 
@@ -427,7 +401,7 @@ main {
   opacity: .95;
 }
 
-h1 {
+.overlook-title {
   position: absolute;
   background-color: #ffffffe6;
   padding: 1vw 4vw;

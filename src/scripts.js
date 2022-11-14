@@ -2,7 +2,6 @@ import "./css/styles.css";
 import "./images/metrograph-interior.jpg";
 import "./images/imperial-bedroom-left.jpg";
 import BookingList from "../src/classes/BookingList";
-// import Manager from "../src/classes/Manager";
 import { getData, postData, deleteData } from "./api-calls";
 import GuestList from "./classes/GuestList";
 
@@ -21,7 +20,6 @@ let allRooms;
 let bookingList;
 let guestList;
 let guest;
-// let manager;
 
 let newBooking;
 let selectedRoom;
@@ -127,22 +125,18 @@ passwordInput.addEventListener("keypress", e => {
 loginButton.addEventListener("click", () => {
   let username = usernameInput.value;
   let password = passwordInput.value;
+  let user = guestList.checkUserCredentials(username, password);
 
   if (username === "manager" && password === "overlook2021") {
     renderAdminView();
     displayAdminView();
-  }
-
-  let user = guestList.checkUserCredentials(username, password);
-
-  if (user) {
+  } else if (user) {
     guest = user;
     renderGuestDash();
     displayGuestDash();
   } else {
     displayInvalidLogin();
   }
-
 });
 
 profileButton.addEventListener("click", () => {
@@ -185,13 +179,12 @@ submitDateButton.addEventListener("click", () => {
   if (!bookingList.getAvailableRooms(selectedDate).length) {
     dateError.innerText = "we're sorry! there are no available rooms for your selected date.";
     return;
-  } else if (new Date(selectedDate) > Date.now()) {
+  } else if (new Date(selectedDate) >= new Date(reformatCurrentDate())) {
     initNewBooking(selectedDate, guest);
     renderAvailableRooms(bookingList.getAvailableRooms(selectedDate));
     toggleBookingAccordion(dateGrandparent);
     toggleBookingAccordion(roomsGrandparent);
     dateError.innerText = "";
-    console.log(newBooking)
   } else {
     dateError.innerText = "* please select a valid date";
   }
@@ -232,7 +225,6 @@ backToCalButton.addEventListener("click", () => {
 submitRoomButton.addEventListener("click", () => {
   if (selectedRoom) {
     newBooking["roomNumber"] = selectedRoom;
-    console.log(newBooking);
     renderDetails();
     toggleBookingAccordion(roomsGrandparent);
     toggleBookingAccordion(confirmGrandparent);
@@ -274,6 +266,82 @@ guestSearchButton.addEventListener("click", () => {
   renderGuestSearchResults();
 });
 
+guestSearchTable.addEventListener("click", e => {
+  let guestId = Number(e.target.parentNode.dataset.guestId)
+  adminSelectedGuest = guestList.guests.find(guest => guest.id === guestId);
+
+  enableBookingControls();
+  renderAdminGuestBookings(adminSelectedGuest)
+  deactivateTableNodes();
+  activateSelectedNode(e.target.parentNode);
+});
+
+adminGuestBookingsTable.addEventListener("click", e => {
+  adminSelectedBooking = e.target.parentNode.dataset.bookingId;
+
+  deactivateAdminBookingsNodes(".admin-guest-bookings")
+  activateSelectedNode(e.target.parentNode);
+});
+
+adminRemoveBookingButton.addEventListener("click", () => {
+  deleteData(`http://localhost:3001/api/v1/bookings/${adminSelectedBooking}`)
+    .then(() => getData(allBookingsURL))
+    .then(data => {
+      updateBookings(data.bookings);
+
+      adminSelectedBooking = null;
+      deactivateAdminBookingsNodes(".admin-guest-bookings");
+      renderAdminGuestBookings(adminSelectedGuest)
+    });
+});
+
+adminDateSearch.addEventListener("click", () => {
+  let selectedDate = adminDateInput.value;
+
+  if (!bookingList.getAvailableRooms(selectedDate).length) {
+    adminDateError.innerText = "* no available rooms for selected date.";
+    return;
+  } else if (new Date(selectedDate) >= new Date(reformatCurrentDate())) {
+    adminDateError.innerText = "";
+    initNewBooking(selectedDate, adminSelectedGuest);
+    renderAdminBookingRooms(bookingList.getAvailableRooms(selectedDate));
+  } else {
+    adminDateError.innerText = "* select a valid date";
+  };
+});
+
+adminBookingRoomsTable.addEventListener("click", e => {
+  adminSelectedRoom = Number(e.target.parentNode.dataset.roomNum);
+
+  deactivateAdminBookingsNodes(".admin-avail-rooms");
+  activateSelectedNode(e.target.parentNode);
+});
+
+adminSubmitBookingButton.addEventListener("click", () => {
+  newBooking["roomNumber"] = adminSelectedRoom;
+
+  postData(newBooking, allBookingsURL)
+    .then(response => response.json())
+    .then(response => confirmedBookingId = response.newBooking.id)
+    .then(() => getData(allBookingsURL))
+    .then(data => {
+      updateBookings(data.bookings);
+
+      clearBookingMemory();
+      renderAdminGuestBookings(adminSelectedGuest);
+    });
+});
+
+signOutButton.addEventListener("click", () => {
+  clearBookingMemory();
+  toggleHidden(adminView);
+  toggleHidden(userLoginView);
+  toggleHidden(guestHeaderSub);
+  toggleHidden(adminHeaderSub);
+  usernameInput.value = "";
+  passwordInput.value = "";
+})
+
 //----------------------EVENT HANDLERS----------------------//
 
 
@@ -286,17 +354,6 @@ guestSearchButton.addEventListener("click", () => {
 function initPage() {
   initBookingList();
   initGuestList();
-  // initManager();
-  console.log(guestList)
-
-
-
-  //remove remove remove
-  renderAdminView();
-
-
-
-
 };
 
 function initBookingList() {
@@ -307,21 +364,17 @@ function initGuestList() {
   guestList = new GuestList(allGuestsData);
 };
 
-// function initManager() {
-//   manager = new Manager(bookingList, guestList);
-// }
-
 function initNewBooking(date, guest) {
   newBooking = {
     userID: guest.id,
     date: date.replace(/-/g, '/')
-  }
-}
+  };
+};
 
 function updateBookings(newData) {
   allBookingsData = newData;
   bookingList.bookings = bookingList.initBookings(allBookingsData);
-}
+};
 
 function clearBookingMemory() {
   selectedRoom = null;
@@ -333,14 +386,14 @@ function clearBookingMemory() {
   roomError.innerText = "";
   adminDateInput.value = "";
   adminBookingRoomsTable.innerHTML = "";
-}
+};
 
 //----------------------UTILITY FUNCTIONS----------------------//
 
 function reformatCurrentDate() {
   let currentDate = new Date();
   return `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
-}
+};
 
 //----------------------DOM UPDATING----------------------//
 
@@ -351,8 +404,7 @@ function toggleAccordion(element, button) {
 
 function toggleBookingAccordion(element) {
   element.classList.toggle("show");
-  //toggle classlist for booking acc open?
-}
+};
 
 function renderGuestDash() {
   let bookingsObject = guest.getAllBookings(bookingList);
@@ -529,23 +581,6 @@ function renderGuestSearchResults() {
   });
 };
 
-guestSearchTable.addEventListener("click", e => {
-  let guestId = Number(e.target.parentNode.dataset.guestId)
-  adminSelectedGuest = guestList.guests.find(guest => guest.id === guestId);
-
-  enableBookingControls();
-  renderAdminGuestBookings(adminSelectedGuest)
-  deactivateTableNodes();
-  activateSelectedNode(e.target.parentNode);
-})
-
-adminGuestBookingsTable.addEventListener("click", e => {
-  adminSelectedBooking = e.target.parentNode.dataset.bookingId;
-
-  deactivateAdminBookingsNodes(".admin-guest-bookings")
-  activateSelectedNode(e.target.parentNode);
-})
-
 function enableBookingControls() {
   adminRemoveBookingButton.removeAttribute("disabled");
   adminDateSearch.removeAttribute("disabled");
@@ -574,34 +609,6 @@ function deactivateAdminBookingsNodes(className) {
   });
 };
 
-adminRemoveBookingButton.addEventListener("click", () => {
-  console.log(adminSelectedBooking)
-  deleteData(`http://localhost:3001/api/v1/bookings/${adminSelectedBooking}`)
-    .then(() => getData(allBookingsURL))
-    .then(data => {
-      updateBookings(data.bookings);
-
-      adminSelectedBooking = null;
-      deactivateAdminBookingsNodes(".admin-guest-bookings");
-      renderAdminGuestBookings(adminSelectedGuest)
-    });
-});
-
-adminDateSearch.addEventListener("click", () => {
-  let selectedDate = adminDateInput.value;
-
-  if (!bookingList.getAvailableRooms(selectedDate).length) {
-    adminDateError.innerText = "* no available rooms for selected date.";
-    return;
-  } else if (new Date(selectedDate) > Date.now()) {
-    adminDateError.innerText = "";
-    initNewBooking(selectedDate, adminSelectedGuest);
-    renderAdminBookingRooms(bookingList.getAvailableRooms(selectedDate));
-  } else {
-    adminDateError.innerText = "* select a valid date";
-  };
-});
-
 function renderAdminBookingRooms(availableRooms) {
   adminBookingRoomsTable.innerHTML = "";
   availableRooms.forEach(room => {
@@ -614,30 +621,4 @@ function renderAdminBookingRooms(availableRooms) {
       <td>$${room.costPerNight.toFixed(2)}</td>
     </tr>`
   });
-}
-
-adminBookingRoomsTable.addEventListener("click", e => {
-  adminSelectedRoom = Number(e.target.parentNode.dataset.roomNum);
-
-  deactivateAdminBookingsNodes(".admin-avail-rooms");
-  activateSelectedNode(e.target.parentNode);
-});
-
-
-
-adminSubmitBookingButton.addEventListener("click", () => {
-  newBooking["roomNumber"] = adminSelectedRoom;
-
-  postData(newBooking, allBookingsURL)
-    .then(response => response.json())
-    .then(response => confirmedBookingId = response.newBooking.id)
-    .then(() => getData(allBookingsURL))
-    .then(data => {
-      updateBookings(data.bookings);
-
-      clearBookingMemory();
-      renderAdminGuestBookings(adminSelectedGuest);
-
-    })
-
-})
+};
