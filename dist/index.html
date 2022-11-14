@@ -20,11 +20,28 @@
       <p class="header-subtext">SEATTLE, WA</p>
     </div>
     <div class="header-right">
-      <button id="book-button-header" class="book-button" aria-expanded="false" aria-controls="book-parent">BOOK</button>
+      <button id="book-button-header" class="book-button hide" aria-expanded="false" aria-controls="book-parent">BOOK</button>
     </div>
   </header>
   <main>
-    <div class="banner-parent">
+    <section id="user-login-grandparent" class="user-login-grandparent">
+      <div class="user-login-parent">
+        <p>welcome</p>
+        <div class="login-input-grandparent">
+          <p>login:</p>
+          <div class="login-input-parent">
+            <label for="username">username:</label>
+            <input id="username" class="login-input" type="text">
+            <label for="password">password:</label>
+            <input id="password" class="login-input" type="password">
+          </div>
+          <p id="login-error" class="login-error"></p>
+        </div>
+        <button id="login-button" class="book-button login-button">submit</button>
+
+      </div>
+    </section>
+    <div id="banner-parent" class="banner-parent hide">
       <div class="image-parent-left">
         <img class="banner-image" src="./images/metrograph-interior.jpg" alt="in-house bar/restaurant">
       </div>
@@ -34,7 +51,7 @@
       <h1>Overlook Hotel</h1>
       <p class="copy-oneline">Lorem ipsum dolor sit amet.</p>
     </div>
-    <section class="accordion-grandparent">
+    <section id="accordion-grandparent" class="accordion-grandparent hide">
       <div id="dash-parent" class="accordion-parent">
         <section class="accordion-banner-parent">
           <div class="hotel-copy-parent">
@@ -110,10 +127,10 @@
             <input type="date" id="date-input">
           </div>
           <button id="submit-date" class="book-button submit-button">next</button>
-          <p id="date-error" class="date-error"></p>
+          <p id="date-error" class="error"></p>
         </section>
         <div id="room-acc-header" class="accordion-button accordion-header-collapsed"><h2>CHOOSE ROOM</h2></div>
-        <section id="room-grandparent" class="room-grandparent">
+        <section id="rooms-grandparent" class="rooms-grandparent">
           <p>rooms available:</p>
           <div class="select-grandparent">
             <div>
@@ -145,7 +162,7 @@
           </div>
           <button id="back-to-cal" class="book-button submit-button edit-details-button">back</button>
           <button id="submit-room" class="book-button submit-button">next</button>
-          <p id="room-error" class="room-error"></p>
+          <p id="room-error" class="error"></p>
         </section>
         <div id="confirm-acc-header"
           class="accordion-button accordion-header-collapsed"><h2>CONFIRM</h2></div>

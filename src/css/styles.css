@@ -97,6 +97,108 @@ td {
   padding: 15px;
 }
 
+/* ---------------------USER LOGIN PAGE--------------------- */
+
+.user-login-grandparent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 422px;
+  width: 72%;
+}
+
+.user-login-parent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  border: 1px solid black;
+  width: 74%;
+  height: 68%;
+}
+
+.user-login-parent>p {
+  font-size: 1.5em;
+}
+
+.login-input-grandparent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-input-parent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: .6em;
+  height: 86px;
+  justify-content: space-evenly;
+}
+
+.login-input {
+  height: 10px;
+  font-size: 10px;
+  width: 110px;
+}
+
+.login-button {
+  margin: 23px;
+  width: 60px;
+  letter-spacing: 1px;
+}
+
+.login-error {
+  color: #e72600;
+  margin: 0px;
+  font-size: 9px;
+  height: 9px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* ---------------------HEADER--------------------- */
 
 header {
@@ -336,25 +438,24 @@ h1 {
   letter-spacing: 1px;
 }
 
-.date-error,
-.room-error {
-  margin-top: -20px;
+.error {
   color: #e72600;
+  height: 9px;
 }
 
-.room-grandparent {
+.rooms-grandparent {
   display: none;
   align-items: center;
   justify-content: space-evenly;
   flex-direction: column;
-  height: 320px;
+  height: 387px;
 }
 
 .rooms-parent {
   overflow: scroll;
   overflow-x: hidden;
   width: 80%;
-  height: 170px;
+  height: 206px;
 }
 
 .select-grandparent {
