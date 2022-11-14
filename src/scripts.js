@@ -47,6 +47,7 @@ function fetchData(urls) {
 
 //----------------------QUERY SELECTORS----------------------//
 
+const logo = document.getElementById("logo");
 const profileButton = document.getElementById("profile-button");
 const profileParent = document.getElementById("profile-parent");
 const bookButtonHeader = document.getElementById("book-button-header");
@@ -89,16 +90,24 @@ window.addEventListener("load", () => {
   fetchData([allBookingsURL, allGuestsURL, allRoomsURL]);
 });
 
+logo.addEventListener("click", () => location.reload());
+
 profileButton.addEventListener("click", () => {
   toggleAccordion(profileParent, profileButton);
   profileParent.scrollIntoView({ behavior: "smooth" });
+  toggleAriaExpanded(profileButton);
 });
 
 bookButtonHeader.addEventListener("click", () => {
-  if (!successGrandparent.classList.contains("hide")) {
+  let bookingConfirmedIsHidden = (successGrandparent.classList.contains("hide"));
+  let bookingParentIsHidden = (bookParent.classList.contains("hide"))
+
+  if (!bookingConfirmedIsHidden) {
+    toggleAriaExpanded(bookButtonHeader);
     toggleHidden(successGrandparent);
     toggleHidden(bookParent);
-  } else if (bookParent.classList.contains("hide")) {
+  } else if (bookingParentIsHidden) {
+    toggleAriaExpanded(bookButtonHeader);
     toggleHidden(dashParent);
     toggleHidden(bookParent);
   }
@@ -106,8 +115,7 @@ bookButtonHeader.addEventListener("click", () => {
 });
 
 bookButtonAcc.addEventListener("click", () => {
-  dateError.innerText = "";
-  roomError.innerText = "";
+  toggleAriaExpanded(bookButtonHeader);
   toggleHidden(dashParent);
   toggleHidden(bookParent);
   bookParent.scrollIntoView({ behavior: "smooth" });
@@ -116,6 +124,7 @@ bookButtonAcc.addEventListener("click", () => {
 aboutButton.addEventListener("click", () => {
   toggleAccordion(aboutParent, aboutButton);
   aboutParent.scrollIntoView({ behavior: "smooth" });
+  toggleAriaExpanded(aboutButton);
 });
 
 submitDateButton.addEventListener("click", () => {
@@ -136,10 +145,19 @@ submitDateButton.addEventListener("click", () => {
 });
 
 availRoomsTable.addEventListener("click", (e) => {
+  if (e.target.parentNode.nodeName === "TBODY") { return }
   selectedRoom = Number(e.target.parentNode.dataset.roomNum);
   deactivateRoomNodes();
   activateSelectedNode(e.target.parentNode);
 });
+
+availRoomsTable.addEventListener('keypress', event => {
+  if (event.key === "Enter") {
+    selectedRoom = Number(document.activeElement.dataset.roomNum);
+    deactivateRoomNodes();
+    activateSelectedNode(document.activeElement);
+  }
+})
 
 roomsFilter.addEventListener("change", () => {
   if (roomsFilter.value === "") { return }
@@ -189,6 +207,7 @@ confirmButton.addEventListener("click", () => {
       toggleBookingAccordion(confirmGrandparent);
       toggleHidden(bookParent);
       toggleHidden(successGrandparent);
+      toggleAriaExpanded(bookButtonHeader);
     })
 });
 
@@ -243,6 +262,8 @@ function clearBookingMemory() {
   newBooking = null;
   confirmedBookingId = null;
   dateInput.value = "";
+  dateError.innerText = "";
+  roomError.innerText = "";
 }
 
 //----------------------UTILITY FUNCTIONS----------------------//
@@ -279,7 +300,7 @@ function renderBookingsTable(bookingsObject, table, isFuture) {
   table.innerHTML = "";
   bookingsObject[bookings].forEach(booking => {
     table.innerHTML += `
-      <tr>
+      <tr tabindex="1">
         <td>${booking.date}</td>
         <td>${booking.roomNumber}</td>
         <td>${booking.numBeds} / ${booking.bedSize}</td>
@@ -297,7 +318,7 @@ function renderAvailableRooms(availRooms) {
   availRoomsTable.innerHTML = "";
   availRooms.forEach(room => {
     availRoomsTable.innerHTML += `
-      <tr data-room-num=${room.number}>
+      <tr class="avail-room-tr" data-room-num=${room.number} tabindex="0" aria-selected="false">
         <td>${room.number}</td>
         <td>${room.numBeds} / ${room.bedSize}</td>
         <td>${room.hasBidet ? "yes" : "no"}</td>
@@ -310,28 +331,30 @@ function renderAvailableRooms(availRooms) {
 function deactivateRoomNodes() {
   document.querySelectorAll("tr").forEach(node => {
     node.classList.remove("active");
+    node.setAttribute("aria-selected", "false");
   });
 };
 
 function activateSelectedNode(element) {
-  element.classList = "active";
+  element.classList.add("active");
+  element.setAttribute("aria-selected", "true");
 };
 
 function renderDetails() {
   let selectedRoom = bookingList.getRoomByNumber(newBooking.roomNumber);
   detailsList.innerHTML = "";
   detailsList.innerHTML = `
-    <li class="details-li">${guest.name}</li>
-    <li class="details-li">date: ${newBooking.date}</li>
-    <li class="details-li">room details:</li>
+    <li class="guest-name-li">${guest.name}</li>
+    <li>date: ${newBooking.date}</li>
+    <li class="room-details-li">room details:</li>
     <ul class="room-details-ul">
-      <li class="details-li">room number: ${newBooking.roomNumber}</li>
-      <li class="details-li">number of beds: ${selectedRoom.numBeds}</li>
-      <li class="details-li">bed size: ${selectedRoom.bedSize}</li>
-      <li class="details-li">has bidet: ${selectedRoom.hasBidet ? "yes" : "no"}</li>
-      <li class="details-li">${selectedRoom.roomType}</li>
+      <li>room number: ${newBooking.roomNumber}</li>
+      <li>number of beds: ${selectedRoom.numBeds}</li>
+      <li>bed size: ${selectedRoom.bedSize}</li>
+      <li>has bidet: ${selectedRoom.hasBidet ? "yes" : "no"}</li>
+      <li>${selectedRoom.roomType}</li>
     </ul>
-    <li class="details-li">total: $${selectedRoom.costPerNight.toFixed(2)}</li>`;
+    <li class="total-li">total: <b>$${selectedRoom.costPerNight.toFixed(2)}</b></li>`;
 };
 
 function renderConfirmation() {
@@ -341,4 +364,12 @@ function renderConfirmation() {
   <p>your room is booked!</p>
   <p>your confirmation code is:</p>
   <div class="conf-code">${confirmedBookingId}</div>`;
+};
+
+function toggleAriaExpanded(element) {
+  if (element.getAttribute("aria-expanded") === "true") {
+    element.setAttribute("aria-expanded", "false");
+  } else {
+    element.setAttribute("aria-expanded", "true");
+  };
 };
