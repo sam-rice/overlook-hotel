@@ -46,10 +46,54 @@
     <section id="admin-view" class="admin-view">
       <div class="admin-parent">
         <div class="admin-header">
-          <h2 class="admin-header-text">TODAY'S VACANCY/EARNINGS</h2>
+          <h2 class="admin-header-text">TODAY'S VACANCIES/EARNINGS</h2>
         </div>
-        <div class="daily-report-parent">
-          
+        <div class="report-parent">
+          <div class="report-table-parent">
+            <h3 class="admin-header-text">November 13, 2022</h3>
+            <table>
+              <th></th>
+              <th>#</th>
+              <th>%</th>
+              <tbody id="report-table-body">
+                <tr class="report-table-row">
+                  <td>rooms available:</td>
+                  <td>20</td>
+                  <td>80%</td>
+                </tr>
+                <tr class="report-table-row">
+                  <td>rooms booked:</td>
+                  <td>5</td>
+                  <td>20%</td>
+                </tr>
+                <tr class="report-table-row">
+                  <td>total revenue:</td>
+                  <td colspan="2">$2000.44</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="report-rooms-parent">
+            <h3 class="admin-header-text">available rooms</h3>
+            <div class="report-rooms-table-parent">
+              <table>
+                <th>room:</th>
+                <th># beds/size:</th>
+                <th>bidet:</th>
+                <th>type:</th>
+                <th>price/night:</th>
+                <tbody>
+                  <tr class="report-table-row" data-room-num="23" tabindex="0" aria-selected="false">
+                    <td>23</td>
+                    <td>3 / full</td>
+                    <td>yes</td>
+                    <td>junior suite</td>
+                    <td>$380</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
         <div class="admin-header">
           <h2 class="admin-header-text">GUEST LOOKUP</h2>

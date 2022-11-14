@@ -345,12 +345,12 @@ function renderBookingsTable(bookingsObject, table, isFuture) {
 function toggleHidden(element) {
   element.classList.toggle("hide");
 };
-
+// quotes around data-room-num value blow
 function renderAvailableRooms(availRooms) {
   availRoomsTable.innerHTML = "";
   availRooms.forEach(room => {
     availRoomsTable.innerHTML += `
-      <tr class="avail-room-tr" data-room-num=${room.number} tabindex="0" aria-selected="false">
+      <tr class="avail-room-tr" data-room-num="${room.number}" tabindex="0" aria-selected="false">
         <td>${room.number}</td>
         <td>${room.numBeds} / ${room.bedSize}</td>
         <td>${room.hasBidet ? "yes" : "no"}</td>
