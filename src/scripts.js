@@ -305,6 +305,7 @@ adminRemoveBookingButton.addEventListener("click", () => {
       updateBookings(data.bookings);
 
       adminSelectedBooking = null;
+      adminPastBookingError.innerText = "";
       deactivateAdminBookingsNodes(".admin-guest-bookings");
       renderAdminGuestBookings(adminSelectedGuest);
       renderAdminView();
@@ -444,6 +445,7 @@ function clearBookingMemory() {
   adminRoomError.innerText = "";
   adminDateInput.value = "";
   adminBookingRoomsTable.innerHTML = "";
+  adminPastBookingError.innerText = "";
 };
 
 //----------------------UTILITY FUNCTIONS----------------------//
