@@ -2,12 +2,12 @@ import Guest from "./Guest"
 
 class GuestList {
   constructor(allGuestsData) {
-    this.guests = this.initGuests(allGuestsData)
+    this.guests = this.initGuests(allGuestsData);
   };
 
   initGuests(allGuestsData) {
-    return allGuestsData.map(guest => new Guest(guest))
-  }
+    return allGuestsData.map(guest => new Guest(guest));
+  };
 
   checkUserCredentials(username, password) {
     if (password === "overlook2021") {
@@ -18,11 +18,10 @@ class GuestList {
     };
   };
 
-  searchGuests(name) {
-    if (name === "") { return [] }
-    return this.guests.filter(guest => guest.name.toLowerCase().includes(name.toLowerCase()));
+  searchGuests(string) {
+    if (string === "") { return [] }
+    return this.guests.filter(guest => guest.name.toLowerCase().includes(string.toLowerCase()));
   };
-
 };
 
 export default GuestList;

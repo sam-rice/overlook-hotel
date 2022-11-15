@@ -50,8 +50,6 @@ class BookingList {
   };
 
   getVacancyData(date) {
-    // let currentDate = new Date();
-    // let formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
     let vacantRooms = this.getAvailableRooms(date).length;
 
     return {
