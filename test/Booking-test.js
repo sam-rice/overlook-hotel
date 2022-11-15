@@ -10,7 +10,7 @@ describe('Booking Class', function() {
     booking = new Booking(bookings[0]);
   });
 
-  it('should be an instance of the Booking Class', function() {
+  it('should be an instance of the Booking Class.', function() {
     expect(booking).to.be.an.instanceOf(Booking);
   });
 
