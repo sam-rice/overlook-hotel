@@ -1,7 +1,18 @@
 # Overlook Hotel
 
 ### Abstract
-This project 
+This project is meant to emulate a hotel's client-side website with additional functionality intended for hotel staff ("admin view"). Users will find a thoughtfully-designed UI that takes them through the step-by-step process of sign into their account, viewing their past bookings, and creating a new booking. 
+
+From the admin view, a user can search all guests by name, remove a future booking, and create a new booking for that guest. Information on occupancy rates for the given day are also dynamically presented here.
+
+To use the admin interface, use the following credentials to log in:
+username: manager
+password: overlook2021
+
+To use the guest interface, use the following credentials to log in:
+username: customer1
+password: overlook2021
+* the number in the customer's username represents the customer's id number coming from the endpoint. Any number between 1 and 50 can be used.
 
 ### Guest View
 ![user-view-gif](https://user-images.githubusercontent.com/108169988/202003087-a0d0559c-e9ee-4567-8092-511ed2b3bc32.gif)
