@@ -330,8 +330,12 @@ td {
   height: 161px;
 }
 
+.admin-room-error {
+  margin-top: 7px;
+}
+
 .admin-submit-button {
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
 /* ---------------------HEADER--------------------- */

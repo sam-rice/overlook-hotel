@@ -105,6 +105,7 @@ const adminDateInput = document.getElementById("admin-date-input");
 const adminDateSearch = document.getElementById("admin-date-search");
 const adminDateError = document.getElementById("admin-date-error");
 const adminBookingRoomsTable = document.getElementById("admin-booking-rooms");
+const adminRoomError = document.getElementById("admin-room-error");
 const adminSubmitBookingButton = document.getElementById("admin-submit-booking");
 
 //----------------------EVENT LISTENERS----------------------//
@@ -255,12 +256,14 @@ guestSearchInput.addEventListener("keypress", e => {
 
 guestSearchTable.addEventListener("click", e => {
   let guestId = Number(e.target.parentNode.dataset.guestId)
-  adminSelectedGuest = guestList.guests.find(guest => guest.id === guestId);
 
-  enableBookingControls();
-  renderAdminGuestBookings(adminSelectedGuest)
-  deactivateTableNodes();
-  activateSelectedNode(e.target.parentNode);
+  adminSelectGuest(guestId, e.target.parentNode)
+});
+
+guestSearchTable.addEventListener("keypress", e => {
+  let guestId = Number(e.target.dataset.guestId)
+
+  adminSelectGuest(guestId, e.target.parentNode)
 });
 
 adminGuestBookingsTable.addEventListener("click", e => {
@@ -269,6 +272,13 @@ adminGuestBookingsTable.addEventListener("click", e => {
   deactivateAdminBookingsNodes(".admin-guest-bookings")
   activateSelectedNode(e.target.parentNode);
 });
+
+adminGuestBookingsTable.addEventListener("keypress", e => {
+  adminSelectedBooking = e.target.dataset.bookingId;
+
+  deactivateAdminBookingsNodes(".admin-guest-bookings")
+  activateSelectedNode(e.target);
+})
 
 adminRemoveBookingButton.addEventListener("click", () => {
   deleteData(`http://localhost:3001/api/v1/bookings/${adminSelectedBooking}`)
@@ -305,19 +315,30 @@ adminBookingRoomsTable.addEventListener("click", e => {
   activateSelectedNode(e.target.parentNode);
 });
 
-adminSubmitBookingButton.addEventListener("click", () => {
-  newBooking["roomNumber"] = adminSelectedRoom;
-  postData(newBooking, allBookingsURL)
-    .then(response => response.json())
-    .then(response => confirmedBookingId = response.newBooking.id)
-    .then(() => getData(allBookingsURL))
-    .then(data => {
-      updateBookings(data.bookings);
+adminBookingRoomsTable.addEventListener("keypress", e => {
+  adminSelectedRoom = Number(e.target.dataset.roomNum);
 
-      clearBookingMemory();
-      renderAdminView();
-      renderAdminGuestBookings(adminSelectedGuest);
-    });
+  deactivateAdminBookingsNodes(".admin-avail-rooms");
+  activateSelectedNode(e.target);
+});
+
+adminSubmitBookingButton.addEventListener("click", () => {
+  if (!adminSelectedRoom) {
+    adminRoomError.innerText = "* you must select a room first"
+  } else {
+    newBooking["roomNumber"] = adminSelectedRoom;
+    postData(newBooking, allBookingsURL)
+      .then(response => response.json())
+      .then(response => confirmedBookingId = response.newBooking.id)
+      .then(() => getData(allBookingsURL))
+      .then(data => {
+        updateBookings(data.bookings);
+  
+        clearBookingMemory();
+        renderAdminView();
+        renderAdminGuestBookings(adminSelectedGuest);
+      });
+  };
 });
 
 signOutButton.addEventListener("click", () => {
@@ -359,6 +380,14 @@ function searchForUser() {
   renderGuestSearchResults();
 };
 
+function adminSelectGuest(guestId, node) {
+  adminSelectedGuest = guestList.guests.find(guest => guest.id === guestId);
+  enableBookingControls();
+  renderAdminGuestBookings(adminSelectedGuest)
+  deactivateTableNodes();
+  activateSelectedNode(node);
+}
+
 //----------------------DATA FUNCTIONS----------------------//
 
 
@@ -391,6 +420,7 @@ function clearBookingMemory() {
   dateInput.value = "";
   dateError.innerText = "";
   roomError.innerText = "";
+  adminRoomError.innerText = "";
   adminDateInput.value = "";
   adminBookingRoomsTable.innerHTML = "";
 };
@@ -488,10 +518,10 @@ function renderDetails() {
 function renderConfirmation() {
   successParent.innerHTML = "";
   successParent.innerHTML = `
-  <h2>thank you ${guest.name}!</h2>
-  <p>your room is booked!</p>
-  <p>your confirmation code is:</p>
-  <div class="conf-code">${confirmedBookingId}</div>`;
+    <h2>thank you ${guest.name}!</h2>
+    <p>your room is booked!</p>
+    <p>your confirmation code is:</p>
+    <div class="conf-code">${confirmedBookingId}</div>`;
 };
 
 function toggleAriaExpanded(element) {
@@ -567,7 +597,7 @@ function renderAvailableRoomsTable() {
   adminAvailRoomsTable.innerHTML = "";
   bookingList.getAvailableRooms(getReformattedCurrentDate()).forEach(room => {
     adminAvailRoomsTable.innerHTML +=`
-      <tr class="admin-table-row" tabindex="0">
+      <tr class="admin-table-row" tabindex="2">
         <td>${room.number}</td>
         <td>${room.numBeds} / ${room.bedSize}</td>
         <td>${room.hasBidet ? "yes" : "no"}</td>
@@ -599,7 +629,7 @@ function renderAdminGuestBookings(adminGuest) {
   adminGuestBookingsTable.innerHTML = "";
   adminGuest.getAllBookings(bookingList).upcomingBookings.forEach(booking => {
     adminGuestBookingsTable.innerHTML += `
-      <tr class="admin-table-row guest-result-row admin-guest-bookings" data-booking-id="${booking.id}" aria-selected="false">
+      <tr class="admin-table-row guest-result-row admin-guest-bookings" data-booking-id="${booking.id}" tabindex="1" aria-selected="false">
         <td>${booking.date}</td>
         <td>${booking.roomNumber}</td>
         <td>${booking.numBeds} / ${booking.bedSize}</td>
