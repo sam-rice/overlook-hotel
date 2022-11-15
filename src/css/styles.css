@@ -730,6 +730,12 @@ select:focus {
   padding-top: 1px;
 }
 
+.server-error-section {
+  display: flex;
+  align-items: center;
+  height: 219px;
+}
+
 /* KEEP AT BOTTOM */
 
 .hide {

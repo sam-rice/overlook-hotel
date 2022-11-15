@@ -37,15 +37,18 @@ function fetchData(urls) {
       allRooms = data[2].rooms;
       initPage();
     })
-  // .catch(error => {
-  //   if (error instanceof TypeError) {
-  //     alert("Looks like we're having problems. Please try again later.");
-  //   } else if (error instanceof ReferenceError) {
-  //     alert("Looks like something broke on our end. Please try again later.");
-  //   } else {
-  //     alert("An error occured. Please try again later.");
-  //   }
-  // });
+  .catch(error => {
+    if (error instanceof TypeError) {
+      displayError();
+      serverErrorMessage.innerText = "Sorry! Something broke on our end. Please try again later.";
+    } else if (error instanceof ReferenceError) {
+      displayError();
+      serverErrorMessage.innerText = "Sorry! Please refresh and try making your request again.";
+    } else {
+      displayError();
+      serverErrorMessage.innerText = "Looks like something went wrong! Please try again later.";
+    };
+  });
 };
 
 //----------------------QUERY SELECTORS----------------------//
@@ -108,6 +111,8 @@ const adminDateError = document.getElementById("admin-date-error");
 const adminBookingRoomsTable = document.getElementById("admin-booking-rooms");
 const adminRoomError = document.getElementById("admin-room-error");
 const adminSubmitBookingButton = document.getElementById("admin-submit-booking");
+const serverErrorSection = document.getElementById("server-error-section");
+const serverErrorMessage = document.getElementById("server-error");
 
 //----------------------EVENT LISTENERS----------------------//
 
@@ -685,4 +690,13 @@ function renderAdminBookingRooms(availableRooms) {
       <td>$${room.costPerNight.toFixed(2)}</td>
     </tr>`
   });
+};
+
+function displayError() {
+  [bannerParent, userLoginView, adminView, bookButtonHeader, signOutButton, userToolsView, bookParent, successGrandparent].forEach(element => {
+    if (!element.classList.contains("hide")) {
+      element.classList.add("hide");
+    };
+  });
+  serverErrorSection.classList.remove("hide");
 };
