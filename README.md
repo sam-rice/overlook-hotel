@@ -1,7 +1,7 @@
 # Overlook Hotel
 
 ### Abstract
-This project is meant to emulate a hotel's client-side website with additional functionality intended for hotel staff ("admin view"). Users will find a thoughtfully-designed UI that takes them through the step-by-step process of sign into their account, viewing their past bookings, and creating a new booking. 
+This project is meant to emulate a hotel's client-side website with additional functionality intended for hotel staff ("admin view"). Users will find a thoughtfully-designed UI that takes them through the step-by-step process of signing into their account, viewing past and upcoming bookings, and creating a new booking. 
 
 From the admin view, a user can search all guests by name, remove a future booking, and create a new booking for that guest. Information on occupancy rates for the given day are also dynamically presented here.
 
