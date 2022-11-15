@@ -9,11 +9,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600|Montserrat:400,800" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <link href="https://fonts.googleapis.com/css2?family=Alata&family=Cabin&display=swap" rel="stylesheet">
+  
   <title>Overlook Hotel</title>
 </head>
 
-<body>
-  <header>
+<body id="body" class="sign-in-body">
+  <header class="sticky">
     <div class="header-left">
       <!-- logo image -->
       <p id="logo" class="logo" aria-label="go to home page" tabindex="0">OH</p>
@@ -31,7 +34,7 @@
       <div class="user-login-parent">
         <p>Overlook Hotel</p>
         <div class="login-input-grandparent">
-          <p>sign in:</p>
+          <p class="sign-in-p">sign in:</p>
           <div class="login-input-parent">
             <label for="username">username:</label>
             <input id="username" class="login-input" type="text">
@@ -52,7 +55,7 @@
           <div class="stats-table-parent">
             <h3 id="stats-date" class="admin-header-text"></h3>
             <table>
-              <th></th>
+              <th class="hidden-metric">metric</th>
               <th>#</th>
               <th>%</th>
               <tbody id="stats-table-body">
@@ -61,7 +64,7 @@
             </table>
           </div>
           <div class="report-rooms-parent">
-            <h3 class="admin-header-text">available rooms</h3>
+            <h3 class="admin-header-text">available rooms:</h3>
             <div class="report-rooms-table-parent">
               <table>
                 <th>room:</th>
@@ -126,7 +129,7 @@
                   <button id="admin-date-search" class="book-button admin-button" disabled>search</button>
                 </div>
                 <p id="admin-date-error" class="admin-date-error"></p>
-                <h3 class="admin-header-text">available rooms</h3>
+                <h3 class="admin-header-text">available rooms:</h3>
                 <div class="report-rooms-table-parent admin-new-booking-table-parent">
                   <table>
                     <th>room:</th>
@@ -188,7 +191,7 @@
           aria-controls="profile-parent">MY PROFILE</button>
         <section id="profile-parent" class="profile-parent">
           <h2 id="dash-guest-name" class="dash-guest-name"></h2>
-          <p>upcoming stays:</p>
+          <p class="profile-labels">upcoming stays:</p>
           <div class="stays-parent">
             <table class="upcoming-stays-table">
               <th>date:</th>
@@ -201,7 +204,7 @@
               </tbody>
             </table>
           </div>
-          <p>past stays:</p>
+          <p class="profile-labels">past stays:</p>
           <div class="stays-parent">
             <table class="past-stays-table">
               <th>date:</th>
@@ -214,7 +217,7 @@
               </tbody>
             </table>
           </div>
-          <p id="total-spent"></p>
+          <p id="total-spent" class="profile-labels"></p>
         </section>
         <button id="about-button" class="accordion-button  accordion-button-collapsed" aria-expanded="false"
           aria-controls="about-parent">ABOUT OVERLOOK</button>

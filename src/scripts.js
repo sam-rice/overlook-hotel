@@ -53,6 +53,7 @@ function fetchData(urls) {
 
 //----------------------QUERY SELECTORS----------------------//
 
+const body = document.getElementById("body");
 const logo = document.getElementById("logo");
 const userLoginView = document.getElementById("user-login-view");
 const loginButton = document.getElementById("login-button");
@@ -366,6 +367,7 @@ signOutButton.addEventListener("click", () => {
   toggleHidden(guestHeaderSub);
   toggleHidden(adminHeaderSub);
   toggleHidden(signOutButton);
+  body.classList.add("sign-in-body");
   usernameInput.value = "";
   passwordInput.value = "";
 })
@@ -560,6 +562,7 @@ function displayGuestDash() {
   toggleHidden(bookButtonHeader);
   toggleHidden(bannerParent);
   toggleHidden(userToolsView);
+  body.classList.remove("sign-in-body");
 };
 
 function renderAdminView() {
@@ -573,6 +576,7 @@ function displayAdminView() {
   toggleHidden(adminHeaderSub);
   toggleHidden(signOutButton);
   toggleHidden(adminView);
+  body.classList.remove("sign-in-body");
 };
 
 function resetAdminInterface() {
