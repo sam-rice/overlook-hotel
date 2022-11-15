@@ -37,19 +37,23 @@ function fetchData(urls) {
       allRooms = data[2].rooms;
       initPage();
     })
-  // .catch(error => {
-  //   if (error instanceof TypeError) {
-  //     alert("Looks like we're having problems. Please try again later.");
-  //   } else if (error instanceof ReferenceError) {
-  //     alert("Looks like something broke on our end. Please try again later.");
-  //   } else {
-  //     alert("An error occured. Please try again later.");
-  //   }
-  // });
+  .catch(error => {
+    if (error instanceof TypeError) {
+      displayError();
+      serverErrorMessage.innerText = "Sorry! Something broke on our end. Please try again later.";
+    } else if (error instanceof ReferenceError) {
+      displayError();
+      serverErrorMessage.innerText = "Sorry! Please refresh and try making your request again.";
+    } else {
+      displayError();
+      serverErrorMessage.innerText = "Looks like something went wrong! Please try again later.";
+    };
+  });
 };
 
 //----------------------QUERY SELECTORS----------------------//
 
+const body = document.getElementById("body");
 const logo = document.getElementById("logo");
 const userLoginView = document.getElementById("user-login-view");
 const loginButton = document.getElementById("login-button");
@@ -100,12 +104,16 @@ const guestSearchInput = document.getElementById("guest-search-input");
 const guestSearchButton = document.getElementById("guest-search-button");
 const guestSearchTable = document.getElementById("guest-search-table");
 const adminGuestBookingsTable = document.getElementById("admin-guest-bookings-table");
+const adminPastBookingError = document.getElementById("admin-past-booking-error");
 const adminRemoveBookingButton = document.getElementById("admin-remove-booking");
 const adminDateInput = document.getElementById("admin-date-input");
 const adminDateSearch = document.getElementById("admin-date-search");
 const adminDateError = document.getElementById("admin-date-error");
 const adminBookingRoomsTable = document.getElementById("admin-booking-rooms");
+const adminRoomError = document.getElementById("admin-room-error");
 const adminSubmitBookingButton = document.getElementById("admin-submit-booking");
+const serverErrorSection = document.getElementById("server-error-section");
+const serverErrorMessage = document.getElementById("server-error");
 
 //----------------------EVENT LISTENERS----------------------//
 
@@ -122,23 +130,6 @@ passwordInput.addEventListener("keypress", e => {
 });
 
 loginButton.addEventListener("click", () => loginUser());
-
-function loginUser() {
-  let username = usernameInput.value;
-  let password = passwordInput.value;
-  let user = guestList.checkUserCredentials(username, password);
-
-  if (username === "manager" && password === "overlook2021") {
-    renderAdminView();
-    displayAdminView();
-  } else if (user) {
-    guest = user;
-    renderGuestDash();
-    displayGuestDash();
-  } else {
-    displayInvalidLogin();
-  }
-}
 
 profileButton.addEventListener("click", () => {
   toggleAccordion(profileParent, profileButton);
@@ -262,30 +253,53 @@ homeButton.addEventListener("click", () => {
   toggleHidden(dashParent);
 });
 
-guestSearchButton.addEventListener("click", () => {
-  resetAdminInterface();
-  renderGuestSearchResults();
-});
+guestSearchButton.addEventListener("click", () => searchForUser());
+
+guestSearchInput.addEventListener("keypress", e => {
+  if (e.key === "Enter") {
+    searchForUser();
+  };
+})
 
 guestSearchTable.addEventListener("click", e => {
   let guestId = Number(e.target.parentNode.dataset.guestId)
-  adminSelectedGuest = guestList.guests.find(guest => guest.id === guestId);
 
-  enableBookingControls();
-  renderAdminGuestBookings(adminSelectedGuest)
-  deactivateTableNodes();
-  activateSelectedNode(e.target.parentNode);
+  adminSelectGuest(guestId, e.target.parentNode)
+});
+
+guestSearchTable.addEventListener("keypress", e => {
+  let guestId = Number(e.target.dataset.guestId)
+
+  adminSelectGuest(guestId, e.target.parentNode)
 });
 
 adminGuestBookingsTable.addEventListener("click", e => {
-  adminSelectedBooking = e.target.parentNode.dataset.bookingId;
+  if (e.target.parentNode.classList.contains("admin-past-bookings")) {
+    adminSelectedBooking = null;
+  } else {
+    adminSelectedBooking = e.target.parentNode.dataset.bookingId;
+  };
 
   deactivateAdminBookingsNodes(".admin-guest-bookings")
   activateSelectedNode(e.target.parentNode);
 });
 
+adminGuestBookingsTable.addEventListener("keypress", e => {
+  if (e.target.classList.contains("admin-past-bookings")) {
+    adminSelectedBooking = null;
+  } else {
+    adminSelectedBooking = e.target.dataset.bookingId;
+  };
+
+  deactivateAdminBookingsNodes(".admin-guest-bookings")
+  activateSelectedNode(e.target);
+})
+
 adminRemoveBookingButton.addEventListener("click", () => {
-  deleteData(`http://localhost:3001/api/v1/bookings/${adminSelectedBooking}`)
+  if (!adminSelectedBooking) {
+    adminPastBookingError.innerText = "* cannot remove a past booking"
+  } else {
+    deleteData(`http://localhost:3001/api/v1/bookings/${adminSelectedBooking}`)
     .then(() => getData(allBookingsURL))
     .then(data => {
       updateBookings(data.bookings);
@@ -295,6 +309,7 @@ adminRemoveBookingButton.addEventListener("click", () => {
       renderAdminGuestBookings(adminSelectedGuest);
       renderAdminView();
     });
+  };
 });
 
 adminDateSearch.addEventListener("click", () => {
@@ -319,19 +334,30 @@ adminBookingRoomsTable.addEventListener("click", e => {
   activateSelectedNode(e.target.parentNode);
 });
 
-adminSubmitBookingButton.addEventListener("click", () => {
-  newBooking["roomNumber"] = adminSelectedRoom;
-  postData(newBooking, allBookingsURL)
-    .then(response => response.json())
-    .then(response => confirmedBookingId = response.newBooking.id)
-    .then(() => getData(allBookingsURL))
-    .then(data => {
-      updateBookings(data.bookings);
+adminBookingRoomsTable.addEventListener("keypress", e => {
+  adminSelectedRoom = Number(e.target.dataset.roomNum);
 
-      clearBookingMemory();
-      renderAdminView();
-      renderAdminGuestBookings(adminSelectedGuest);
-    });
+  deactivateAdminBookingsNodes(".admin-avail-rooms");
+  activateSelectedNode(e.target);
+});
+
+adminSubmitBookingButton.addEventListener("click", () => {
+  if (!adminSelectedRoom) {
+    adminRoomError.innerText = "* you must select a room first"
+  } else {
+    newBooking["roomNumber"] = adminSelectedRoom;
+    postData(newBooking, allBookingsURL)
+      .then(response => response.json())
+      .then(response => confirmedBookingId = response.newBooking.id)
+      .then(() => getData(allBookingsURL))
+      .then(data => {
+        updateBookings(data.bookings);
+  
+        clearBookingMemory();
+        renderAdminView();
+        renderAdminGuestBookings(adminSelectedGuest);
+      });
+  };
 });
 
 signOutButton.addEventListener("click", () => {
@@ -340,23 +366,52 @@ signOutButton.addEventListener("click", () => {
   toggleHidden(userLoginView);
   toggleHidden(guestHeaderSub);
   toggleHidden(adminHeaderSub);
+  toggleHidden(signOutButton);
+  body.classList.add("sign-in-body");
   usernameInput.value = "";
   passwordInput.value = "";
 })
 
 //----------------------EVENT HANDLERS----------------------//
 
-
-
-
-
-
-//----------------------DATA FUNCTIONS----------------------//
-
 function initPage() {
   initBookingList();
   initGuestList();
 };
+
+function loginUser() {
+  let username = usernameInput.value;
+  let password = passwordInput.value;
+  let user = guestList.checkUserCredentials(username, password);
+
+  if (username === "manager" && password === "overlook2021") {
+    renderAdminView();
+    displayAdminView();
+  } else if (user) {
+    guest = user;
+    renderGuestDash();
+    displayGuestDash();
+  } else {
+    displayInvalidLogin();
+  };
+};
+
+function searchForUser() {
+  resetAdminInterface();
+  renderGuestSearchResults();
+};
+
+function adminSelectGuest(guestId, node) {
+  adminSelectedGuest = guestList.guests.find(guest => guest.id === guestId);
+  enableBookingControls();
+  renderAdminGuestBookings(adminSelectedGuest)
+  deactivateTableNodes();
+  activateSelectedNode(node);
+}
+
+//----------------------DATA FUNCTIONS----------------------//
+
+
 
 function initBookingList() {
   bookingList = new BookingList(allBookingsData, allRooms);
@@ -386,6 +441,7 @@ function clearBookingMemory() {
   dateInput.value = "";
   dateError.innerText = "";
   roomError.innerText = "";
+  adminRoomError.innerText = "";
   adminDateInput.value = "";
   adminBookingRoomsTable.innerHTML = "";
 };
@@ -483,10 +539,10 @@ function renderDetails() {
 function renderConfirmation() {
   successParent.innerHTML = "";
   successParent.innerHTML = `
-  <h2>thank you ${guest.name}!</h2>
-  <p>your room is booked!</p>
-  <p>your confirmation code is:</p>
-  <div class="conf-code">${confirmedBookingId}</div>`;
+    <h2>thank you ${guest.name}!</h2>
+    <p>your room is booked!</p>
+    <p>your confirmation code is:</p>
+    <div class="conf-code">${confirmedBookingId}</div>`;
 };
 
 function toggleAriaExpanded(element) {
@@ -506,6 +562,7 @@ function displayGuestDash() {
   toggleHidden(bookButtonHeader);
   toggleHidden(bannerParent);
   toggleHidden(userToolsView);
+  body.classList.remove("sign-in-body");
 };
 
 function renderAdminView() {
@@ -519,6 +576,7 @@ function displayAdminView() {
   toggleHidden(adminHeaderSub);
   toggleHidden(signOutButton);
   toggleHidden(adminView);
+  body.classList.remove("sign-in-body");
 };
 
 function resetAdminInterface() {
@@ -562,7 +620,7 @@ function renderAvailableRoomsTable() {
   adminAvailRoomsTable.innerHTML = "";
   bookingList.getAvailableRooms(getReformattedCurrentDate()).forEach(room => {
     adminAvailRoomsTable.innerHTML +=`
-      <tr class="admin-table-row" tabindex="0">
+      <tr class="admin-table-row" tabindex="2">
         <td>${room.number}</td>
         <td>${room.numBeds} / ${room.bedSize}</td>
         <td>${room.hasBidet ? "yes" : "no"}</td>
@@ -588,13 +646,26 @@ function enableBookingControls() {
   adminDateSearch.removeAttribute("disabled");
   adminDateInput.removeAttribute("disabled");
   adminSubmitBookingButton.removeAttribute("disabled");
-}
+};
 
 function renderAdminGuestBookings(adminGuest) {
   adminGuestBookingsTable.innerHTML = "";
-  adminGuest.getAllBookings(bookingList).upcomingBookings.forEach(booking => {
+  let guestBookings = adminGuest.getAllBookings(bookingList);
+  
+  guestBookings.upcomingBookings.forEach(booking => {
     adminGuestBookingsTable.innerHTML += `
-      <tr class="admin-table-row guest-result-row admin-guest-bookings" data-booking-id="${booking.id}" aria-selected="false">
+      <tr class="admin-table-row guest-result-row admin-guest-bookings" data-booking-id="${booking.id}" tabindex="1" aria-selected="false">
+        <td>${booking.date}</td>
+        <td>${booking.roomNumber}</td>
+        <td>${booking.numBeds} / ${booking.bedSize}</td>
+        <td>${booking.roomType}</td>
+        <td>$${booking.costPerNight}</td>
+      </tr>`;
+  });
+
+  guestBookings.pastBookings.forEach(booking => {
+    adminGuestBookingsTable.innerHTML += `
+      <tr class="admin-table-row guest-result-row admin-guest-bookings admin-past-bookings" data-booking-id="${booking.id}" tabindex="1" aria-selected="false">
         <td>${booking.date}</td>
         <td>${booking.roomNumber}</td>
         <td>${booking.numBeds} / ${booking.bedSize}</td>
@@ -623,4 +694,13 @@ function renderAdminBookingRooms(availableRooms) {
       <td>$${room.costPerNight.toFixed(2)}</td>
     </tr>`
   });
+};
+
+function displayError() {
+  [bannerParent, userLoginView, adminView, bookButtonHeader, signOutButton, userToolsView, bookParent, successGrandparent].forEach(element => {
+    if (!element.classList.contains("hide")) {
+      element.classList.add("hide");
+    };
+  });
+  serverErrorSection.classList.remove("hide");
 };

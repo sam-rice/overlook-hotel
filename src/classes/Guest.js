@@ -40,7 +40,6 @@ class Guest {
       upcomingBookings: []
     });
   };
-
 };
 
 export default Guest;
