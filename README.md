@@ -6,12 +6,12 @@ This project is meant to emulate a hotel's client-side website with additional f
 From the admin view, a user can search all guests by name, remove a future booking, and create a new booking for that guest. Information on occupancy rates for the given day are also dynamically presented here.
 
 To use the admin interface, use the following credentials to log in:\
-username: manager\
-password: overlook2021
+username: `manager`\
+password: `overlook2021`
 
 To use the guest interface, use the following credentials to log in:\
-username: customer1\
-password: overlook2021\
+username: `customer1`\
+password: `overlook2021`\
 note: The number in the customer's username represents the customer's id number coming from the endpoint. Any number between 1 and 50 can be used.
 
 ### Guest View
