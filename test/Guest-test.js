@@ -27,12 +27,12 @@ describe('Guest Class', function() {
     expect(guest2.name).to.eql("Rocio Schuster");
   });
 
-  it('should be able to calculate the total a guest has spent in the past.', function() {
+  it('should calculate the total a guest has spent in the past.', function() {
     expect(guest1.getTotalSpent(bookingList)).to.eql(172.09);
     expect(guest2.getTotalSpent(bookingList)).to.eql(686.55);
   });
 
-  it('should be able to return an object with an array of past bookings and upcoming bookings.', function() {
+  it('should return an object with an array of past bookings and upcoming bookings.', function() {
     expect(guest1.getAllBookings(bookingList)).to.eql({
       pastBookings: [{
         date: "2022-02-05",

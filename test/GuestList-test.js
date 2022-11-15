@@ -27,7 +27,7 @@ describe('GuestList Class', function() {
     expect(guestList.checkUserCredentials("nonexistent customer", "overlook2021")).to.eql(undefined);
   });
 
-  it('should be able to return an array of guests when given a string that matches or partly matches any guest\'s name.', function() {
+  it('should return an array of guests when given a string that matches or partly matches any guest\'s name.', function() {
     expect(guestList.searchGuests("Dell Rath")).to.eql([guestList.guests[6]]);
     expect(guestList.searchGuests("dell rath")).to.eql([guestList.guests[6]]);
     expect(guestList.searchGuests("sch")).to.eql([guestList.guests[1], guestList.guests[2], guestList.guests[5], guestList.guests[13]]);

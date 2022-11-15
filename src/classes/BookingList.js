@@ -47,13 +47,13 @@ class BookingList {
   };
 
   getVacancyData(date) {
-    let vacantRooms = this.getAvailableRooms(date).length;
+    let numVacantRooms = this.getAvailableRooms(date).length;
 
     return {
-      vacant: vacantRooms,
-      percentVacant: ((vacantRooms / 25) * 100).toFixed(0),
-      booked: 25 - vacantRooms,
-      percentBooked: (((25 - vacantRooms) / 25) * 100).toFixed(0)
+      vacant: numVacantRooms,
+      percentVacant: ((numVacantRooms / 25) * 100).toFixed(0),
+      booked: 25 - numVacantRooms,
+      percentBooked: (((25 - numVacantRooms) / 25) * 100).toFixed(0)
     };
   };
 };
