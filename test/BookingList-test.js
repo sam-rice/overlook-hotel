@@ -11,6 +11,12 @@ import rooms from "./test-data/rooms-test-data";
 describe('BookingList Class', function () {
   let bookingList;
 
+  function getReformattedCurrentDate() {
+    let currentDate = new Date();
+    return `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
+  };
+
+
   this.beforeEach(() => {
     bookingList = new BookingList(bookings, rooms);
   });
@@ -35,27 +41,33 @@ describe('BookingList Class', function () {
     expect(bookingList.getRoomByNumber(17)).to.eql(bookingList.rooms[16]);
   });
 
-  it('should be able to filter available rooms by the <Room.roomType> property.', function () {
+  it('should be able to filter available rooms by their <roomType> property.', function () {
     expect(bookingList.getFilteredRooms("2022-01-12", "single room").length).to.eql(11);
     expect(bookingList.getFilteredRooms("2022-01-12", "single room")[2]).to.eql(bookingList.rooms[6]);
   });
 
   it('should be able to return today\'s total revenue.', function () {
-    let currentDate = new Date();
-    let reformattedDate = `${currentDate.getFullYear()}/${currentDate.getMonth() + 1}/${currentDate.getDate()}`;
     let bookingObject = {
       id: "5fwrgu4i7k55hl6y5",
       userID: 13,
-      date: reformattedDate,
+      date: getReformattedCurrentDate(),
       roomNumber: 19
     }
-
     bookingList.bookings.push(new Booking(bookingObject))
 
+    expect(bookingList.getTodaysRevenue(getReformattedCurrentDate())).to.eql(374.67);
+  });
+  
+  it('should be able to return today\'s total revenue.', function () {
+    let bookingObject = {
+      id: "5fwrgu4i7k55hl6y5",
+      userID: 13,
+      date: getReformattedCurrentDate(),
+      roomNumber: 19
+    }
+    bookingList.bookings.push(new Booking(bookingObject))
 
-
-    expect(bookingList.getTodaysRevenue()).to.eql(374.67);
-    expect(bookingList.getRoomByNumber(17)).to.eql(bookingList.rooms[16]);
+    expect(bookingList.getTodaysRevenue(getReformattedCurrentDate())).to.eql(374.67);
   });
 
 });

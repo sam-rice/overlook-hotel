@@ -36,12 +36,9 @@ class BookingList {
     return availRooms.filter(room => room.roomType === option);
   };
 
-  getTodaysRevenue() {
-    let currentDate = new Date();
-    let reformattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
-
+  getTodaysRevenue(todaysDate) {
     return this.bookings.reduce((acc, booking) => {
-      if (booking.date === reformattedDate) {
+      if (booking.date === todaysDate) {
         let targetRoom = this.rooms.find(room => room.number === booking.roomNumber);
         acc += targetRoom.costPerNight;
       }
