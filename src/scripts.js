@@ -123,23 +123,6 @@ passwordInput.addEventListener("keypress", e => {
 
 loginButton.addEventListener("click", () => loginUser());
 
-function loginUser() {
-  let username = usernameInput.value;
-  let password = passwordInput.value;
-  let user = guestList.checkUserCredentials(username, password);
-
-  if (username === "manager" && password === "overlook2021") {
-    renderAdminView();
-    displayAdminView();
-  } else if (user) {
-    guest = user;
-    renderGuestDash();
-    displayGuestDash();
-  } else {
-    displayInvalidLogin();
-  }
-}
-
 profileButton.addEventListener("click", () => {
   toggleAccordion(profileParent, profileButton);
   profileParent.scrollIntoView({ behavior: "smooth" });
@@ -262,10 +245,13 @@ homeButton.addEventListener("click", () => {
   toggleHidden(dashParent);
 });
 
-guestSearchButton.addEventListener("click", () => {
-  resetAdminInterface();
-  renderGuestSearchResults();
-});
+guestSearchButton.addEventListener("click", () => searchForUser());
+
+guestSearchInput.addEventListener("keypress", e => {
+  if (e.key === "Enter") {
+    searchForUser();
+  };
+})
 
 guestSearchTable.addEventListener("click", e => {
   let guestId = Number(e.target.parentNode.dataset.guestId)
@@ -346,17 +332,36 @@ signOutButton.addEventListener("click", () => {
 
 //----------------------EVENT HANDLERS----------------------//
 
-
-
-
-
-
-//----------------------DATA FUNCTIONS----------------------//
-
 function initPage() {
   initBookingList();
   initGuestList();
 };
+
+function loginUser() {
+  let username = usernameInput.value;
+  let password = passwordInput.value;
+  let user = guestList.checkUserCredentials(username, password);
+
+  if (username === "manager" && password === "overlook2021") {
+    renderAdminView();
+    displayAdminView();
+  } else if (user) {
+    guest = user;
+    renderGuestDash();
+    displayGuestDash();
+  } else {
+    displayInvalidLogin();
+  };
+};
+
+function searchForUser() {
+  resetAdminInterface();
+  renderGuestSearchResults();
+};
+
+//----------------------DATA FUNCTIONS----------------------//
+
+
 
 function initBookingList() {
   bookingList = new BookingList(allBookingsData, allRooms);
