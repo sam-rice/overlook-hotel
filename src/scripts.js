@@ -117,12 +117,13 @@ logo.addEventListener("click", () => location.reload());
 
 passwordInput.addEventListener("keypress", e => {
   if (e.key === "Enter") {
-    // console.log("works")
-    // submit handler here
-  }
-})
+    loginUser();
+  };
+});
 
-loginButton.addEventListener("click", () => {
+loginButton.addEventListener("click", () => loginUser());
+
+function loginUser() {
   let username = usernameInput.value;
   let password = passwordInput.value;
   let user = guestList.checkUserCredentials(username, password);
@@ -137,7 +138,7 @@ loginButton.addEventListener("click", () => {
   } else {
     displayInvalidLogin();
   }
-});
+}
 
 profileButton.addEventListener("click", () => {
   toggleAccordion(profileParent, profileButton);
