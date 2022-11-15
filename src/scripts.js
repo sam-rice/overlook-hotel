@@ -100,6 +100,7 @@ const guestSearchInput = document.getElementById("guest-search-input");
 const guestSearchButton = document.getElementById("guest-search-button");
 const guestSearchTable = document.getElementById("guest-search-table");
 const adminGuestBookingsTable = document.getElementById("admin-guest-bookings-table");
+const adminPastBookingError = document.getElementById("admin-past-booking-error");
 const adminRemoveBookingButton = document.getElementById("admin-remove-booking");
 const adminDateInput = document.getElementById("admin-date-input");
 const adminDateSearch = document.getElementById("admin-date-search");
@@ -267,21 +268,32 @@ guestSearchTable.addEventListener("keypress", e => {
 });
 
 adminGuestBookingsTable.addEventListener("click", e => {
-  adminSelectedBooking = e.target.parentNode.dataset.bookingId;
+  if (e.target.parentNode.classList.contains("admin-past-bookings")) {
+    adminSelectedBooking = null;
+  } else {
+    adminSelectedBooking = e.target.parentNode.dataset.bookingId;
+  };
 
   deactivateAdminBookingsNodes(".admin-guest-bookings")
   activateSelectedNode(e.target.parentNode);
 });
 
 adminGuestBookingsTable.addEventListener("keypress", e => {
-  adminSelectedBooking = e.target.dataset.bookingId;
+  if (e.target.classList.contains("admin-past-bookings")) {
+    adminSelectedBooking = null;
+  } else {
+    adminSelectedBooking = e.target.dataset.bookingId;
+  };
 
   deactivateAdminBookingsNodes(".admin-guest-bookings")
   activateSelectedNode(e.target);
 })
 
 adminRemoveBookingButton.addEventListener("click", () => {
-  deleteData(`http://localhost:3001/api/v1/bookings/${adminSelectedBooking}`)
+  if (!adminSelectedBooking) {
+    adminPastBookingError.innerText = "* cannot remove a past booking"
+  } else {
+    deleteData(`http://localhost:3001/api/v1/bookings/${adminSelectedBooking}`)
     .then(() => getData(allBookingsURL))
     .then(data => {
       updateBookings(data.bookings);
@@ -291,6 +303,7 @@ adminRemoveBookingButton.addEventListener("click", () => {
       renderAdminGuestBookings(adminSelectedGuest);
       renderAdminView();
     });
+  };
 });
 
 adminDateSearch.addEventListener("click", () => {
@@ -347,6 +360,7 @@ signOutButton.addEventListener("click", () => {
   toggleHidden(userLoginView);
   toggleHidden(guestHeaderSub);
   toggleHidden(adminHeaderSub);
+  toggleHidden(signOutButton);
   usernameInput.value = "";
   passwordInput.value = "";
 })
@@ -623,13 +637,26 @@ function enableBookingControls() {
   adminDateSearch.removeAttribute("disabled");
   adminDateInput.removeAttribute("disabled");
   adminSubmitBookingButton.removeAttribute("disabled");
-}
+};
 
 function renderAdminGuestBookings(adminGuest) {
   adminGuestBookingsTable.innerHTML = "";
-  adminGuest.getAllBookings(bookingList).upcomingBookings.forEach(booking => {
+  let guestBookings = adminGuest.getAllBookings(bookingList);
+  
+  guestBookings.upcomingBookings.forEach(booking => {
     adminGuestBookingsTable.innerHTML += `
       <tr class="admin-table-row guest-result-row admin-guest-bookings" data-booking-id="${booking.id}" tabindex="1" aria-selected="false">
+        <td>${booking.date}</td>
+        <td>${booking.roomNumber}</td>
+        <td>${booking.numBeds} / ${booking.bedSize}</td>
+        <td>${booking.roomType}</td>
+        <td>$${booking.costPerNight}</td>
+      </tr>`;
+  });
+
+  guestBookings.pastBookings.forEach(booking => {
+    adminGuestBookingsTable.innerHTML += `
+      <tr class="admin-table-row guest-result-row admin-guest-bookings admin-past-bookings" data-booking-id="${booking.id}" tabindex="1" aria-selected="false">
         <td>${booking.date}</td>
         <td>${booking.roomNumber}</td>
         <td>${booking.numBeds} / ${booking.bedSize}</td>
