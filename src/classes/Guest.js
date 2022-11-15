@@ -11,7 +11,7 @@ class Guest {
         acc += bookingList.rooms.find(room => room.number === booking.roomNumber).costPerNight;
       }
       return acc;
-    }, 0).toFixed(2));
+    }, 0));
   };
 
   getAllBookings(bookingList) {

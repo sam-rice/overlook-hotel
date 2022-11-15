@@ -179,7 +179,7 @@ submitDateButton.addEventListener("click", () => {
   if (!bookingList.getAvailableRooms(selectedDate).length) {
     dateError.innerText = "we're sorry! there are no available rooms for your selected date.";
     return;
-  } else if (new Date(selectedDate) >= new Date(reformatCurrentDate())) {
+  } else if (new Date(selectedDate) >= new Date(getReformattedCurrentDate())) {
     initNewBooking(selectedDate, guest);
     renderAvailableRooms(bookingList.getAvailableRooms(selectedDate));
     toggleBookingAccordion(dateGrandparent);
@@ -291,7 +291,8 @@ adminRemoveBookingButton.addEventListener("click", () => {
 
       adminSelectedBooking = null;
       deactivateAdminBookingsNodes(".admin-guest-bookings");
-      renderAdminGuestBookings(adminSelectedGuest)
+      renderAdminGuestBookings(adminSelectedGuest);
+      renderAdminView();
     });
 });
 
@@ -301,7 +302,7 @@ adminDateSearch.addEventListener("click", () => {
   if (!bookingList.getAvailableRooms(selectedDate).length) {
     adminDateError.innerText = "* no available rooms for selected date.";
     return;
-  } else if (new Date(selectedDate) >= new Date(reformatCurrentDate())) {
+  } else if (new Date(selectedDate) >= new Date(getReformattedCurrentDate())) {
     adminDateError.innerText = "";
     initNewBooking(selectedDate, adminSelectedGuest);
     renderAdminBookingRooms(bookingList.getAvailableRooms(selectedDate));
@@ -319,7 +320,6 @@ adminBookingRoomsTable.addEventListener("click", e => {
 
 adminSubmitBookingButton.addEventListener("click", () => {
   newBooking["roomNumber"] = adminSelectedRoom;
-
   postData(newBooking, allBookingsURL)
     .then(response => response.json())
     .then(response => confirmedBookingId = response.newBooking.id)
@@ -328,6 +328,7 @@ adminSubmitBookingButton.addEventListener("click", () => {
       updateBookings(data.bookings);
 
       clearBookingMemory();
+      renderAdminView();
       renderAdminGuestBookings(adminSelectedGuest);
     });
 });
@@ -390,7 +391,7 @@ function clearBookingMemory() {
 
 //----------------------UTILITY FUNCTIONS----------------------//
 
-function reformatCurrentDate() {
+function getReformattedCurrentDate() {
   let currentDate = new Date();
   return `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
 };
@@ -538,7 +539,7 @@ function getDOMDate() {
 function renderDailyStats() {
   statsDate.innerText = `${getDOMDate()}`;
 
-  let vacancyData = bookingList.getVacancyData(reformatCurrentDate());
+  let vacancyData = bookingList.getVacancyData(getReformattedCurrentDate());
   statsTable.innerHTML = `
     <tr class="admin-table-row">
       <td>rooms available:</td>
@@ -552,13 +553,13 @@ function renderDailyStats() {
     </tr>
     <tr class="admin-table-row">
       <td>total revenue:</td>
-      <td colspan="2">$${bookingList.getTodaysRevenue(new Date().toString().slice(0, 15))}</td>
-    </tr>`
-}
+      <td colspan="2">$${bookingList.getTodaysRevenue(getReformattedCurrentDate()).toFixed(2)}</td>
+    </tr>`;
+};
 
 function renderAvailableRoomsTable() {
   adminAvailRoomsTable.innerHTML = "";
-  bookingList.getAvailableRooms(reformatCurrentDate()).forEach(room => {
+  bookingList.getAvailableRooms(getReformattedCurrentDate()).forEach(room => {
     adminAvailRoomsTable.innerHTML +=`
       <tr class="admin-table-row" tabindex="0">
         <td>${room.number}</td>

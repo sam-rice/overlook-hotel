@@ -38,10 +38,7 @@ class BookingList {
 
   getTodaysRevenue(todaysDate) {
     return this.bookings.reduce((acc, booking) => {
-      let bookingDate = new Date(booking.date).toString().slice(0, 15);
-      // let todaysDate = new Date().toString().slice(0, 15);
-
-      if (bookingDate === todaysDate) {
+      if (booking.date === todaysDate) {
         let targetRoom = this.rooms.find(room => room.number === booking.roomNumber);
         acc += targetRoom.costPerNight;
       }
@@ -54,9 +51,9 @@ class BookingList {
 
     return {
       vacant: vacantRooms,
-      percentVacant: (vacantRooms / 25) * 100,
+      percentVacant: ((vacantRooms / 25) * 100).toFixed(0),
       booked: 25 - vacantRooms,
-      percentBooked: ((25 - vacantRooms) / 25) * 100
+      percentBooked: (((25 - vacantRooms) / 25) * 100).toFixed(0)
     };
   };
 };
