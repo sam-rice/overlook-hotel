@@ -553,7 +553,7 @@ function renderDailyStats() {
     </tr>
     <tr class="admin-table-row">
       <td>total revenue:</td>
-      <td colspan="2">$${bookingList.getTodaysRevenue(getReformattedCurrentDate()).toFixed(2)}</td>
+      <td colspan="2">$${bookingList.getTodaysRevenue().toFixed(2)}</td>
     </tr>`;
 };
 
