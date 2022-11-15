@@ -413,7 +413,7 @@ function renderGuestDash() {
   guestNameDash.innerText = guest.name;
   renderBookingsTable(bookingsObject, upcomingBookingsTable, true);
   renderBookingsTable(bookingsObject, pastBookingsTable, false);
-  totalSpentTag.innerText = `total spent: $${guest.getTotalSpent(bookingList)}`;
+  totalSpentTag.innerText = `lifetime total spent: $${guest.getTotalSpent(bookingList)}`;
 };
 
 function renderBookingsTable(bookingsObject, table, isFuture) {

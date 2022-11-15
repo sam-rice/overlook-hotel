@@ -118,6 +118,86 @@ rooms = [
     bedSize: "full",
     numBeds: 1,
     costPerNight: 294.56
+  },
+  {
+    number: 16,
+    roomType: "single room",
+    bidet: false,
+    bedSize: "full",
+    numBeds: 2,
+    costPerNight: 325.6
+  },
+  {
+    number: 17,
+    roomType: "junior suite",
+    bidet: false,
+    bedSize: "twin",
+    numBeds: 2,
+    costPerNight: 328.15
+  },
+  {
+    number: 18,
+    roomType: "junior suite",
+    bidet: false,
+    bedSize: "king",
+    numBeds: 2,
+    costPerNight: 496.41
+  },
+  {
+    number: 19,
+    roomType: "single room",
+    bidet: false,
+    bedSize: "queen",
+    numBeds: 1,
+    costPerNight: 374.67
+  },
+  {
+    number: 20,
+    roomType: "residential suite",
+    bidet: false,
+    bedSize: "queen",
+    numBeds: 1,
+    costPerNight: 343.95
+  },
+  {
+    number: 21,
+    roomType: "single room",
+    bidet: false,
+    bedSize: "full",
+    numBeds: 2,
+    costPerNight: 429.32
+  },
+  {
+    number: 22,
+    roomType: "single room",
+    bidet: false,
+    bedSize: "full",
+    numBeds: 2,
+    costPerNight: 350.31
+  },
+  {
+    number: 23,
+    roomType: "residential suite",
+    bidet: false,
+    bedSize: "queen",
+    numBeds: 2,
+    costPerNight: 176.36
+  },
+  {
+    number: 24,
+    roomType: "suite",
+    bidet: false,
+    bedSize: "queen",
+    numBeds: 1,
+    costPerNight: 327.24
+  },
+  {
+    number: 25,
+    roomType: "single room",
+    bidet: true,
+    bedSize: "queen",
+    numBeds: 1,
+    costPerNight: 305.85
   }
 ];
 
