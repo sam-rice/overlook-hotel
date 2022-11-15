@@ -18,7 +18,7 @@ class Guest {
     return bookingList.bookings.reduce((acc, booking) => {
       if (booking.guestId === this.id) {
         let targetRoom = bookingList.rooms.find(room => room.number === booking.roomNumber);
-        let isFutureDate = (new Date(booking.date) >= new Date());
+        let isFutureDate = (new Date(booking.date).toString().slice(0, 15) >= new Date().toString().slice(0, 15));
         let bookingObject = {
           date: booking.date,
           roomNumber: booking.roomNumber,

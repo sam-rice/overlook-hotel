@@ -16,7 +16,7 @@ describe('GuestList Class', function() {
   });
  
   it('should have a property that holds every guest.', function() {
-    expect(guestList.guests.length).to.eql(15);
+    expect(guestList.guests.length).to.eql(customers.length);
     expect(guestList.guests[0]).to.be.an.instanceOf(Guest);
   });
 

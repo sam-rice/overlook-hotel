@@ -552,7 +552,7 @@ function renderDailyStats() {
     </tr>
     <tr class="admin-table-row">
       <td>total revenue:</td>
-      <td colspan="2">$${bookingList.getTodaysRevenue()}</td>
+      <td colspan="2">$${bookingList.getTodaysRevenue(new Date().toString().slice(0, 15))}</td>
     </tr>`
 }
 
