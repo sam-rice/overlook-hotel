@@ -52,5 +52,6 @@ note: The number in the customer's username represents the customer's id number 
 1. Fork this repository.
 2. Clone your new, forked repository to your local machine.
 3. Clone [this API repository](https://github.com/turingschool-examples/overlook-api) to your machine.
-4. Run `npm i` in the root level of each directory.
-5. Both servers must be running to use the app. Run `npm start` from the root level of each directory.
+4. `cd` into the API repository on your local machine and run `npm install`, then `npm start` to launch the API's server.
+5. In a seperate tab, `cd` into the main project repository on your local machine and run `npm install`, then `npm start` to launch the application's server.
+6. Open the link to your local server (listed in your terminal) in your web browser to view the live page.
