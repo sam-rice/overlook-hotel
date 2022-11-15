@@ -36,12 +36,9 @@ class BookingList {
     return availRooms.filter(room => room.roomType === option);
   };
 
-  getTodaysRevenue() {
+  getTodaysRevenue(todaysDate) {
     return this.bookings.reduce((acc, booking) => {
-      let bookingDate = new Date(booking.date).toString().slice(0, 15);
-      let todaysDate = new Date().toString().slice(0, 15);
-
-      if (bookingDate === todaysDate) {
+      if (booking.date === todaysDate) {
         let targetRoom = this.rooms.find(room => room.number === booking.roomNumber);
         acc += targetRoom.costPerNight;
       }
@@ -50,15 +47,13 @@ class BookingList {
   };
 
   getVacancyData(date) {
-    // let currentDate = new Date();
-    // let formattedDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
-    let vacantRooms = this.getAvailableRooms(date).length;
+    let numVacantRooms = this.getAvailableRooms(date).length;
 
     return {
-      vacant: vacantRooms,
-      percentVacant: (vacantRooms / 25) * 100,
-      booked: 25 - vacantRooms,
-      percentBooked: ((25 - vacantRooms) / 25) * 100
+      vacant: numVacantRooms,
+      percentVacant: ((numVacantRooms / 25) * 100).toFixed(0),
+      booked: 25 - numVacantRooms,
+      percentBooked: (((25 - numVacantRooms) / 25) * 100).toFixed(0)
     };
   };
 };

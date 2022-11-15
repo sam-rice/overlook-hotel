@@ -5,20 +5,20 @@ class Guest {
   };
 
   getTotalSpent(bookingList) {
-    return bookingList.bookings.reduce((acc, booking) => {
+    return Number(bookingList.bookings.reduce((acc, booking) => {
       let isPastDate = (new Date(booking.date) < new Date());
       if (isPastDate && booking.guestId === this.id) {
         acc += bookingList.rooms.find(room => room.number === booking.roomNumber).costPerNight;
       }
       return acc;
-    }, 0).toFixed(2);
+    }, 0));
   };
 
   getAllBookings(bookingList) {
     return bookingList.bookings.reduce((acc, booking) => {
       if (booking.guestId === this.id) {
         let targetRoom = bookingList.rooms.find(room => room.number === booking.roomNumber);
-        let isFutureDate = (new Date(booking.date) >= new Date());
+        let isFutureDate = (new Date(booking.date).toString().slice(0, 15) >= new Date().toString().slice(0, 15));
         let bookingObject = {
           date: booking.date,
           roomNumber: booking.roomNumber,

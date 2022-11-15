@@ -5,7 +5,7 @@ class Room {
     this.hasBidet = object.bidet
     this.bedSize = object.bedSize
     this.numBeds = object.numBeds
-    this.costPerNight = Number((Math.round(object.costPerNight * 100) / 100))
+    this.costPerNight = Number(object.costPerNight.toFixed(2))
   };
 };
 
