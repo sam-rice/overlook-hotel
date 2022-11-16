@@ -18,7 +18,9 @@ class Guest {
     return bookingList.bookings.reduce((acc, booking) => {
       if (booking.guestId === this.id) {
         let targetRoom = bookingList.rooms.find(room => room.number === booking.roomNumber);
-        let isFutureDate = (new Date(booking.date).toString().slice(0, 15) >= new Date().toString().slice(0, 15));
+        let currentDate = new Date();
+        currentDate = `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
+        let isFutureDate = currentDate <= booking.date;
         let bookingObject = {
           date: booking.date,
           roomNumber: booking.roomNumber,
@@ -28,6 +30,7 @@ class Guest {
           costPerNight: targetRoom.costPerNight.toFixed(2),
           id: booking.id
         };
+        
         if (isFutureDate) {
           acc.upcomingBookings.push(bookingObject);
         } else {

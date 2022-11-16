@@ -85,12 +85,14 @@ const backToCalButton = document.getElementById("back-to-cal");
 const submitDateButton = document.getElementById("submit-date");
 const dateError = document.getElementById("date-error");
 const roomsGrandparent = document.getElementById("rooms-grandparent");
+const roomAccHeader = document.getElementById("room-acc-header");
 const availRoomsTable = document.getElementById("avail-rooms-table");
 const roomsFilter = document.getElementById("rooms-filter");
 const clearButton = document.getElementById("clear-filter");
 const submitRoomButton = document.getElementById("submit-room");
 const roomError = document.getElementById("room-error");
 const confirmGrandparent = document.getElementById("confirm-grandparent");
+const confirmAccHeader = document.getElementById("confirm-acc-header");
 const detailsList = document.getElementById("details-list");
 const editDetailsButton = document.getElementById("edit-details");
 const confirmButton = document.getElementById("confirm-details");
@@ -133,13 +135,15 @@ loginButton.addEventListener("click", () => loginUser());
 
 profileButton.addEventListener("click", () => {
   toggleAccordion(profileParent, profileButton);
-  profileParent.scrollIntoView({ behavior: "smooth" });
   toggleAriaExpanded(profileButton);
+
+  const profilePosition = profileParent.getBoundingClientRect().top + window.pageYOffset - 70;
+  window.scrollTo({top: profilePosition, behavior: "smooth"});
 });
 
 bookButtonHeader.addEventListener("click", () => {
   let bookingConfirmedIsHidden = (successGrandparent.classList.contains("hide"));
-  let bookingParentIsHidden = (bookParent.classList.contains("hide"))
+  let bookingParentIsHidden = (bookParent.classList.contains("hide"));
 
   if (!bookingConfirmedIsHidden) {
     toggleAriaExpanded(bookButtonHeader);
@@ -150,14 +154,18 @@ bookButtonHeader.addEventListener("click", () => {
     toggleHidden(dashParent);
     toggleHidden(bookParent);
   }
-  bookParent.scrollIntoView({ behavior: "smooth" });
+
+  const bookParentPosition = bookParent.getBoundingClientRect().top + window.pageYOffset - 50;
+  window.scrollTo({top: bookParentPosition, behavior: "smooth"});
 });
 
 bookButtonAcc.addEventListener("click", () => {
   toggleAriaExpanded(bookButtonHeader);
   toggleHidden(dashParent);
   toggleHidden(bookParent);
-  bookParent.scrollIntoView({ behavior: "smooth" });
+
+  const bookParentPosition = bookParent.getBoundingClientRect().top + window.pageYOffset - 50;
+  window.scrollTo({top: bookParentPosition, behavior: "smooth"});
 });
 
 aboutButton.addEventListener("click", () => {
@@ -177,6 +185,9 @@ submitDateButton.addEventListener("click", () => {
     toggleBookingAccordion(dateGrandparent);
     toggleBookingAccordion(roomsGrandparent);
     dateError.innerText = "";
+
+    const chooseRoomPosition = roomAccHeader.getBoundingClientRect().top + window.pageYOffset - 50;
+    window.scrollTo({top: chooseRoomPosition, behavior: "smooth"});
   } else {
     dateError.innerText = "* please select a valid date";
   }
@@ -212,6 +223,9 @@ clearButton.addEventListener("click", () => {
 backToCalButton.addEventListener("click", () => {
   toggleBookingAccordion(roomsGrandparent);
   toggleBookingAccordion(dateGrandparent);
+
+  const bookParentPosition = bookParent.getBoundingClientRect().top + window.pageYOffset - 50;
+  window.scrollTo({top: bookParentPosition, behavior: "smooth"});
 });
 
 submitRoomButton.addEventListener("click", () => {
@@ -220,6 +234,9 @@ submitRoomButton.addEventListener("click", () => {
     renderDetails();
     toggleBookingAccordion(roomsGrandparent);
     toggleBookingAccordion(confirmGrandparent);
+
+    const confirmHeaderPosition = confirmAccHeader.getBoundingClientRect().top + window.pageYOffset - 50;
+    window.scrollTo({top: confirmHeaderPosition, behavior: "smooth"});
   } else {
     roomError.innerText = "* please select a room";
   };
@@ -228,6 +245,9 @@ submitRoomButton.addEventListener("click", () => {
 editDetailsButton.addEventListener("click", () => {
   toggleBookingAccordion(confirmGrandparent);
   toggleBookingAccordion(dateGrandparent);
+
+  const bookParentPosition = bookParent.getBoundingClientRect().top + window.pageYOffset - 50;
+  window.scrollTo({top: bookParentPosition, behavior: "smooth"});
 });
 
 confirmButton.addEventListener("click", () => {
@@ -245,12 +265,17 @@ confirmButton.addEventListener("click", () => {
       toggleHidden(bookParent);
       toggleHidden(successGrandparent);
       toggleAriaExpanded(bookButtonHeader);
+
+      const userToolsPosition = userToolsView.getBoundingClientRect().top + window.pageYOffset - 50;
+      window.scrollTo({top: userToolsPosition, behavior: "smooth"});
     })
 });
 
 homeButton.addEventListener("click", () => {
   toggleHidden(successGrandparent);
   toggleHidden(dashParent);
+
+  window.scrollTo({top: body, behavior: "smooth"});
 });
 
 guestSearchButton.addEventListener("click", () => searchForUser());
@@ -305,6 +330,7 @@ adminRemoveBookingButton.addEventListener("click", () => {
       updateBookings(data.bookings);
 
       adminSelectedBooking = null;
+      adminPastBookingError.innerText = "";
       deactivateAdminBookingsNodes(".admin-guest-bookings");
       renderAdminGuestBookings(adminSelectedGuest);
       renderAdminView();
@@ -368,6 +394,7 @@ signOutButton.addEventListener("click", () => {
   toggleHidden(adminHeaderSub);
   toggleHidden(signOutButton);
   body.classList.add("sign-in-body");
+  window.scrollTo({top: body, behavior: "smooth"});
   usernameInput.value = "";
   passwordInput.value = "";
 })
@@ -377,6 +404,7 @@ signOutButton.addEventListener("click", () => {
 function initPage() {
   initBookingList();
   initGuestList();
+  window.scrollTo({top: body, behavior: "smooth"});
 };
 
 function loginUser() {
@@ -444,6 +472,7 @@ function clearBookingMemory() {
   adminRoomError.innerText = "";
   adminDateInput.value = "";
   adminBookingRoomsTable.innerHTML = "";
+  adminPastBookingError.innerText = "";
 };
 
 //----------------------UTILITY FUNCTIONS----------------------//
@@ -492,7 +521,7 @@ function renderBookingsTable(bookingsObject, table, isFuture) {
 function toggleHidden(element) {
   element.classList.toggle("hide");
 };
-// quotes around data-room-num value blow
+
 function renderAvailableRooms(availRooms) {
   availRoomsTable.innerHTML = "";
   availRooms.forEach(room => {
