@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600|Montserrat:400,800" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alata&family=Cabin&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  
+  <title>Overlook Hotel</title>
+</head>
+
+<body id="body" class="sign-in-body">
+  <header class="sticky">
+    <div class="header-left">
+      <!-- logo image -->
+      <p id="logo" class="logo" aria-label="go to home page" tabindex="0">OH</p>
+      <p id="header-subtext-guest" class="header-subtext">SEATTLE, WA</p>
+      <h1 id="header-subtext-admin" class="header-subtext hide">admin</h1>
+    </div>
+    <div class="header-right">
+      <button id="book-button-header" class="book-button book-button-header hide" aria-expanded="false"
+        aria-controls="book-parent">BOOK</button>
+      <button id="sign-out-button" class="book-button hide">SIGN OUT</button>
+    </div>
+  </header>
+  <main>
+    <section id="user-login-view" class="user-login-view">
+      <div class="user-login-parent">
+        <p>Overlook Hotel</p>
+        <div class="login-input-grandparent">
+          <p class="sign-in-p">sign in:</p>
+          <div class="login-input-parent">
+            <label for="username">username:</label>
+            <input id="username" class="login-input" type="text">
+            <label for="password">password:</label>
+            <input id="password" class="login-input" type="password">
+          </div>
+          <p id="login-error" class="login-error"></p>
+        </div>
+        <button id="login-button" class="book-button login-button disabled-button">submit</button>
+      </div>
+    </section>
+    <section id="admin-view" class="admin-view hide">
+      <div class="admin-parent">
+        <div class="admin-header">
+          <h2 class="admin-header-text">TODAY'S VACANCIES/EARNINGS</h2>
+        </div>
+        <div class="report-parent">
+          <div class="stats-table-parent">
+            <h3 id="stats-date" class="admin-header-text"></h3>
+            <table>
+              <th class="hidden-metric">metric</th>
+              <th>#</th>
+              <th>%</th>
+              <tbody id="stats-table-body">
+                <!-- stats table goes here -->
+              </tbody>
+            </table>
+          </div>
+          <div class="report-rooms-parent">
+            <h3 class="admin-header-text">available rooms:</h3>
+            <div class="report-rooms-table-parent">
+              <table>
+                <th>room:</th>
+                <th># beds/size:</th>
+                <th>bidet:</th>
+                <th>type:</th>
+                <th>price/night:</th>
+                <tbody id="admin-avail-rooms-table">
+                  <!-- admin available rooms table goes here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="admin-header">
+          <h2 class="admin-header-text">GUEST LOOKUP</h2>
+        </div>
+        <div class="lookup-parent">
+          <div class="lookup-left">
+            <label for="guest-search-input" class="guest-search-label admin-header-text">search:</label>
+            <div class="guest-search-input-container">
+              <input type="text" id="guest-search-input" class="guest-search-input">
+              <button id="guest-search-button" class="book-button admin-button">search</button>
+            </div>
+            <div class="guest-table-parent">
+              <table>
+                <th>name</th>
+                <th>id</th>
+                <tbody id="guest-search-table">
+                  <!-- guest search results go here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="lookup-center">
+            <div class="admin-user-bookings-parent">
+              <h3 class="admin-header-text">guest upcoming bookings:</h3>
+              <div class="admin-user-bookings-table-container">
+                <table class="">
+                  <th>date:</th>
+                  <th>room:</th>
+                  <th># beds/size:</th>
+                  <th>type:</th>
+                  <th>price/night:</th>
+                  <tbody id="admin-guest-bookings-table">
+                    <!-- future bookings for searched guest go here -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <p id="admin-past-booking-error" class="admin-date-error admin-room-error"></p>
+            <button id="admin-remove-booking" class="book-button admin-button remove-booking-button" tabindex="1" disabled>remove
+              booking</button>
+          </div>
+          <div class="lookup-right">
+            <div class="admin-new-booking-parent">
+              <h3 class="admin-header-text">new booking:</h3>
+              <div class="admin-new-booking-fields">
+                <label for="admin-date-input" class="admin-header-text">choose date:</label>
+                <div class="admin-date-parent">
+                  <input type="date" id="admin-date-input" class="admin-date-input" disabled>
+                  <button id="admin-date-search" class="book-button admin-button" disabled>search</button>
+                </div>
+                <p id="admin-date-error" class="admin-date-error"></p>
+                <h3 class="admin-header-text">available rooms:</h3>
+                <div class="report-rooms-table-parent admin-new-booking-table-parent">
+                  <table>
+                    <th>room:</th>
+                    <th># beds/size:</th>
+                    <th>bidet:</th>
+                    <th>type:</th>
+                    <th>price/night:</th>
+                    <tbody id="admin-booking-rooms">
+                      <!-- available rooms go here -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <p id="admin-room-error" class="admin-date-error admin-room-error"></p>
+              <button id="admin-submit-booking" class="book-button admin-button admin-submit-button"
+                disabled>submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div id="banner-parent" class="banner-parent hide">
+      <div class="image-parent-left">
+        <img class="banner-image" src="./images/metrograph-interior.jpg" alt="in-house bar/restaurant">
+      </div>
+      <div class="image-parent-right">
+        <img class="banner-image" src="./images/imperial-bedroom-left.jpg" alt="junior suite">
+      </div>
+      <h1 class="overlook-title">Overlook Hotel</h1>
+      <p class="copy-oneline">Lorem ipsum dolor sit amet.</p>
+    </div>
+    <section id="user-tools-view" class="user-tools-view hide">
+      <div id="dash-parent" class="accordion-parent">
+        <section class="accordion-banner-parent">
+          <div class="hotel-copy-parent">
+            <div class="hotel-copy-left">
+              <p class="copy-title">MINUS AUTEM. OPTIO.</p>
+              <p>Fugiat quibusdam beatae culpa obcaecati aperiam adipisci officiis, velit molestiae voluptatem vel
+                incidunt deleniti unde.
+              </p>
+            </div>
+            <div class="hotel-copy-right">
+              <p class="copy-title">LOREM IPSUM. DOLOR SIT. AMET ITAQUE.</p>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea, quia porro delectus quam a fugit itaque
+                ratione modi in iusto, ipsum dicta quos nulla, asperiores pariatur voluptas esse laborum et fugiat at
+                excepturi minus repudiandae nam.
+              </p>
+
+            </div>
+          </div>
+          <div class="accordion-welcome-parent">
+            <h2 class="accordion-welcome" id="accordion-welcome"></h2>
+            <p>ready to book?</p>
+            <button id="book-button-accordion" class="book-button" aria-expanded="false"
+              aria-controls="book-parent">BOOK</button>
+          </div>
+        </section>
+        <button id="profile-button" class="accordion-button accordion-button-collapsed" aria-expanded="false"
+          aria-controls="profile-parent">MY PROFILE</button>
+        <section id="profile-parent" class="profile-parent">
+          <h2 id="dash-guest-name" class="dash-guest-name"></h2>
+          <p class="profile-labels">upcoming stays:</p>
+          <div class="stays-parent">
+            <table class="upcoming-stays-table">
+              <th>date:</th>
+              <th>room:</th>
+              <th># beds/size:</th>
+              <th>type:</th>
+              <th>price/night:</th>
+              <tbody id="upcoming-stays-tbody">
+                <!-- upcoming stays table rows go here -->
+              </tbody>
+            </table>
+          </div>
+          <p class="profile-labels">past stays:</p>
+          <div class="stays-parent">
+            <table class="past-stays-table">
+              <th>date:</th>
+              <th>room:</th>
+              <th># beds/size:</th>
+              <th>type:</th>
+              <th>price/night:</th>
+              <tbody id="past-stays-tbody">
+                <!-- past stays table rows go here -->
+              </tbody>
+            </table>
+          </div>
+          <p id="total-spent" class="profile-labels total-spent"></p>
+        </section>
+        <button id="about-button" class="accordion-button  accordion-button-collapsed" aria-expanded="false"
+          aria-controls="about-parent">ABOUT OVERLOOK</button>
+        <section id="about-parent" class="about-parent">
+          <h2>Our Story</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis laboriosam maxime vel autem ullam
+            veniam ut accusamus voluptatum deserunt, cumque quidem ipsum asperiores, soluta quaerat. Numquam esse dolore
+            ea non iste. Dolorum quia optio inventore suscipit asperiores, ab fugiat eligendi?</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima quam deserunt qui odio pariatur. Sed magni
+            aperiam obcaecati omnis sunt? Sed dolores maiores ipsam! Dolore officiis suscipit, porro ad facilis iusto
+            eligendi minima voluptatem quod doloremque accusamus fugiat excepturi facere quisquam, laborum officia! Eos
+            adipisci voluptatem vero officia, dolor et.</p>
+          <p>Lorem, ipsum dolor sit amet consectetur adipisicing.</p>
+        </section>
+      </div>
+      <!-- booking parent starts here -->
+      <div id="book-parent" class="accordion-parent hide">
+        <div id="date-acc-header" class="accordion-button accordion-header-collapsed accordion-header-open">
+          <h2>CHOOSE DATE</h2>
+        </div>
+        <section id="date-grandparent" class="date-grandparent show">
+          <div class="date-parent">
+            <label for="date-input">choose date:</label>
+            <input type="date" id="date-input">
+          </div>
+          <button id="submit-date" class="book-button submit-button">next</button>
+          <p id="date-error" class="error"></p>
+        </section>
+        <div id="room-acc-header" class="accordion-button accordion-header-collapsed">
+          <h2>CHOOSE ROOM</h2>
+        </div>
+        <section id="rooms-grandparent" class="rooms-grandparent">
+          <p>rooms available:</p>
+          <div class="select-grandparent">
+            <div>
+              <label class="filter-label" for="rooms-filter">filter by room type:</label>
+              <select name="rooms-filter" id="rooms-filter">
+                <option value=""></option>
+                <option value="single room">single room</option>
+                <option value="suite">suite</option>
+                <option value="junior suite">junior suite</option>
+                <option value="residential suite">residential suite</option>
+              </select>
+              <button id="clear-filter" class="clear-filter" disabled>clear</button>
+            </div>
+            <br>
+          </div>
+          <div class="rooms-parent">
+            <div class="rooms-table-parent">
+              <table class="rooms-table">
+                <th>room:</th>
+                <th># beds/size:</th>
+                <th>bidet:</th>
+                <th>type:</th>
+                <th>price/night:</th>
+                <tbody id="avail-rooms-table">
+                  <!-- available rooms go here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <button id="back-to-cal" class="book-button submit-button edit-details-button">back</button>
+          <button id="submit-room" class="book-button submit-button">next</button>
+          <p id="room-error" class="error"></p>
+        </section>
+        <div id="confirm-acc-header" class="accordion-button accordion-header-collapsed">
+          <h2>CONFIRM</h2>
+        </div>
+        <section id="confirm-grandparent" class="confirm-grandparent">
+          <div class="confirm-details">
+            <h2>please review your selections:</h2>
+            <ul id="details-list" class="details-ul">
+              <!-- confirmation details go here -->
+            </ul>
+          </div>
+          <button id="edit-details" class="book-button submit-button edit-details-button">edit details</button>
+          <br>
+          <button id="confirm-details" class="book-button submit-button">confirm</button>
+        </section>
+      </div>
+      <section id="success-grandparent" class="success-grandparent hide">
+        <div id="success-parent">
+          <!-- confirmation goes here -->
+        </div>
+        <button id="home-button" class="book-button submit-button edit-details-button">home</button>
+      </section>
+    </section>
+    <section id="server-error-section" class="server-error-section hide">
+      <p id="server-error"></p>
+    </section>
+  </main>
+  <script src="bundle.js"></script>
+</body>
+
+</html>
