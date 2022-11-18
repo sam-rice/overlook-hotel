@@ -295,9 +295,13 @@ td {
   width: 33%;
 }
 
+.admin-user-bookings-parent {
+  width: 100%;
+}
+
 .admin-user-bookings-table-container {
   height: 248px;
-  width: 279px;
+  width: 100%;
 }
 
 .admin-past-bookings {
@@ -398,6 +402,10 @@ header {
 
 .header-right {
   justify-content: flex-end;
+}
+
+.book-button-header {
+  margin-right: 15px;
 }
 
 main {
@@ -535,6 +543,7 @@ main {
 .profile-parent {
   flex-direction: column;
   height: 470px;
+  padding: 0px 3vw;
   display: none;
 }
 
@@ -548,10 +557,15 @@ main {
   overflow-x: hidden;
   width: 80%;
   height: 138px;
+  margin-bottom: 15px;
 }
 
 .profile-labels {
   font-family: 'Alata', sans-serif;
+}
+
+.total-spent {
+  margin-bottom: 20px;
 }
 
 /* ---------------------ACC: ABOUT--------------------- */
@@ -559,6 +573,7 @@ main {
 .about-parent {
   display: none;
   flex-direction: column;
+  padding: 0px 3vw;
 }
 
 /* ---------------------NEW BOOKING VIEW--------------------- */
