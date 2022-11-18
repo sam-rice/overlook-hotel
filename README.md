@@ -5,7 +5,7 @@ This project is a web application designed to emulate a hotel website for custom
 
 From the admin view, a user can search all guests by name, remove a future booking, and create a new booking for that guest. Information on occupancy rates, total daily revenue, and all available rooms for the current day are also dynamically presented here.
 
-The app also features a Mocha/Chai testing suite for all class properties and methods.
+The project also includes a Mocha/Chai testing suite for all class properties and methods.
 
 ## Technology/Project Context
 
