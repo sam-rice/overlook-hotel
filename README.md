@@ -1,5 +1,15 @@
 # Overlook Hotel
 
+<p align="left">
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
+  <img src="https://img.shields.io/badge/mocha.js-323330?style=for-the-badge&logo=mocha&logoColor=Brown" />
+  <img src="https://img.shields.io/badge/chai.js-323330?style=for-the-badge&logo=chai&logoColor=red" />
+</p>
+
+## Abstract
+
 This project is a single-page web application designed to emulate a hotel website for customer use, with additional functionality for hotel staff ("admin view"). Users will find a thoughtfully-designed UI that takes them through the step-by-step process of signing into their account, viewing past and upcoming bookings, and creating a new booking. User input is updated dynamically via the Fetch API, utilizing a locally-hosted endpoint. 
 
 From the admin view, a user can search all guests by name, remove a future booking, and create a new booking for that guest. Business statistics for the current day are also dynamically presented here.
@@ -22,8 +32,6 @@ The project also includes a Mocha/Chai testing suite for all classes/class metho
 - Webpack module bundler
 - Mocha JavaScript testing framework
 - Chai assertion library 
-- Node.JS
-- Git/GitHub
 
 ### Methodologies/Goals
 
