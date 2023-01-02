@@ -59,11 +59,11 @@ The project also includes a Mocha/Chai testing suite for all classes/class metho
 
 ## Installation
 1. Fork this repository.
-2. Clone your new, forked repository to your local machine.
+2. Clone your forked repository to your machine.
 3. Clone [this API repository](https://github.com/turingschool-examples/overlook-api) to your machine.
-4. `cd` into the API repository on your local machine and run `npm install`, then `npm start` to launch the API's server.
-5. In a seperate tab, `cd` into the main project repository on your local machine and run `npm install`, then `npm start` to launch the application's server.
-6. Open the link to your local server (listed in your terminal) in your web browser to view the live page.
+4. From the command line, `cd` into the API repository and run `npm install`, then `npm start` to launch the API's server.
+5. In a seperate terminal tab, `cd` into the main project repository and run `npm i`, then `npm start` to launch the application's server.
+6. Navigate to [http://localhost:3000](http://localhost:3000) in your browser to view the live page.
 
 ## Using the Application
 
